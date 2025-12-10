@@ -1,0 +1,311 @@
+/* Table styles */
+.constancias-module .dataTable {
+    width: 100% !important;
+    margin: 0 auto !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+
+.constancias-module .dataTable th,
+.constancias-module .dataTable td {
+    padding: 0.75rem 0 !important;
+    font-size: 0.95rem;
+    vertical-align: middle !important;
+    text-align: center !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 3.5rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Asegurar que los encabezados tengan el mismo tratamiento que las celdas */
+.constancias-module .dataTable th {
+    display: table-cell !important;
+    background-color: #f8f9fa !important;
+    font-weight: 600 !important;
+}
+
+/* Asegurar que el contenido dentro de las celdas esté centrado */
+.constancias-module .dataTable td > *,
+.constancias-module .dataTable th > * {
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: inherit;
+    width: 100%;
+    text-align: center !important;
+}
+
+/* Status badges */
+.constancias-module .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em 0.8em;
+    font-size: 0.85em;
+    font-weight: 500;
+    border-radius: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    min-height: 1.5rem;
+    line-height: 1;
+}
+
+.constancias-module .badge-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.constancias-module .badge.badge-warning {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+    border: 1px solid #ffeeba !important;
+}
+
+.constancias-module .badge-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.constancias-module .badge.badge-success {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border: 1px solid #c3e6cb !important;
+}
+
+.constancias-module .badge-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Button styles */
+.constancias-module .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    border: 1px solid transparent;
+    min-height: 2.5rem;
+    min-width: 80px;
+}
+
+.constancias-module .button--primary {
+    background-color: #935EE1;
+    color: white;
+    border-color: #935EE1;
+}
+
+.constancias-module .button--primary:hover {
+    background-color: #7a3fd1;
+    border-color: #7a3fd1;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.2);
+}
+
+.constancias-module .button--outline {
+    background-color: transparent;
+    color: #935EE1;
+    border-color: #935EE1;
+}
+
+.constancias-module .button--outline:hover {
+    background-color: #f8f4fe;
+    color: #7a3fd1;
+}
+
+.constancias-module .button--small {
+    padding: 4px 12px !important;
+    font-size: 0.8rem !important;
+    min-height: auto !important;
+    min-width: auto !important;
+}
+
+/* Modal styles */
+.modal-constancia {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-constancia-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.modal-constancia-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+.modal-constancia-close:hover,
+.modal-constancia-close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Form styles */
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-row input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-row input:focus {
+    outline: none;
+    border-color: #935EE1;
+    box-shadow: 0 0 0 2px rgba(147, 94, 225, 0.2);
+}
+
+/* Alert styles */
+.alert {
+    padding: 12px 16px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-constancia-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+} 
+
+/* Autocomplete styles */
+.autocomplete-container {
+    position: relative;
+    width: 100%;
+}
+
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.autocomplete-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.autocomplete-item:hover {
+    background-color: #f8f9fa;
+}
+
+.autocomplete-item.selected {
+    background-color: #935EE1;
+    color: white;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item .course-name {
+    font-weight: 500;
+    display: block;
+}
+
+.autocomplete-item .course-code {
+    font-size: 0.85em;
+    color: #666;
+    display: block;
+}
+
+.autocomplete-item.selected .course-code {
+    color: #e0e0e0;
+}
+
+.autocomplete-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.autocomplete-container input[type="text"]:focus {
+    outline: none;
+    border-color: #935EE1;
+    box-shadow: 0 0 0 2px rgba(147, 94, 225, 0.2);
+}
+
+.form-help {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+} 

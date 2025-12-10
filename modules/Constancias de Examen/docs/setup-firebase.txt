@@ -1,0 +1,165 @@
+
+
+# 📘 Firebase Setup – Módulo de Constancias de Examen
+
+Este documento guía paso a paso la configuración de Firebase para utilizarlo como backend de datos y almacenamiento de archivos PDF en el módulo "Constancias de Examen" de Gibbon.
+
+---
+
+## ✅ Requisitos
+
+* Cuenta de Google
+* Proyecto en Firebase Console: [https://console.firebase.google.com](https://console.firebase.google.com)
+* Acceso a Google Cloud Console: [https://console.cloud.google.com](https://console.cloud.google.com)
+
+---
+
+## 1️⃣ Crear el proyecto en Firebase
+
+1. Ir a [https://console.firebase.google.com](https://console.firebase.google.com)
+2. Hacer clic en **"Agregar proyecto"**
+3. Elegir un nombre (ej. `gibbon-constancias`)
+4. Desactivar Google Analytics (opcional)
+5. Completar la creación
+
+---
+
+## 2️⃣ Activar Firestore
+
+1. En el menú izquierdo, ir a **Firestore Database**
+2. Hacer clic en **"Crear base de datos"**
+3. Elegir **Modo producción**
+4. Seleccionar una región (ej. `us-central1` o cercana)
+
+---
+
+## 3️⃣ Activar Firebase Storage
+
+> ⚠️ Para usar Storage, es necesario actualizar al **plan Blaze** (ingresar tarjeta de crédito, no se cobra si no se supera el límite gratuito).
+
+1. Ir a **Storage** en el menú
+2. Hacer clic en **"Empezar"**
+3. Elegir la **misma región** que Firestore (`us-central1`, por ejemplo)
+4. Se creará un bucket con el nombre:
+   `gs://<project-id>.appspot.com`
+
+---
+
+## 4️⃣ Crear colección `constancias` en Firestore
+
+Cada documento representa un pedido de constancia.
+
+### 📄 Estructura del documento
+
+```json
+{
+  "idAlumno": "12345678",
+  "nombre": "Juan Pérez",
+  "email": "juan@mail.com",
+  "estado": "pendiente",
+  "fechaPedido": <timestamp>,
+  "pdfUrl": null,
+  "examen": {
+    "materia": "Matemática I",
+    "fechaExamen": <timestamp>
+  }
+}
+```
+
+> El ID del documento generado automáticamente se utiliza como `idPedido`.
+
+---
+
+## 5️⃣ Crear índice compuesto
+
+1. Ir a **Firestore > Índices**
+2. Hacer clic en **"Crear índice compuesto"**
+3. En **colección**: `constancias`
+4. Ordenar por:
+
+   * `idAlumno`: ascendente
+   * `fechaPedido`: descendente
+   * `__name__`: descendente (opcional para optimización de queries)
+5. Guardar el índice
+
+---
+
+## 6️⃣ Configurar reglas de seguridad (modo desarrollo)
+
+### 🔐 Firestore
+
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /constancias/{docId} {
+      allow read, write: if true; // ⚠️ Abierto solo para pruebas
+    }
+  }
+}
+```
+
+### 🔐 Storage
+
+```js
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /constancias/{allPaths=**} {
+      allow read, write: if true; // ⚠️ Abierto solo para pruebas
+    }
+  }
+}
+```
+
+> Estas reglas deben **restringirse en producción** para evitar acceso público no autorizado.
+
+---
+
+## 7️⃣ Crear cuenta de servicio para integración con PHP
+
+1. Ir a: [https://console.cloud.google.com/iam-admin/serviceaccounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
+2. Crear cuenta:
+
+   * Nombre: `gibbon-firebase-service`
+3. Asignar roles:
+
+   * Firebase Admin
+   * Storage Admin
+   * Cloud Datastore User
+4. Crear clave privada (formato JSON)
+5. Guardar el archivo como:
+   `firebase-creds.json`
+
+---
+
+## 8️⃣ Estructura de Firebase Storage
+
+No se crean carpetas manualmente. Los archivos se suben con una ruta tipo:
+
+```
+constancias/{idAlumno}/{fecha}-materia.pdf
+```
+
+Ejemplo:
+
+```
+constancias/12345678/2025-06-18-matematica-i.pdf
+```
+
+---
+
+## 9️⃣ Librerías necesarias en PHP
+
+Instalar las librerías oficiales de Google:
+
+```bash
+composer require google/cloud-firestore google/cloud-storage
+```
+
+---
+
+## 🔚 Listo para integración
+
+Una vez completados estos pasos, Firebase queda listo para integrarse con el módulo de Gibbon.
+Se podrá subir archivos PDF desde el panel de administración, almacenarlos en Storage y vincular su URL a los documentos de Firestore.
