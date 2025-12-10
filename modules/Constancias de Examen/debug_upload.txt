@@ -1,0 +1,197 @@
+
+--- NUEVO UPLOAD ---
+2025-06-18T23:24:50-03:00
+POST: Array
+(
+    [csrftoken] => b5f318e2a25353475a1e11f72c5de4ba
+    [nonce] => 219ac217e51c747b2bd7f5ca280ca8d1
+    [constanciaId] => AsQ4kVgfSEM6nz9gqsFG
+    [dniAlumno] => 41047964
+    [materia] => Mates
+    [submit] => 1
+)
+
+FILES: Array
+(
+    [file] => Array
+        (
+            [name] => Constancia de examen-Ignacio Garcia.pdf
+            [full_path] => Constancia de examen-Ignacio Garcia.pdf
+            [type] => application/pdf
+            [tmp_name] => /Applications/MAMP/tmp/php/phpg8Gq5q
+            [error] => 0
+            [size] => 107618
+        )
+
+)
+
+
+--- NUEVO UPLOAD ---
+2025-06-18T23:27:22-03:00
+POST: Array
+(
+    [csrftoken] => b5f318e2a25353475a1e11f72c5de4ba
+    [nonce] => 5cf3c0c67a46d9abfc1ecd565372cbf5
+    [constanciaId] => AsQ4kVgfSEM6nz9gqsFG
+    [dniAlumno] => 41047964
+    [materia] => Mates
+    [submit] => 1
+)
+
+FILES: Array
+(
+    [file] => Array
+        (
+            [name] => Constancia de examen-Ignacio Garcia.pdf
+            [full_path] => Constancia de examen-Ignacio Garcia.pdf
+            [type] => application/pdf
+            [tmp_name] => /Applications/MAMP/tmp/php/phplimB9z
+            [error] => 0
+            [size] => 107618
+        )
+
+)
+
+
+--- NUEVO UPLOAD ---
+2025-06-18T23:28:45-03:00
+POST: Array
+(
+    [csrftoken] => b5f318e2a25353475a1e11f72c5de4ba
+    [nonce] => 044f33765507e0e8aacc9c458bf99db2
+    [constanciaId] => AsQ4kVgfSEM6nz9gqsFG
+    [dniAlumno] => 41047964
+    [materia] => Mates
+    [submit] => 1
+)
+
+FILES: Array
+(
+    [file] => Array
+        (
+            [name] => Constancia de examen-Ignacio Garcia.pdf
+            [full_path] => Constancia de examen-Ignacio Garcia.pdf
+            [type] => application/pdf
+            [tmp_name] => /Applications/MAMP/tmp/php/phpcvs5kJ
+            [error] => 0
+            [size] => 107618
+        )
+
+)
+
+
+--- NUEVO UPLOAD ---
+2025-06-18T23:35:39-03:00
+POST: Array
+(
+    [csrftoken] => c71ab999c299598a747c58fb901e72d4
+    [nonce] => 1b17e63dc4f5266e6a62da7f40e64bd1
+    [constanciaId] => HHEVPRmler2dCiDMTeep
+    [dniAlumno] => 39234789
+    [materia] => asdads
+    [submit] => 1
+)
+
+FILES: Array
+(
+    [file] => Array
+        (
+            [name] => constancia_41047964_Mates_1750300125.pdf
+            [full_path] => constancia_41047964_Mates_1750300125.pdf
+            [type] => application/pdf
+            [tmp_name] => /Applications/MAMP/tmp/php/phpI5u9c0
+            [error] => 0
+            [size] => 107618
+        )
+
+)
+
+
+--- NUEVO UPLOAD ---
+2025-06-18T23:35:56-03:00
+POST: Array
+(
+    [csrftoken] => c71ab999c299598a747c58fb901e72d4
+    [nonce] => f11ee31473ee42f0d29cd7322c687fa0
+    [constanciaId] => HHEVPRmler2dCiDMTeep
+    [dniAlumno] => 39234789
+    [materia] => asdads
+    [submit] => 1
+)
+
+FILES: Array
+(
+    [file] => Array
+        (
+            [name] => constancia_41047964_Mates_1750300125.pdf
+            [full_path] => constancia_41047964_Mates_1750300125.pdf
+            [type] => application/pdf
+            [tmp_name] => /Applications/MAMP/tmp/php/phptGIxBN
+            [error] => 0
+            [size] => 107618
+        )
+
+)
+
+
+--- NUEVO UPLOAD ---
+2025-06-19T18:54:43-03:00
+POST: Array
+(
+    [constanciaId] => crNGjlLt3cwvu34lz1Yt
+    [dniAlumno] => 41047964
+    [materia] => Test
+    [submit] => 1
+)
+
+FILES: Array
+(
+)
+
+
+--- NUEVO UPLOAD ---
+2025-06-19T18:55:21-03:00
+POST: Array
+(
+    [constanciaId] => crNGjlLt3cwvu34lz1Yt
+    [dniAlumno] => 41047964
+    [materia] => Test
+    [submit] => 1
+)
+
+FILES: Array
+(
+)
+
+REQUEST_METHOD: POST
+Datos extraídos - constanciaId: crNGjlLt3cwvu34lz1Yt, dniAlumno: 41047964, materia: Test
+Error: No se ha seleccionado ningún archivo
+
+--- NUEVO UPLOAD ---
+2025-06-19T18:56:09-03:00
+POST: Array
+(
+    [constanciaId] => crNGjlLt3cwvu34lz1Yt
+    [dniAlumno] => 41047964
+    [materia] => Test
+    [submit] => 1
+)
+
+FILES: Array
+(
+    [file] => Array
+        (
+            [name] => constancia_41047964_Mates_1750300125.pdf
+            [full_path] => constancia_41047964_Mates_1750300125.pdf
+            [type] => application/pdf
+            [tmp_name] => /Applications/MAMP/tmp/php/php9awsak
+            [error] => 0
+            [size] => 107618
+        )
+
+)
+
+REQUEST_METHOD: POST
+Datos extraídos - constanciaId: crNGjlLt3cwvu34lz1Yt, dniAlumno: 41047964, materia: Test
+Iniciando subida a Firebase...
+Archivo subido exitosamente a: https://firebasestorage.googleapis.com/v0/b/constancias-examen.firebasestorage.app/o/constancia_41047964_Test_1750370169.pdf?alt=media
