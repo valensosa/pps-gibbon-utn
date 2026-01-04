@@ -26,7 +26,7 @@ Un módulo completo para Gibbon que permite a los estudiantes solicitar constanc
 
 ### Firebase
 - **Proyecto Firebase**: Configurado con Firestore y Storage
-- **Credenciales de Servicio**: Archivo JSON con permisos adecuados
+- **Credenciales de Servicio**: Archivo JSON con permisos adecuados, en firebase-credentials.json
 
 ## 🛠️ Instalación
 

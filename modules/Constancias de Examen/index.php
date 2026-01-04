@@ -2,7 +2,7 @@
 use Gibbon\Forms\Form;
 use Gibbon\Tables\DataTable;
 use Gibbon\Services\Format;
-
+//Se redirige por roles el codigo de la funcionalidad de constancias de examen
 // Module includes
 require_once __DIR__ . '/moduleFunctions.php';
 
