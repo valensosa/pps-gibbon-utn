@@ -188,7 +188,7 @@ function uploadConstanciaPDF($constanciaId, $dniAlumno, $materia, $filePath) {
         throw new Exception('No se pudo obtener el token de acceso');
     }
     //modificar por bucket de Firebase storage
-    $bucket = 'constancias-examen-aac92.firebasestorage.app';
+    $bucket = 'constancias-examen-aac92.appspot.com';
 
 
     // Usar uploadType=media para enviar el archivo como binario
