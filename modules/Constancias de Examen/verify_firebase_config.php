@@ -40,7 +40,7 @@ try {
  * 3️⃣ Verificar acceso al bucket
  * IMPORTANTE: verificar que el nombre coincida con Firebase Console
  */
-$bucketName = 'constancias-examen-aac92.appspot.com';
+$bucketName = 'constancias-examen-aac92.firebasestorage.app';
 
 try {
     $bucket = $storage->getBucket($bucketName);
