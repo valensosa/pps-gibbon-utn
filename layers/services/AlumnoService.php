@@ -1,12 +1,12 @@
 <?php
 namespace NotasUTNAPI\Services;
 
-use NotasUTNAPI\Infrastructure\Repository\StudentRepository;
+use NotasUTNAPI\Infrastructure\Repository\AlumnoRepository;
 
-class StudentService {
+class AlumnoService {
     private $repository;
 
-    public function __construct(StudentRepository $repository) {
+    public function __construct(AlumnoRepository $repository) {
         $this->repository = $repository;
     }
 
@@ -74,5 +74,9 @@ class StudentService {
             'offset' => $offset,
             'perPage' => $perPage
         ];
+    }
+
+    public function searchStudents($term) {
+        return $this->repository->searchStudents($term);
     }
 }

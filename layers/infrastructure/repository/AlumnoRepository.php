@@ -1,14 +1,13 @@
 <?php
 namespace NotasUTNAPI\Infrastructure\Repository;
 
-require_once __DIR__ . '/../../../api/config/utn_api_config.php';
-require_once __DIR__ . '/../../../gibbonQueries/gibbon_queries.php';
+require_once __DIR__ . '/../../config/utn_api_config.php';
+require_once __DIR__ . '/GibbonAlumnoRepository.php';
 
 use UTNApiQueries;
 use UTNApiUtils;
-use GibbonQueries;
 
-class StudentRepository {
+class AlumnoRepository {
     private $connection;
 
     public function __construct($connection) {
@@ -16,7 +15,7 @@ class StudentRepository {
     }
 
     public function getStudentNameByDNI($dni) {
-        return GibbonQueries::getStudentNameByDNI($this->connection, $dni);
+        return GibbonAlumnoRepository::getStudentNameByDNI($this->connection, $dni);
     }
 
     public function getStudentDataFromAPI($studentID) {
@@ -56,5 +55,9 @@ class StudentRepository {
         $analiticoData = $result['data'];
         
         return $analiticoData;
+    }
+
+    public function searchStudents($term) {
+        return GibbonAlumnoRepository::searchStudents($this->connection, $term);
     }
 }
