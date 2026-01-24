@@ -1,82 +1,129 @@
 <?php
+
 namespace NotasUTNAPI\Services;
 
-use NotasUTNAPI\Infrastructure\Repository\AlumnoRepository;
+require_once __DIR__ . '/../../config/utn_api_config.php';
+require_once __DIR__ . '/../infrastructure/repository/GibbonAlumnoRepository.php';
 
-class AlumnoService {
+use UTNApiQueries;
+use UTNApiUtils;
+use Exception;
+use NotasUTNAPI\Infrastructure\Repository\GibbonAlumnoRepository;
+
+class AlumnoService
+{
     private $repository;
 
-    public function __construct(AlumnoRepository $repository) {
+    public function __construct(GibbonAlumnoRepository $repository)
+    {
         $this->repository = $repository;
     }
 
-    public function getStudentHistory($dni) {
+    //Usa UTN API para obtener datos del estudiante
+    function getStudentDataFromAPI($studentID)
+    {
+        // Validar y formatear el DNI
+        if (!UTNApiUtils::validateDNI($studentID)) {
+            error_log("DNI inválido: " . $studentID);
+            return null;
+        }
+
+        $dni = UTNApiUtils::formatDNI($studentID);
+
+        // Paso 1: Buscar persona por DNI
+        $url = UTNApiQueries::getPersonasByDNI($dni);
+        $result = UTNApiUtils::makeRequest($url);
+
+        if (!$result['success']) {
+            error_log("Error en primera llamada API: " . $result['error']);
+            return null;
+        }
+
+        $data = $result['data'];
+        if (empty($data) || !isset($data[0]['persona'])) {
+            error_log("No se encontró persona en la respuesta para DNI: " . $dni);
+            return null;
+        }
+
+        $personaId = $data[0]['persona'];
+
+        // Paso 2: Obtener datos analíticos
+        $url = UTNApiQueries::getDatosAnalitico($personaId);
+        $result = UTNApiUtils::makeRequest($url);
+
+        if (!$result['success']) {
+            error_log("Error en segunda llamada API: " . $result['error']);
+            return null;
+        }
+
+        $analiticoData = $result['data'];
+        if (empty($analiticoData)) {
+            error_log("No se encontraron datos analíticos para persona ID: " . $personaId);
+            return null;
+        }
+
+        // Combinar los datos de ambas llamadas
+        if (isset($data) && isset($data[0])) {
+            $result = array_merge($data[0], $analiticoData);
+        } else {
+            $result = $analiticoData;
+        }
+
+        error_log("Datos combinados de la API para DNI " . $dni . ": " . json_encode($result));
+        return $result;
+    }
+
+    function formatStudentData($apiData, $studentID)
+    {
+        if (empty($apiData) || !is_array($apiData)) {
+            return null;
+        }
+
+        // Obtener nombre y apellido del estudiante desde Gibbon usando las nuevas queries
         $nombre = '';
         $apellido = '';
-        
+
         try {
-            $studentName = $this->repository->getStudentNameByDNI($dni);
+            global $connection2;
+
+            $studentName = GibbonAlumnoRepository::getStudentNameByDNI($connection2, $studentID);
             if ($studentName) {
                 $nombre = $studentName['firstName'];
                 $apellido = $studentName['surname'];
             }
-        } catch (\Exception $e) {
-            error_log("Error al buscar estudiante por DNI: " . $e->getMessage());
+        } catch (Exception $e) {
+            error_log("Error al obtener datos del estudiante: " . $e->getMessage());
         }
 
-        $apiData = $this->repository->getStudentDataFromAPI($dni);
-        if (!$apiData) {
-            return null;
-        }
-
-        // Formatear datos
-        $studentData = [
-            'dni' => $dni,
+        return [
+            'dni' => $studentID,
             'nombre' => $nombre,
             'apellido' => $apellido,
             'materias' => $apiData
         ];
-
-        if (empty($studentData['materias'])) {
-            return $studentData;
-        }
-
-        // Ordenar materias por fecha (descendente)
-        usort($studentData['materias'], function($a, $b) {
-            $fechaA = strtotime($a['fecha'] ?? '1970-01-01');
-            $fechaB = strtotime($b['fecha'] ?? '1970-01-01');
-            return $fechaB <=> $fechaA;
-        });
-
-        // Filtrar solo materias con actividad_nombre
-        $studentData['materias'] = array_filter($studentData['materias'], function($materia) {
-            return !empty($materia['actividad_nombre']);
-        });
-
-        return $studentData;
     }
 
-    public function paginate($items, $page, $perPage) {
-        $totalItems = count($items);
-        $totalPages = ceil($totalItems / $perPage);
-        
-        // Asegurar que la página actual sea válida
-        $page = max(1, min($page, $totalPages > 0 ? $totalPages : 1));
-        
-        $offset = ($page - 1) * $perPage;
-        $paginatedItems = array_slice($items, $offset, $perPage);
-
-        return [
-            'data' => $paginatedItems,
-            'totalItems' => $totalItems,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
-            'offset' => $offset,
-            'perPage' => $perPage
-        ];
+    /**
+     * Obtiene el DNI de un estudiante usando el sistema de documentos personales de Gibbon
+     * 
+     * @param int $gibbonPersonID ID de la persona en Gibbon
+     * @return string|null DNI del estudiante o null si no se encuentra
+     */
+    function getStudentDNI($gibbonPersonID)
+    {
+        global $connection2;
+        return GibbonAlumnoRepository::getStudentDNI($connection2, $gibbonPersonID);
     }
 
-    public function searchStudents($term) {
-        return $this->repository->searchStudents($term);
+    function getStudentNameByDNI($studentDni)
+    {
+        global $connection2;
+        return GibbonAlumnoRepository::getStudentNameByDNI($connection2, $studentDni);
+    }
+
+    function searchStudents($searchTerm)
+    {
+        global $connection2;
+        return GibbonAlumnoRepository::searchStudents($connection2, $searchTerm, 10);
     }
 }

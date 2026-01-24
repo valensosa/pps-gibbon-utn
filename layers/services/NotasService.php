@@ -1,43 +1,67 @@
 <?php
+
 namespace NotasUTNAPI\Services;
 
 use NotasUTNAPI\Services\AlumnoService;
 
-class NotasService {
+class NotasService
+{
     private $alumnoService;
-    
-    public function __construct(AlumnoService $alumnoService) {
+
+    public function __construct(AlumnoService $alumnoService)
+    {
         $this->alumnoService = $alumnoService;
     }
 
-    public function getStudentHistory($dni) {
-        return $this->alumnoService->getStudentHistory($dni);
-    }
 
-    public function paginate($items, $page, $perPage) {
-        return $this->alumnoService->paginate($items, $page, $perPage);
-    }
+    function buscarNotasPorDNI($studentDni)
+    {
+        // Obtener datos del estudiante desde la UTN API
+        $apiData = $this->alumnoService->getStudentDataFromAPI($studentDni);
+        if (!$apiData) {
+            return null;
+        }
 
-    public function getNotasPaginadas($dni, $page, $perPage = 10) {
-        $studentData = $this->getStudentHistory($dni);
-
+        $studentData = $this->alumnoService->formatStudentData($apiData, $studentDni);
         if (!$studentData || empty($studentData['materias'])) {
             return null;
         }
 
-        $pagination = $this->paginate($studentData['materias'], $page, $perPage);
+        $materias = $studentData['materias'];
 
-        return [
-            'student' => [
-                'dni' => $studentData['dni'],
-                'nombre' => $studentData['nombre'],
-                'apellido' => $studentData['apellido']
-            ],
-            'pagination' => $pagination
-        ];
+        $this->sortMateriasByDateDesc($materias);
+
+        $materiasConActividad = $this->filterMateriasWithActividad($materias);
+
+        return $materiasConActividad;
     }
 
-    public function searchStudents($term) {
-        return $this->alumnoService->searchStudents($term);
+    // Ordenar materias por fecha (descendente - más reciente primero)
+    function sortMateriasByDateDesc($materias)
+    {
+        usort($materias, function ($a, $b) {
+            $fechaA = strtotime($a['fecha'] ?? '1970-01-01');
+            $fechaB = strtotime($b['fecha'] ?? '1970-01-01');
+            return $fechaB <=> $fechaA; // Descendente
+        });
+        return $materias;
+    }
+
+    // Filtrar solo materias con actividad_nombre
+    function filterMateriasWithActividad($materias)
+    {
+        return array_filter($materias, function ($materia) {
+            return !empty($materia['actividad_nombre']);
+        });
+    }
+
+    // Paginación de materias
+    function notasPaginacion($materias, $paginaActual, $materiasPorPagina)
+    {
+        $totalMaterias = count($materias);
+        $totalPaginas = ceil($totalMaterias / $materiasPorPagina);
+        $paginaActual = max(1, min($paginaActual, $totalPaginas));
+        $offset = ($paginaActual - 1) * $materiasPorPagina;
+        return array_slice($materias, $offset, $materiasPorPagina);
     }
 }
