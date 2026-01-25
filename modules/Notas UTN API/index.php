@@ -20,7 +20,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //Module includes
 require_once __DIR__ . '/../../src/DependencyFactory.php';
 
-use NotasUTNAPI\Infrastructure\Repository\GibbonAlumnoRepository;
 use NotasUTNAPI\DependencyFactory;
 
 $page->breadcrumbs->add(__('Notas de Estudiantes API'));
@@ -35,7 +34,7 @@ $controller = DependencyFactory::createControladorNotas($connection2);
 // Obtener el rol del usuario usando las nuevas queries
 $userRole = null;
 if ($gibbonPersonID) {
-    $userRole = GibbonAlumnoRepository::getUserRole($connection2, $gibbonPersonID);
+    $userRole = $controller->getUserRole($gibbonPersonID);
 }
 
 // Filtros por GET
@@ -43,19 +42,9 @@ $selectedStudentDni = $_GET['student_dni'] ?? '';
 
 // Determinar qué DNI buscar
 $targetDNI = null;
-
-if ($userRole === 'Student') {
-    // Si es estudiante, buscar su DNI en el sistema de documentos personales
-    $userDNI = GibbonAlumnoRepository::getStudentDNI($connection2, $gibbonPersonID);
-
-    if (!$userDNI) {
-        $page->addError(__('No se encontró un DNI registrado en el sistema. Por favor, contacte a la administración.'));
-        return;
-    }
-    $targetDNI = $userDNI;
-} elseif ($selectedStudentDni) {
-    // Si es admin y seleccionó un estudiante
-    $targetDNI = $selectedStudentDni;
+$targetDNI = $controller->getStudentDni($gibbonPersonID, $userRole, $selectedStudentDni);
+if (!$targetDNI) {
+    $page->addError(__('No se encontró un DNI registrado en el sistema. Por favor, contacte a la administración.'));
 }
 
 // Procesar solicitud si hay un DNI objetivo
@@ -92,7 +81,7 @@ if ($targetDNI) {
         if ($result && isset($result['success']) && $result['success']) {
             $student = $result['student'];
             $pagination = $result['pagination'];
-            require __DIR__ . '/views/TablaNotas.php';
+            require __DIR__ . '/../../src/views/TablaNotas.php';
         } elseif ($result && isset($result['error'])) {
             echo '<div class="alert alert-warning">' . htmlspecialchars($result['error']) . '</div>';
         }
@@ -103,7 +92,7 @@ if ($targetDNI) {
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="<?= $session->get('absoluteURL') ?>/layers/views/css/notas.css">
+<link rel="stylesheet" href="<?= $session->get('absoluteURL') ?>/../../src/views/css/notas.css">
 
 <script>
     // Global function for pagination
@@ -156,7 +145,7 @@ if ($targetDNI) {
                 return;
             }
 
-            fetch(`layers/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
+            fetch(`/../../src/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -298,7 +287,7 @@ if ($targetDNI) {
 
                 container.innerHTML = '<div class="alert alert-info">Buscando notas...</div>';
 
-                fetch('layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
+                fetch('/../../src/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
                     .then(resp => resp.text())
                     .then(html => {
                         container.innerHTML = html;

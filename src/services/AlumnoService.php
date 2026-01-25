@@ -100,4 +100,10 @@ class AlumnoService
         global $connection2;
         return $this->repositoryGibbon::searchStudents($connection2, $searchTerm, 10);
     }
+
+    function getGibbonUserRoleByID($gibbonPersonID)
+    {
+        global $connection2;
+        return $this->repositoryGibbon::getUserRole($connection2, $gibbonPersonID);
+    }
 }

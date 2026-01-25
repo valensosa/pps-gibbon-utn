@@ -46,4 +46,25 @@ class ControladorNotas
         }
         return $this->alumnoService->searchStudents($q);
     }
+
+    function getUserRole($gibbonPersonID)
+    {
+        return $this->alumnoService->getGibbonUserRoleByID($gibbonPersonID);
+    }
+
+    function getStudentDni($gibbonPersonID, $userRole, $selectedStudentDni)
+    {
+        if ($userRole === 'Student') {
+            // Si es estudiante, buscar su DNI en el sistema de documentos personales
+            $userDNI = $this->alumnoService->getStudentDNI($gibbonPersonID);
+
+            if (!$userDNI) {
+                return null;
+            }
+            return $userDNI;
+        } elseif ($selectedStudentDni) {
+            // Si es admin y seleccionó un estudiante
+            return $selectedStudentDni;
+        }
+    }
 }
