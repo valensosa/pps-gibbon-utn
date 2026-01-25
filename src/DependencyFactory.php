@@ -27,6 +27,6 @@ class DependencyFactory
         $alumnoService = new AlumnoService($repository);
         $notasService = new NotasService($alumnoService);
 
-        return new ControladorNotas($notasService);
+        return new ControladorNotas($notasService, $alumnoService);
     }
 }
