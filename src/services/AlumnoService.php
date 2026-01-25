@@ -9,53 +9,27 @@ use UTNApiQueries;
 use UTNApiUtils;
 use Exception;
 use NotasUTNAPI\Infrastructure\Repository\GibbonAlumnoRepository;
+use NotasUTNAPI\Infrastructure\Repository\AlumnosRepository;
 
 class AlumnoService
 {
-    private $repository;
+    private $repositoryGibbon;
+    private $repositoryUTN;
 
-    public function __construct(GibbonAlumnoRepository $repository)
+    public function __construct(GibbonAlumnoRepository $repositoryGibbon, AlumnosRepository $repositoryUTN)
     {
-        $this->repository = $repository;
+        $this->repositoryGibbon = $repositoryGibbon;
+        $this->repositoryUTN = $repositoryUTN;
     }
 
     //Usa UTN API para obtener datos del estudiante
-    function getStudentDataFromAPI($studentID)
+    function getStudentDataFromAPI($studentDNI)
     {
-        // Validar y formatear el DNI
-        if (!UTNApiUtils::validateDNI($studentID)) {
-            error_log("DNI inválido: " . $studentID);
-            return null;
-        }
-
-        $dni = UTNApiUtils::formatDNI($studentID);
-
-        // Paso 1: Buscar persona por DNI
-        $url = UTNApiQueries::getPersonasByDNI($dni);
-        $result = UTNApiUtils::makeRequest($url);
-
-        if (!$result['success']) {
-            error_log("Error en primera llamada API: " . $result['error']);
-            return null;
-        }
-
-        $data = $result['data'];
-        if (empty($data) || !isset($data[0]['persona'])) {
-            error_log("No se encontró persona en la respuesta para DNI: " . $dni);
-            return null;
-        }
+        $data = $this->repositoryUTN->getPersonasByDNI($studentDNI);
 
         $personaId = $data[0]['persona'];
 
-        // Paso 2: Obtener datos analíticos
-        $url = UTNApiQueries::getDatosAnalitico($personaId);
-        $result = UTNApiUtils::makeRequest($url);
-
-        if (!$result['success']) {
-            error_log("Error en segunda llamada API: " . $result['error']);
-            return null;
-        }
-
+        $result = $this->repositoryUTN->getDatosAnalitico($personaId);
         $analiticoData = $result['data'];
         if (empty($analiticoData)) {
             error_log("No se encontraron datos analíticos para persona ID: " . $personaId);
@@ -69,7 +43,7 @@ class AlumnoService
             $result = $analiticoData;
         }
 
-        error_log("Datos combinados de la API para DNI " . $dni . ": " . json_encode($result));
+        error_log("Datos combinados de la API para DNI " . $studentDNI . ": " . json_encode($result));
         return $result;
     }
 
@@ -112,18 +86,18 @@ class AlumnoService
     function getStudentDNI($gibbonPersonID)
     {
         global $connection2;
-        return GibbonAlumnoRepository::getStudentDNI($connection2, $gibbonPersonID);
+        return $this->repositoryGibbon::getStudentDNI($connection2, $gibbonPersonID);
     }
 
     function getStudentNameByDNI($studentDni)
     {
         global $connection2;
-        return GibbonAlumnoRepository::getStudentNameByDNI($connection2, $studentDni);
+        return $this->repositoryGibbon::getStudentNameByDNI($connection2, $studentDni);
     }
 
     function searchStudents($searchTerm)
     {
         global $connection2;
-        return GibbonAlumnoRepository::searchStudents($connection2, $searchTerm, 10);
+        return $this->repositoryGibbon::searchStudents($connection2, $searchTerm, 10);
     }
 }
