@@ -3,7 +3,7 @@
 ?>
 <div class="content-block student-block" data-dni="<?= htmlspecialchars($studentData['dni']) ?>">
     <h2><?= htmlspecialchars(trim($nombre . ' ' . $apellido . ' - ' . $studentData['dni'])) ?></h2>
-    
+
     <?php if ($totalMaterias > 0): ?>
         <div class="table-responsive">
             <table class="table table-striped table-bordered grades-table">
@@ -24,39 +24,39 @@
                 </thead>
                 <tbody>
                     <?php foreach ($materiasPaginadas as $materia): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($materia['titulo_araucano'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['titulo_nombre'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['plan_vigente'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['actividad_nombre'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['actividad_codigo'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['fecha'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['nota'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['resultado'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['promedio'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['forma_aprobacion'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($materia['es_optativa'] ?? '') ?></td>
-                    </tr>
+                        <tr>
+                            <td><?= htmlspecialchars($materia['titulo_araucano'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['titulo_nombre'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['plan_vigente'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['actividad_nombre'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['actividad_codigo'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['fecha'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['nota'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['resultado'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['promedio'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['forma_aprobacion'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($materia['es_optativa'] ?? '') ?></td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
-        
+
         <?php if ($totalPaginas > 1): ?>
             <div class="pagination-controls">
                 <?php
                 $queryParams = $_GET;
-                
+
                 if ($paginaActual > 1) {
                     $queryParams['page'] = $paginaActual - 1;
                     echo '<a href="javascript:void(0)" onclick="loadPage(' . $queryParams['page'] . ')" class="button">&laquo; Anterior</a>';
                 }
-                
+
                 for ($i = 1; $i <= $totalPaginas; $i++) {
                     $activeClass = ($i == $paginaActual) ? 'active' : '';
                     echo '<a href="javascript:void(0)" onclick="loadPage(' . $i . ')" class="button ' . $activeClass . '">' . $i . '</a>';
                 }
-                
+
                 if ($paginaActual < $totalPaginas) {
                     $queryParams['page'] = $paginaActual + 1;
                     echo '<a href="javascript:void(0)" onclick="loadPage(' . $queryParams['page'] . ')" class="button">Siguiente &raquo;</a>';
@@ -64,7 +64,7 @@
                 ?>
             </div>
         <?php endif; ?>
-        
+
         <div style="text-align: center; margin-top: 10px; color: #6c757d; font-size: 0.9rem;">
             Mostrando <?= $offset + 1 ?>-<?= min($offset + $materiasPorPagina, $totalMaterias) ?> de <?= $totalMaterias ?> materias
         </div>
@@ -76,13 +76,15 @@
 </div>
 
 <style>
-.grades-table thead tr,
-.grades-table thead th,
-.grades-table thead tr th {
-    background-color: #935EE1 !important;
-    color: #fff !important;
-}
-.grades-table td, .grades-table th {
-    text-align: center;
-}
+    .grades-table thead tr,
+    .grades-table thead th,
+    .grades-table thead tr th {
+        background-color: #935EE1 !important;
+        color: #fff !important;
+    }
+
+    .grades-table td,
+    .grades-table th {
+        text-align: center;
+    }
 </style>

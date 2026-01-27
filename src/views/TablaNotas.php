@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Vista parcial para la tabla de notas
  * Espera las variables: $student, $pagination
@@ -14,7 +15,7 @@ $materiasPorPagina = $pagination['perPage'];
 
 <div class="content-block student-block" data-dni="<?= htmlspecialchars($student['dni']) ?>">
     <h2><?php echo htmlspecialchars($student['nombre'] . ' ' . $student['apellido'] . ' - ' . $student['dni']); ?></h2>
-    
+
     <?php if (!empty($materias)): ?>
         <div class="table-responsive">
             <table class="table table-striped table-bordered grades-table">
@@ -52,23 +53,23 @@ $materiasPorPagina = $pagination['perPage'];
                 </tbody>
             </table>
         </div>
-        
+
         <?php if ($totalPaginas > 1): ?>
             <div class="pagination-controls">
                 <?php
                 $queryParams = $_GET;
-                
+
                 if ($paginaActual > 1) {
                     $queryParams['page_' . $student['dni']] = $paginaActual - 1;
                     echo '<a href="?' . http_build_query($queryParams) . '" class="button">&laquo; Anterior</a>';
                 }
-                
+
                 for ($i = 1; $i <= $totalPaginas; $i++) {
                     $queryParams['page_' . $student['dni']] = $i;
                     $activeClass = ($i == $paginaActual) ? 'active' : '';
                     echo '<a href="?' . http_build_query($queryParams) . '" class="button ' . $activeClass . '">' . $i . '</a>';
                 }
-                
+
                 if ($paginaActual < $totalPaginas) {
                     $queryParams['page_' . $student['dni']] = $paginaActual + 1;
                     echo '<a href="?' . http_build_query($queryParams) . '" class="button">Siguiente &raquo;</a>';
@@ -76,7 +77,7 @@ $materiasPorPagina = $pagination['perPage'];
                 ?>
             </div>
         <?php endif; ?>
-        
+
         <div style="text-align: center; margin-top: 10px; color: #6c757d; font-size: 0.9rem;">
             Mostrando <?= $offset + 1 ?>-<?= min($offset + $materiasPorPagina, $totalMaterias) ?> de <?= $totalMaterias ?> materias
         </div>

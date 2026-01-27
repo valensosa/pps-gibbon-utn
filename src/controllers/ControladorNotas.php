@@ -15,6 +15,35 @@ class ControladorNotas
         $this->alumnoService = $alumnoService;
     }
 
+
+    function handleFullFlow($context)
+    {
+
+        // Obtener el rol del usuario usando las nuevas queries
+        $userRole = null;
+        if ($context['gibbonPersonID']) {
+            $userRole = $this->getUserRole($context['gibbonPersonID']);
+        }
+
+        // Determinar qué DNI buscar
+        $targetDNI = null;
+        $targetDNI = $this->getStudentDni($context['gibbonPersonID'], $userRole, $context['selected_dni'], $context['page']);
+
+        // Procesar solicitud si hay un DNI objetivo
+        $result = [];
+        if ($targetDNI) {
+            $request = [
+                'student_dni' => $targetDNI,
+                'page' => $context['page']
+            ];
+            $result = $this->handleRequest($request);
+        }
+
+        $result['userRole'] = $userRole;
+
+        return $result;
+    }
+
     public function handleRequest($request)
     {
         $dni = isset($request['student_dni']) ? trim($request['student_dni']) : '';
@@ -24,8 +53,8 @@ class ControladorNotas
             return ['error' => 'Debe ingresar un DNI.'];
         }
 
-        $notas = $this->notasService->buscarNotasPorDNI($dni);
-        $result = $this->notasService->notasPaginacion($notas, $page, 10);
+        $alumno = $this->notasService->buscarAlumnoPorDNI($dni);
+        $result = $this->notasService->notasPaginacion($alumno['materias'], $page, 10);
 
         if (!$result) {
             return ['error' => 'No se encontraron notas para el DNI ingresado.'];
@@ -33,7 +62,12 @@ class ControladorNotas
 
         return [
             'success' => true,
-            'student' => $result['student'],
+            'student' => [
+                'dni' => $dni,
+                'nombre' => $alumno['nombre'] ?? '',
+                'apellido' => $alumno['apellido'] ?? ''
+            ],
+            'materias' => $result['materias'],
             'pagination' => $result['pagination']
         ];
     }
@@ -52,14 +86,15 @@ class ControladorNotas
         return $this->alumnoService->getGibbonUserRoleByID($gibbonPersonID);
     }
 
-    function getStudentDni($gibbonPersonID, $userRole, $selectedStudentDni)
+    function getStudentDni($gibbonPersonID, $userRole, $selectedStudentDni, $page)
     {
         if ($userRole === 'Student') {
             // Si es estudiante, buscar su DNI en el sistema de documentos personales
             $userDNI = $this->alumnoService->getStudentDNI($gibbonPersonID);
 
+            // Si no tiene DNI registrado, mostrar error
             if (!$userDNI) {
-                return null;
+                $page->addError(__('No se encontró un DNI registrado en el sistema. Por favor, contacte a la administración.'));
             }
             return $userDNI;
         } elseif ($selectedStudentDni) {

@@ -14,7 +14,7 @@ class NotasService
     }
 
 
-    function buscarNotasPorDNI($studentDni)
+    function buscarAlumnoPorDNI($studentDni)
     {
         // Obtener datos del estudiante desde la UTN API
         $apiData = $this->alumnoService->getStudentDataFromAPI($studentDni);
@@ -33,7 +33,8 @@ class NotasService
 
         $materiasConActividad = $this->filterMateriasWithActividad($materias);
 
-        return $materiasConActividad;
+        $studentData['materias'] = $materiasConActividad;
+        return $studentData;
     }
 
     // Ordenar materias por fecha (descendente - más reciente primero)
