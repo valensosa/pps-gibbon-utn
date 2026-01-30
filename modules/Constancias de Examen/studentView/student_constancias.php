@@ -5,6 +5,15 @@ use Gibbon\Services\Format;
 
 // Module includes
 require_once dirname(__DIR__) . '/moduleFunctions.php';
+require_once __DIR__ . '/../infrastructure/repositories/StudentRepository.php';
+
+$studentRepo = new StudentRepository($connection2);
+$student = $studentRepo->getStudentByPersonId($gibbonPersonID);
+
+if (!$student) {
+    $page->addError(__('No se pudo obtener la información del estudiante.'));
+    return;
+}
 
 if (isActionAccessible($guid, $connection2, '/modules/Constancias de Examen/student_constancias.php') === false) {
     // Access denied
@@ -15,13 +24,12 @@ if (isActionAccessible($guid, $connection2, '/modules/Constancias de Examen/stud
     
     // Get current user info
     $gibbonPersonID = $session->get('gibbonPersonID');
-    $userRole = null;
+    $userRole = $studentRepo->getUserRoleByPersonId($gibbonPersonID);
     if ($gibbonPersonID) {
         $data = array('gibbonPersonID' => $gibbonPersonID);
         $sql = "SELECT gibbonRole.name FROM gibbonPerson JOIN gibbonRole ON (gibbonPerson.gibbonRoleIDPrimary = gibbonRole.gibbonRoleID) WHERE gibbonPerson.gibbonPersonID = :gibbonPersonID LIMIT 1";
         $result = $connection2->prepare($sql);
         $result->execute($data);
-        $row = $result->fetch();
         $userRole = $row ? $row['name'] : null;
     }
 
@@ -43,18 +51,13 @@ if (isActionAccessible($guid, $connection2, '/modules/Constancias de Examen/stud
         return;
     }
     
-    $student = $result->fetch();
+
     $username = $student['username'];
     $firstName = $student['firstName'];
     $surname = $student['surname'];
     $email = $student['email'];
     
-    // Get student DNI from gibbonPersonalDocument table
-    // Paso 1: Obtener el ID del tipo de documento "Documento"
-    $sqlTipo = "SELECT gibbonPersonalDocumentTypeID FROM gibbonPersonalDocumentType WHERE name = 'Documento'";
-    $stmtTipo = $connection2->prepare($sqlTipo);
-    $stmtTipo->execute();
-    $tipoRow = $stmtTipo->fetch();
+ 
 
     if (!$tipoRow) {
         $page->addError(__('No se encontró el tipo de documento "Documento".'));
@@ -79,8 +82,13 @@ if (isActionAccessible($guid, $connection2, '/modules/Constancias de Examen/stud
         return;
     }
 
-    $rowDoc = $stmtDoc->fetch();
-    $dniAlumno = $rowDoc['documentNumber'];
+    $dniAlumno = $studentRepo->getStudentDni($gibbonPersonID);
+
+    if (!$dniAlumno) {
+        $page->addError(__('No se encontró el documento del estudiante.'));
+        return;
+    }
+
     
     // Add CSS
     echo "<link rel='stylesheet' type='text/css' href='" . $session->get('absoluteURL') . "/modules/Constancias de Examen/studentView/css/student.css' />";
