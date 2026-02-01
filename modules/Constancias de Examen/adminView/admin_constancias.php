@@ -2,7 +2,7 @@
 
 use Modules\Constancias\Controllers\AdminConstanciasController;
 
-require_once __DIR__ . '/../controllers/AdminConstanciasController.php';
+require_once __DIR__ . '/../controllers/admin_constancias_controller.php';
 
 // Gibbon ya te da esto:
 global $connection2, $session, $page, $guid;
