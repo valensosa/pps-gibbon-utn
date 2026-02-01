@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../services/StudentConstanciasService.php';
-require_once __DIR__ . '/../infrastructure/repositories/StudentRepository.php';
+require_once __DIR__ . '/../services/student_constancias_service.php';
+require_once __DIR__ . '/../infrastructure/repositories/student_repository.php';
 
 class StudentConstanciasController
 {
