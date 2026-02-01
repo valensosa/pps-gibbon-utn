@@ -7,13 +7,7 @@ use Gibbon\Services\Format;
 // Module includes (OBLIGATORIO)
 require_once __DIR__ . '/moduleFunctions.php';
 
-// 1️⃣ Permiso del módulo (solo index.php)
-if (isActionAccessible($guid, $connection2, '/modules/Constancias de Examen/index.php') === false) {
-    $page->addError(__('No tiene acceso a este módulo.'));
-    return;
-}
-
-// 2️⃣ Obtener usuario actual
+// 1️⃣ Obtener usuario actual
 $gibbonPersonID = $session->get('gibbonPersonID');
 
 if (!$gibbonPersonID) {
@@ -21,7 +15,7 @@ if (!$gibbonPersonID) {
     return;
 }
 
-// 3️⃣ Obtener rol del usuario
+// 2️⃣ Obtener rol del usuario
 $sql = "
     SELECT gibbonRole.name
     FROM gibbonPerson
@@ -42,7 +36,7 @@ if (!$userRole) {
     return;
 }
 
-// 4️⃣ Router interno por rol (SIN redirects)
+// 3️⃣ Router interno por rol (SIN redirects, SIN isActionAccessible)
 switch ($userRole) {
 
     case 'Administrator':
