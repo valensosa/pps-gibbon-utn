@@ -1,7 +1,5 @@
 <?php
 
-use Modules\Constancias\Controllers\AdminConstanciasController;
-
 require_once __DIR__ . '/../controllers/admin_constancias_controller.php';
 
 // Gibbon ya te da esto:
