@@ -25,7 +25,7 @@ class AdminConstanciasController
         if (!isActionAccessible(
             $this->guid,
             $GLOBALS['connection2'],
-            '/modules/Constancias de Examen/adminView/admin_constancias.php'
+            '/modules/Constancias de Examen/admin_constancias.php'
         )) {
             $this->page->addError(__('No tiene acceso a esta acción.'));
             return;
