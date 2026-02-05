@@ -40,4 +40,4 @@ $result = $controller->handleFullFlow($context);
 
 
 // // Pasamos $result a la vista BuscadorNotas para que ella decida qué mostrar
-require __DIR__ . '/../../src/views/BuscadorNotas.php';
+require __DIR__ . '/../../src/layers/views/BuscadorNotas.php';
