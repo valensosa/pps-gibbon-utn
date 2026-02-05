@@ -21,6 +21,12 @@ class ComposerStaticInitae2374f5298e6f685481e87ed5cd0420
     );
 
     public static $classMap = array (
+        'App\\DependencyFactory' => __DIR__ . '/../..' . '/src/DependencyFactory.php',
+        'App\\controllers\\ControladorNotas' => __DIR__ . '/../..' . '/src/controllers/ControladorNotas.php',
+        'App\\infrastructure\\repository\\AlumnosRepository' => __DIR__ . '/../..' . '/src/infrastructure/repository/AlumnosRepository.php',
+        'App\\infrastructure\\repository\\GibbonAlumnoRepository' => __DIR__ . '/../..' . '/src/infrastructure/repository/GibbonAlumnoRepository.php',
+        'App\\services\\AlumnoService' => __DIR__ . '/../..' . '/src/services/AlumnoService.php',
+        'App\\services\\NotasService' => __DIR__ . '/../..' . '/src/services/NotasService.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

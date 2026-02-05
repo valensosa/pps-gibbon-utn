@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Services\NotasService;
-use App\Services\AlumnoService;
+use App\services\NotasService;
+use App\services\AlumnoService;
 
 class ControladorNotas
 {

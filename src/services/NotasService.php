@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\services;
 
-use App\Services\AlumnoService;
+use App\services\AlumnoService;
 
 class NotasService
 {

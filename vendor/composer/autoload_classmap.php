@@ -6,5 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\DependencyFactory' => $baseDir . '/src/DependencyFactory.php',
+    'App\\controllers\\ControladorNotas' => $baseDir . '/src/controllers/ControladorNotas.php',
+    'App\\infrastructure\\repository\\AlumnosRepository' => $baseDir . '/src/infrastructure/repository/AlumnosRepository.php',
+    'App\\infrastructure\\repository\\GibbonAlumnoRepository' => $baseDir . '/src/infrastructure/repository/GibbonAlumnoRepository.php',
+    'App\\services\\AlumnoService' => $baseDir . '/src/services/AlumnoService.php',
+    'App\\services\\NotasService' => $baseDir . '/src/services/NotasService.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

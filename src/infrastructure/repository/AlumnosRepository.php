@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Repository;
+namespace App\infrastructure\repository;
 
 use UTNApiQueries;
 use UTNApiUtils;

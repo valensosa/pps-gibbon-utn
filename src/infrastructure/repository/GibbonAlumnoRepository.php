@@ -7,7 +7,7 @@
  * necesarias para el funcionamiento del módulo.
  */
 
-namespace App\Infrastructure\Repository;
+namespace App\infrastructure\repository;
 
 class GibbonAlumnoRepository
 {

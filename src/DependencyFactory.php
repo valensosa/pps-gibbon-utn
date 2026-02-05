@@ -2,11 +2,11 @@
 
 namespace App;
 
-use App\Services\AlumnoService;
-use App\Services\NotasService;
-use App\Controllers\ControladorNotas;
-use App\Infrastructure\Repository\AlumnosRepository;
-use App\Infrastructure\Repository\GibbonAlumnoRepository;
+use App\services\AlumnoService;
+use App\services\NotasService;
+use App\controllers\ControladorNotas;
+use App\infrastructure\repository\AlumnosRepository;
+use App\infrastructure\repository\GibbonAlumnoRepository;
 
 class DependencyFactory
 {

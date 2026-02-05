@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\services;
 
 use Exception;
-use App\Infrastructure\Repository\GibbonAlumnoRepository;
-use App\Infrastructure\Repository\AlumnosRepository;
+use App\infrastructure\repository\GibbonAlumnoRepository;
+use App\infrastructure\repository\AlumnosRepository;
 
 class AlumnoService
 {
