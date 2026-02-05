@@ -17,10 +17,11 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-//Module includes
-require_once __DIR__ . '/../../src/DependencyFactory.php';
+// Cargar el autoloader de la raíz
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-use NotasUTNAPI\DependencyFactory;
+// Cargar la arquitectura en capas
+use App\DependencyFactory;
 
 $page->breadcrumbs->add(__('Notas de Estudiantes API'));
 

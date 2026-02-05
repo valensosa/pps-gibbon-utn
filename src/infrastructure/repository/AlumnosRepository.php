@@ -1,8 +1,6 @@
 <?php
 
-namespace NotasUTNAPI\Infrastructure\Repository;
-
-require_once __DIR__ . '/../../config/utn_api_config.php';
+namespace App\Infrastructure\Repository;
 
 use UTNApiQueries;
 use UTNApiUtils;

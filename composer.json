@@ -1,0 +1,11 @@
+{
+  "name": "pps/gibbon-utn",
+  "description": "Arquitectura de capas para modulos personalisados de Gibbon",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "require": {}
+}

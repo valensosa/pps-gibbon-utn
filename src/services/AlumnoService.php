@@ -1,15 +1,10 @@
 <?php
 
-namespace NotasUTNAPI\Services;
+namespace App\Services;
 
-require_once __DIR__ . '/../../config/utn_api_config.php';
-require_once __DIR__ . '/../infrastructure/repository/GibbonAlumnoRepository.php';
-
-use UTNApiQueries;
-use UTNApiUtils;
 use Exception;
-use NotasUTNAPI\Infrastructure\Repository\GibbonAlumnoRepository;
-use NotasUTNAPI\Infrastructure\Repository\AlumnosRepository;
+use App\Infrastructure\Repository\GibbonAlumnoRepository;
+use App\Infrastructure\Repository\AlumnosRepository;
 
 class AlumnoService
 {

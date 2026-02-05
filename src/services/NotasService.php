@@ -1,8 +1,8 @@
 <?php
 
-namespace NotasUTNAPI\Services;
+namespace App\Services;
 
-use NotasUTNAPI\Services\AlumnoService;
+use App\Services\AlumnoService;
 
 class NotasService
 {

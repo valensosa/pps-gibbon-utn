@@ -1,16 +1,12 @@
 <?php
 
-namespace NotasUTNAPI;
+namespace App;
 
-require_once __DIR__ . '/infrastructure/repository/GibbonAlumnoRepository.php';
-require_once __DIR__ . '/services/AlumnoService.php';
-require_once __DIR__ . '/services/NotasService.php';
-require_once __DIR__ . '/controllers/ControladorNotas.php';
-
-use NotasUTNAPI\Services\AlumnoService;
-use NotasUTNAPI\Services\NotasService;
-use NotasUTNAPI\Controllers\ControladorNotas;
-use NotasUTNAPI\Infrastructure\Repository\GibbonAlumnoRepository;
+use App\Services\AlumnoService;
+use App\Services\NotasService;
+use App\Controllers\ControladorNotas;
+use App\Infrastructure\Repository\AlumnosRepository;
+use App\Infrastructure\Repository\GibbonAlumnoRepository;
 
 class DependencyFactory
 {
@@ -23,8 +19,9 @@ class DependencyFactory
      */
     public static function createControladorNotas($connection)
     {
-        $repository = new GibbonAlumnoRepository($connection);
-        $alumnoService = new AlumnoService($repository);
+        $repositoryGib = new GibbonAlumnoRepository($connection);
+        $repositoryUtn = new AlumnosRepository();
+        $alumnoService = new AlumnoService($repositoryGib, $repositoryUtn);
         $notasService = new NotasService($alumnoService);
 
         return new ControladorNotas($notasService, $alumnoService);

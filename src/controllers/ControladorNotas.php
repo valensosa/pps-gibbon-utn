@@ -1,9 +1,9 @@
 <?php
 
-namespace NotasUTNAPI\Controllers;
+namespace App\Controllers;
 
-use NotasUTNAPI\Services\NotasService;
-use NotasUTNAPI\Services\AlumnoService;
+use App\Services\NotasService;
+use App\Services\AlumnoService;
 
 class ControladorNotas
 {

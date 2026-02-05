@@ -1,8 +1,6 @@
 <?php
-require_once '../gibbon.php';
-require_once __DIR__ . '/DependencyFactory.php';
 
-use NotasUTNAPI\DependencyFactory;
+use App\DependencyFactory;
 
 header('Content-Type: text/html; charset=utf-8');
 
