@@ -33,7 +33,7 @@
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="<?= $session->get('absoluteURL') ?>/../../src/views/css/notas.css">
+<link rel="stylesheet" href="./src/views/css/notas.css">
 
 <script>
     // Global function for pagination
@@ -48,7 +48,7 @@
 
         container.innerHTML = '<div class="alert alert-info">Cargando página...</div>';
 
-        fetch('src/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
+        fetch('./layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
             .then(resp => resp.text())
             .then(html => {
                 container.innerHTML = html;
@@ -86,7 +86,7 @@
                 return;
             }
 
-            fetch(`/../../src/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
+            fetch(`./layers/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -228,7 +228,7 @@
 
                 container.innerHTML = '<div class="alert alert-info">Buscando notas...</div>';
 
-                fetch('/../../src/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
+                fetch('./layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
                     .then(resp => resp.text())
                     .then(html => {
                         container.innerHTML = html;

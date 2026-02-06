@@ -1,5 +1,8 @@
 <?php
 
+// Inicializar el entorno de Gibbon (incluye conexión a BD y sesión)
+require_once __DIR__ . '/../gibbon.php';
+
 use App\DependencyFactory;
 
 header('Content-Type: text/html; charset=utf-8');
