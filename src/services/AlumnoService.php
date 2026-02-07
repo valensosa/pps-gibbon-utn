@@ -18,7 +18,7 @@ class AlumnoService
     }
 
     //Usa UTN API para obtener datos del estudiante
-    function getStudentDataFromAPI($studentDNI)
+    public function getStudentDataFromAPI($studentDNI)
     {
         $data = $this->repositoryUTN->getPersonasByDNI($studentDNI);
 
@@ -42,7 +42,7 @@ class AlumnoService
         return $result;
     }
 
-    function formatStudentData($apiData, $studentID)
+    public function formatStudentData($apiData, $studentID)
     {
         if (empty($apiData) || !is_array($apiData)) {
             return null;
@@ -78,25 +78,25 @@ class AlumnoService
      * @param int $gibbonPersonID ID de la persona en Gibbon
      * @return string|null DNI del estudiante o null si no se encuentra
      */
-    function getStudentDNI($gibbonPersonID)
+    public function getStudentDNI($gibbonPersonID)
     {
         global $connection2;
         return $this->repositoryGibbon::getStudentDNI($connection2, $gibbonPersonID);
     }
 
-    function getStudentNameByDNI($studentDni)
+    public function getStudentNameByDNI($studentDni)
     {
         global $connection2;
         return $this->repositoryGibbon::getStudentNameByDNI($connection2, $studentDni);
     }
 
-    function searchStudents($searchTerm)
+    public function searchStudents($searchTerm)
     {
         global $connection2;
         return $this->repositoryGibbon::searchStudents($connection2, $searchTerm, 10);
     }
 
-    function getGibbonUserRoleByID($gibbonPersonID)
+    public function getGibbonUserRoleByID($gibbonPersonID)
     {
         global $connection2;
         return $this->repositoryGibbon::getUserRole($connection2, $gibbonPersonID);

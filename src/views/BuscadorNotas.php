@@ -48,7 +48,7 @@
 
         container.innerHTML = '<div class="alert alert-info">Cargando página...</div>';
 
-        fetch('./layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
+        fetch('./src/layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
             .then(resp => resp.text())
             .then(html => {
                 container.innerHTML = html;
@@ -86,7 +86,7 @@
                 return;
             }
 
-            fetch(`./layers/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
+            fetch(`./src/layers/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -228,7 +228,7 @@
 
                 container.innerHTML = '<div class="alert alert-info">Buscando notas...</div>';
 
-                fetch('./layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
+                fetch('./src/layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
                     .then(resp => resp.text())
                     .then(html => {
                         container.innerHTML = html;

@@ -12,16 +12,25 @@ class DependencyFactory
 {
 
     /**
+     * Crea y configura una instancia de AlumnoService con todas sus dependencias.
+     * 
+     * @return AlumnoService
+     */
+    public static function createAlumnoService(): AlumnoService
+    {
+        $repositoryGib = new GibbonAlumnoRepository();
+        $repositoryUtn = new AlumnosRepository();
+        return new AlumnoService($repositoryGib, $repositoryUtn);
+    }
+
+    /**
      * Crea y configura una instancia de ControladorNotas con todas sus dependencias.
      * 
-     * @param mixed $connection La conexión a la base de datos (Gibbon)
      * @return ControladorNotas
      */
-    public static function createControladorNotas($connection)
+    public static function createControladorNotas(): ControladorNotas
     {
-        $repositoryGib = new GibbonAlumnoRepository($connection);
-        $repositoryUtn = new AlumnosRepository();
-        $alumnoService = new AlumnoService($repositoryGib, $repositoryUtn);
+        $alumnoService = self::createAlumnoService();
         $notasService = new NotasService($alumnoService);
 
         return new ControladorNotas($notasService, $alumnoService);
