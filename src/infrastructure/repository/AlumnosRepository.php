@@ -2,8 +2,9 @@
 
 namespace App\infrastructure\repository;
 
-use UTNApiQueries;
-use UTNApiUtils;
+use App\config\UTNApiQueries;
+use App\config\UTNApiUtils;
+
 
 class AlumnosRepository
 {
