@@ -13,7 +13,7 @@
 // CONFIGURACIÓN DE LA API PARA PRODUCCIÓN
 // ============================================================================
 
-namespace App\Config;
+namespace App\config;
 
 class UTNApiConfig
 {
