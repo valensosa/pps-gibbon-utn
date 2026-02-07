@@ -1,7 +1,7 @@
 <?php
 
 // Inicializar el entorno de Gibbon (incluye conexión a BD y sesión)
-require_once __DIR__ . '/../gibbon.php';
+require_once __DIR__ . '/../../gibbon.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\DependencyFactory;
@@ -9,8 +9,12 @@ use App\DependencyFactory;
 header('Content-Type: text/html; charset=utf-8');
 
 try {
+    //mandar mensaje por consola
+    error_log("Iniciando NotasEndpoint.php");
     // 1. Inicialización de capas mediante Factory
     $controller = DependencyFactory::createControladorNotas();
+    //mandar mensaje por consola
+    error_log("Controlador de Notas creado: " . get_class($controller));
 
     // 2. Verificar si es una búsqueda de estudiantes (JSON)
     if (isset($_GET['action']) && $_GET['action'] === 'search') {
