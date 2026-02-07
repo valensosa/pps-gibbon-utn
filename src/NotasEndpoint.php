@@ -2,6 +2,7 @@
 
 // Inicializar el entorno de Gibbon (incluye conexión a BD y sesión)
 require_once __DIR__ . '/../gibbon.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\DependencyFactory;
 
