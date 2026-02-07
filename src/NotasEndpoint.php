@@ -9,12 +9,8 @@ use App\DependencyFactory;
 header('Content-Type: text/html; charset=utf-8');
 
 try {
-    //mandar mensaje por consola
-    error_log("Iniciando NotasEndpoint.php");
     // 1. Inicialización de capas mediante Factory
     $controller = DependencyFactory::createControladorNotas();
-    //mandar mensaje por consola
-    error_log("Controlador de Notas creado: " . get_class($controller));
 
     // 2. Verificar si es una búsqueda de estudiantes (JSON)
     if (isset($_GET['action']) && $_GET['action'] === 'search') {
