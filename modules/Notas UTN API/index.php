@@ -33,7 +33,7 @@ $context = [
 ];
 
 // Inicialización de capas mediante Factory
-$controller = DependencyFactory::createControladorNotas($connection2);
+$controller = DependencyFactory::createControladorNotas();
 
 // Manejar el flujo completo
 $result = $controller->handleFullFlow($context);
