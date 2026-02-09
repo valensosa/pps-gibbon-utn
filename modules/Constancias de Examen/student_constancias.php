@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../../gibbon.php';
 // Include the student view
 $studentViewFile = __DIR__ . '/studentView/student_constancias.php';
 if (file_exists($studentViewFile)) {
