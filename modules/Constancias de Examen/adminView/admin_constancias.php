@@ -1,5 +1,8 @@
 <?php
 
+// cargar gibbon.php (proporciona $connection2, $session, $page, $guid)
+require_once __DIR__ . '/../../gibbon.php';
+
 require_once __DIR__ . '/../controllers/admin_constancias_controller.php';
 
 // Gibbon ya te da esto:
