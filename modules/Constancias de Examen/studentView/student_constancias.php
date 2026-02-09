@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../gibbon.php';
 
 require_once dirname(__DIR__) . '/moduleFunctions.php';
 require_once __DIR__ . '/../controllers/student_constancias_controller.php';
