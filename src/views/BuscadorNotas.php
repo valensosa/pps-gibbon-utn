@@ -12,7 +12,7 @@ $layersPath = './src/layers';
             <div class="search-box">
                 <i class="fas fa-search search-icon"></i>
                 <div class="autocomplete-container">
-                    <input type="text" name="student_dni" id="student_dni" value="<?= htmlspecialchars($result['student']['dni']) ?>" placeholder="Buscar por nombre, apellido o DNI..." class="search-input" autocomplete="off">
+                    <input type="text" name="student_dni" id="student_dni" value="<?= htmlspecialchars($result['student']['dni'] ?? '') ?>" placeholder="Buscar por nombre, apellido o DNI..." class="search-input" autocomplete="off">
                     <div id="studentAutocomplete" class="autocomplete-dropdown"></div>
                 </div>
             </div>

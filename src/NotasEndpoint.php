@@ -34,12 +34,12 @@ try {
 
     $nombre = $studentData['nombre'];
     $apellido = $studentData['apellido'];
-    $materiasPaginadas = $pagination['data'];
-    $totalMaterias = $pagination['totalItems'];
-    $totalPaginas = $pagination['totalPages'];
-    $paginaActual = $pagination['currentPage'];
-    $offset = $pagination['offset'];
-    $materiasPorPagina = $pagination['perPage'];
+    $materiasPaginadas = $pagination['data'] ?? [];
+    $totalMaterias = $pagination['totalItems'] ?? 0;
+    $totalPaginas = $pagination['totalPages'] ?? 0;
+    $paginaActual = $pagination['currentPage'] ?? 1;
+    $offset = $pagination['offset'] ?? 0;
+    $materiasPorPagina = $pagination['perPage'] ?? 10;
 
     // 5. Renderizar la vista (Template)
     require __DIR__ . '/views/DatosTablaNotas.php';

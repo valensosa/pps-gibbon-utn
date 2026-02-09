@@ -27,7 +27,13 @@ class ControladorNotas
 
         // Determinar qué DNI buscar
         $targetDNI = null;
-        $targetDNI = $this->getStudentDni($context['gibbonPersonID'], $userRole, $context['selected_dni'], $context['page']);
+        $targetDNI = $this->getStudentDni($context['gibbonPersonID'], $userRole, $context['selected_dni']);
+
+        if ($userRole === 'Student' && !$targetDNI) {
+            $result = ['error' => 'No se encontró un DNI registrado en el sistema. Por favor, contacte a la administración.'];
+            $result['userRole'] = $userRole;
+            return $result;
+        }
 
         // Procesar solicitud si hay un DNI objetivo
         $result = [];
@@ -54,6 +60,11 @@ class ControladorNotas
         }
 
         $alumno = $this->notasService->buscarAlumnoPorDNI($dni);
+
+        if (!$alumno) {
+            return ['error' => 'No se encontraron notas para el DNI ingresado.'];
+        }
+
         $result = $this->notasService->notasPaginacion($alumno['materias'], $page, 10);
 
         if (!$result) {
@@ -86,17 +97,11 @@ class ControladorNotas
         return $this->alumnoService->getGibbonUserRoleByID($gibbonPersonID);
     }
 
-    function getStudentDni($gibbonPersonID, $userRole, $selectedStudentDni, $page)
+    function getStudentDni($gibbonPersonID, $userRole, $selectedStudentDni)
     {
         if ($userRole === 'Student') {
             // Si es estudiante, buscar su DNI en el sistema de documentos personales
-            $userDNI = $this->alumnoService->getStudentDNI($gibbonPersonID);
-
-            // Si no tiene DNI registrado, mostrar error
-            if (!$userDNI) {
-                $page->addError(__('No se encontró un DNI registrado en el sistema. Por favor, contacte a la administración.'));
-            }
-            return $userDNI;
+            return $this->alumnoService->getStudentDNI($gibbonPersonID);
         } elseif ($selectedStudentDni) {
             // Si es admin y seleccionó un estudiante
             return $selectedStudentDni;
