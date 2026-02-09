@@ -1,5 +1,9 @@
 <?php
 // Vista: Solo se encarga de mostrar HTML usando las variables provistas por el controlador
+
+// Definimos la ruta base web para los recursos (CSS, JS, Fetch)
+// IMPORTANTE: Ajusta 'Notas UTN API' si el nombre de la carpeta de tu módulo es diferente en la instalación.
+$layersPath = './src/layers';
 ?>
 <div class="content notas-module">
     <h1 style="margin: 0 0 1em 0;">Notas de Estudiantes API</h1>
@@ -33,7 +37,7 @@
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="./css/notas.css">
+<link rel="stylesheet" href="<?= $layersPath ?>/views/css/notas.css">
 
 <script>
     // Global function for pagination
@@ -48,7 +52,7 @@
 
         container.innerHTML = '<div class="alert alert-info">Cargando página...</div>';
 
-        fetch('../NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
+        fetch('<?= $layersPath ?>/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
             .then(resp => resp.text())
             .then(html => {
                 container.innerHTML = html;
@@ -86,7 +90,7 @@
                 return;
             }
 
-            fetch(`../NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
+            fetch(`<?= $layersPath ?>/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -228,7 +232,7 @@
 
                 container.innerHTML = '<div class="alert alert-info">Buscando notas...</div>';
 
-                fetch('../NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
+                fetch('<?= $layersPath ?>/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
                     .then(resp => resp.text())
                     .then(html => {
                         container.innerHTML = html;
