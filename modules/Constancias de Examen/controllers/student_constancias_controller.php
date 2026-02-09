@@ -34,7 +34,7 @@ class StudentConstanciasController
             $student = $data['student'];
             $dni = $data['dni'];
 
-            require __DIR__ . '/../views/student_constancias_view.php';
+            require __DIR__ . '/../views/student_view.php';
 
         } catch (RuntimeException $e) {
             $this->page->addError(__($e->getMessage()));
