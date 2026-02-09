@@ -22,7 +22,7 @@
         if ($result && isset($result['success']) && $result['success']) {
             $student = $result['student'];
             $pagination = $result['pagination'];
-            require __DIR__ . '/../../src/views/TablaNotas.php';
+            require __DIR__ . '/TablaNotas.php';
         } elseif ($result && isset($result['error'])) {
             echo '<div class="alert alert-warning">' . htmlspecialchars($result['error']) . '</div>';
         }
@@ -33,7 +33,7 @@
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="./src/views/css/notas.css">
+<link rel="stylesheet" href="./css/notas.css">
 
 <script>
     // Global function for pagination
@@ -48,7 +48,7 @@
 
         container.innerHTML = '<div class="alert alert-info">Cargando página...</div>';
 
-        fetch('./src/layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
+        fetch('../NotasEndpoint.php?student_dni=' + encodeURIComponent(dni) + '&page=' + page)
             .then(resp => resp.text())
             .then(html => {
                 container.innerHTML = html;
@@ -86,7 +86,7 @@
                 return;
             }
 
-            fetch(`./src/layers/NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
+            fetch(`../NotasEndpoint.php?action=search&q=${encodeURIComponent(searchTerm)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -228,7 +228,7 @@
 
                 container.innerHTML = '<div class="alert alert-info">Buscando notas...</div>';
 
-                fetch('./src/layers/NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
+                fetch('../NotasEndpoint.php?student_dni=' + encodeURIComponent(dni))
                     .then(resp => resp.text())
                     .then(html => {
                         container.innerHTML = html;
