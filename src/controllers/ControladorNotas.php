@@ -2,14 +2,14 @@
 
 namespace App\controllers;
 
-use App\services\NotasService;
-use App\services\AlumnoService;
+use App\services\INotasService;
+use App\services\IAlumnoService;
 
 class ControladorNotas
 {
     private $notasService;
     private $alumnoService;
-    public function __construct(NotasService $notasService, AlumnoService $alumnoService)
+    public function __construct(INotasService $notasService, IAlumnoService $alumnoService)
     {
         $this->notasService = $notasService;
         $this->alumnoService = $alumnoService;

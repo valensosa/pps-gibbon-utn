@@ -2,19 +2,19 @@
 
 namespace App\services;
 
-use App\services\AlumnoService;
+use App\services\IAlumnoService;
 
-class NotasService
+class NotasService implements INotasService
 {
     private $alumnoService;
 
-    public function __construct(AlumnoService $alumnoService)
+    public function __construct(IAlumnoService $alumnoService)
     {
         $this->alumnoService = $alumnoService;
     }
 
 
-    function buscarAlumnoPorDNI($studentDni)
+    public function buscarAlumnoPorDNI($studentDni)
     {
         // Obtener datos del estudiante desde la UTN API
         $apiData = $this->alumnoService->getStudentDataFromAPI($studentDni);
@@ -38,7 +38,7 @@ class NotasService
     }
 
     // Ordenar materias por fecha (descendente - más reciente primero)
-    function sortMateriasByDateDesc($materias)
+    public function sortMateriasByDateDesc($materias)
     {
         usort($materias, function ($a, $b) {
             $fechaA = strtotime($a['fecha'] ?? '1970-01-01');
@@ -49,7 +49,7 @@ class NotasService
     }
 
     // Filtrar solo materias con actividad_nombre
-    function filterMateriasWithActividad($materias)
+    public function filterMateriasWithActividad($materias)
     {
         return array_filter($materias, function ($materia) {
             return !empty($materia['actividad_nombre']);
@@ -57,7 +57,7 @@ class NotasService
     }
 
     // Paginación de materias
-    function notasPaginacion($materias, $paginaActual, $materiasPorPagina)
+    public function notasPaginacion($materias, $paginaActual, $materiasPorPagina)
     {
         $totalMaterias = count($materias);
         $totalPaginas = ceil($totalMaterias / $materiasPorPagina);

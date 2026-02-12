@@ -9,7 +9,7 @@
 
 namespace App\infrastructure\repository;
 
-class GibbonAlumnoRepository
+class GibbonAlumnoRepository implements IGibbonAlumnoRepository
 {
 
     /**
@@ -44,7 +44,7 @@ class GibbonAlumnoRepository
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 error_log("No se encontró el tipo de documento 'Documento'");
                 return null;
@@ -86,7 +86,7 @@ class GibbonAlumnoRepository
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 error_log("No se encontró el tipo de documento 'Documento'");
                 return null;
@@ -132,7 +132,7 @@ class GibbonAlumnoRepository
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 error_log("No se encontró el tipo de documento 'Documento'");
                 return [];
@@ -233,7 +233,7 @@ class GibbonAlumnoRepository
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 return null;
             }

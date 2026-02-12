@@ -6,11 +6,11 @@ use App\config\UTNApiQueries;
 use App\config\UTNApiUtils;
 
 
-class AlumnosRepository
+class AlumnosRepository implements IAlumnosRepository
 {
     // Metodos para interactuar con la API UTN relacionados con alumnos
 
-    function getPersonasByDNI($studentDNI)
+    public function getPersonasByDNI($studentDNI)
     {
         // Validar y formatear el DNI
         if (!UTNApiUtils::validateDNI($studentDNI)) {
@@ -38,7 +38,7 @@ class AlumnosRepository
         return $data;
     }
 
-    function getDatosAnalitico($personaId)
+    public function getDatosAnalitico($personaId)
     {
         $url = UTNApiQueries::getDatosAnalitico($personaId);
         $result = UTNApiUtils::makeRequest($url);

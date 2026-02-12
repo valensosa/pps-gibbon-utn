@@ -3,15 +3,15 @@
 namespace App\services;
 
 use Exception;
-use App\infrastructure\repository\GibbonAlumnoRepository;
-use App\infrastructure\repository\AlumnosRepository;
+use App\infrastructure\repository\IGibbonAlumnoRepository;
+use App\infrastructure\repository\IAlumnosRepository;
 
-class AlumnoService
+class AlumnoService implements IAlumnoService
 {
     private $repositoryGibbon;
     private $repositoryUTN;
 
-    public function __construct(GibbonAlumnoRepository $repositoryGibbon, AlumnosRepository $repositoryUTN)
+    public function __construct(IGibbonAlumnoRepository $repositoryGibbon, IAlumnosRepository $repositoryUTN)
     {
         $this->repositoryGibbon = $repositoryGibbon;
         $this->repositoryUTN = $repositoryUTN;
@@ -55,7 +55,7 @@ class AlumnoService
         try {
             global $connection2;
 
-            $studentName = GibbonAlumnoRepository::getStudentNameByDNI($connection2, $studentID);
+            $studentName = IGibbonAlumnoRepository::getStudentNameByDNI($connection2, $studentID);
             if ($studentName) {
                 $nombre = $studentName['firstName'];
                 $apellido = $studentName['surname'];
