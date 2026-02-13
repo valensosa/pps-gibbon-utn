@@ -98,4 +98,4 @@ $table->addColumn('presentarAnte', __('Presentar Ante'))
 $table->addColumn('fechaExamen', __('Fecha del Examen'))
     ->format(function ($row) { 
         return
-    }
+    });
