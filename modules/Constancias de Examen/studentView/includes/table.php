@@ -135,11 +135,26 @@ $table->addColumn('acciones', __('Acciones'))
 
 // CSS para mejorar el espaciado
 echo '<style>
+    #constancias table { 
+        width: 100%;
+        table-layout: auto;
+    }
     #constancias table td, 
     #constancias table th { 
         text-align: center; 
         vertical-align: middle; 
-        padding: 12px 15px !important;
+        padding: 12px 8px !important;
+        white-space: nowrap;
+    }
+    #constancias table td:first-child,
+    #constancias table th:first-child {
+        text-align: left;
+        max-width: 200px;
+        white-space: normal;
+    }
+    #constancias table td:nth-child(5),
+    #constancias table th:nth-child(5) {
+        min-width: 120px;
     }
     #constancias table td:last-child,
     #constancias table th:last-child {
@@ -150,6 +165,7 @@ echo '<style>
         border-radius: 4px;
         font-weight: 500;
         display: inline-block;
+        white-space: nowrap;
     }
     .badge-warning {
         background-color: #f0ad4e;
@@ -166,26 +182,6 @@ echo '<style>
     .button--primary {
         padding: 8px 16px;
         font-size: 14px;
+        white-space: nowrap;
     }
 </style>';
-
-echo $table->render($paginatedData); 
-
-// Pagination controls
-if ($totalPages > 1) {
-    echo '<div class="pagination-controls" style="text-align: center; margin-top: 20px;">';
-    
-    if ($pageNumber > 1) {
-        echo '<a href="#" data-page="'.($pageNumber - 1).'" class="button button--primary page-link" style="margin-right: 10px;">&laquo; Anterior</a>';
-    }
-
-    for ($i = 1; $i <= $totalPages; $i++) {
-        $activeStyle = ($i == $pageNumber) ? 'background-color: #935EE1; color: white; border-color: #935EE1;' : '';
-        echo '<a href="#" data-page="'.$i.'" class="button page-link" style="margin: 0 5px; '.$activeStyle.'">'.$i.'</a>';
-    }
-
-    if ($pageNumber < $totalPages) {
-        echo '<a href="#" data-page="'.($pageNumber + 1).'" class="button button--primary page-link" style="margin-left: 10px;">Siguiente &raquo;</a>';
-    }
-    echo '</div>';
-}
