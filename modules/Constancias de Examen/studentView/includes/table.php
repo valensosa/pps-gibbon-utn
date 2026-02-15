@@ -45,24 +45,13 @@ if ($stmtDoc->rowCount() != 1) {
 $rowDoc = $stmtDoc->fetch();
 $dniAlumno = $rowDoc['documentNumber'];
 
-// DEBUG
-echo "<!-- DEBUG DNI Alumno: " . htmlspecialchars($dniAlumno) . " -->";
-
 // Obtener constancias
 $constancias = getStudentConstancias($dniAlumno);
-
-echo "<!-- DEBUG Total documentos de Firebase: " . count($constancias) . " -->";
-
 $tableData = [];
 foreach ($constancias as $doc) {
     $data = parseFirestoreDocument($doc);
     $data['constanciaId'] = getFirestoreDocumentId($doc);
     $tableData[] = $data;
-}
-
-echo "<!-- DEBUG Datos parseados: " . count($tableData) . " -->";
-if (!empty($tableData)) {
-    echo "<!-- DEBUG Primer registro: " . htmlspecialchars(json_encode($tableData[0])) . " -->";
 }
 
 // Custom sort
@@ -118,16 +107,16 @@ if (empty($paginatedData)) {
         echo '<tr>';
         
         // Materia
-        echo '<td style="text-align: left;">' . htmlspecialchars($row['examen']['materia'] ?? '') . '</td>';
+        echo '<td style="text-align: left; height: 45px;">' . htmlspecialchars($row['examen']['materia'] ?? '') . '</td>';
         
         // Presentar Ante
-        echo '<td style="text-align: center;">' . htmlspecialchars($row['presentarAnte'] ?? '') . '</td>';
+        echo '<td style="text-align: center; height: 45px;">' . htmlspecialchars($row['presentarAnte'] ?? '') . '</td>';
         
         // Fecha Examen
-        echo '<td style="text-align: center;">' . formatTimestamp($row['examen']['fechaExamen'] ?? '') . '</td>';
+        echo '<td style="text-align: center; height: 45px;">' . formatTimestamp($row['examen']['fechaExamen'] ?? '') . '</td>';
         
         // Fecha Solicitud
-        echo '<td style="text-align: center;">' . formatTimestamp($row['fechaPedido'] ?? '') . '</td>';
+        echo '<td style="text-align: center; height: 45px;">' . formatTimestamp($row['fechaPedido'] ?? '') . '</td>';
         
         // Estado
         $estadoCompleto = $row['estado'] ?? 'pendiente';
@@ -144,10 +133,10 @@ if (empty($paginatedData)) {
                 $class = 'badge-danger';
                 break;
         }
-        echo '<td style="text-align: center; vertical-align: middle; padding: 10px 4px;"><span class="badge ' . $class . '" style="vertical-align: middle;">' . htmlspecialchars($estado) . '</span></td>';
+        echo '<td style="text-align: center; height: 45px;"><span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span></td>';
         
         // Acciones
-        echo '<td style="text-align: center;">';
+        echo '<td style="text-align: center; height: 45px;">';
         if ($estadoCompleto == 'completado' && !empty($row['pdfUrl'])) {
             echo '<a href="'.htmlspecialchars($row['pdfUrl']).'" target="_blank" class="button button--primary">Ver Constancia</a>';
         } else {
@@ -164,19 +153,19 @@ if (empty($paginatedData)) {
 
 // CSS
 echo '<style>
-   table.fullWidth tbody td {
+    table.fullWidth tbody tr {
+        height: 45px;
+    }
+    table.fullWidth tbody td {
         vertical-align: middle !important;
-        line-height: 1.5;
     }
     .badge {
-        padding: 4px 10px;
+        padding: 5px 10px;
         border-radius: 3px;
         font-weight: 500;
         font-size: 13px;
         display: inline-block;
         white-space: nowrap;
-        vertical-align: baseline;
-        line-height: 1.3;
     }
     .badge-warning {
         background-color: #f0ad4e;
