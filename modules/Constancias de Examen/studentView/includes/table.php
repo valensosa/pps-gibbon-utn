@@ -223,8 +223,3 @@ if ($totalPages > 1) {
     }
     echo '</div>';
 }
-```
-
-Guarda, push/pull y accede a:
-```
-https://pps.nautica6.com.ar/modules/Constancias%20de%20Examen/studentView/includes/table.php?gibbonPersonID=0000002779&page=1
