@@ -144,7 +144,7 @@ if (empty($paginatedData)) {
                 $class = 'badge-danger';
                 break;
         }
-        echo '<td style="text-align: center;"><span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span></td>';
+        echo '<td style="text-align: center; vertical-align: middle; padding: 10px 4px;"><span class="badge ' . $class . '" style="vertical-align: middle;">' . htmlspecialchars($estado) . '</span></td>';
         
         // Acciones
         echo '<td style="text-align: center;">';
