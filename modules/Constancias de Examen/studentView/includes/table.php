@@ -132,7 +132,21 @@ $table->addColumn('estado', __('Estado'))
         ];
         
         $estado = $estadoTexto[$estadoCompleto] ?? ucfirst($estadoCompleto);
-
+        
+        $class = '';
+        switch (strtolower($estadoCompleto)) {
+            case 'pendiente':
+                $class = 'badge-warning';
+                break;
+            case 'completado':
+                $class = 'badge-success';
+                break;
+            case 'rechazado':
+                $class = 'badge-danger';
+                break;
+        }
+        return '<span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span>';
+    });
 $table->addColumn('acciones', __('Acciones'))
     ->notSortable()
     ->format(function ($row) {
