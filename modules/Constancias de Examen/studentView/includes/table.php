@@ -156,39 +156,38 @@ echo '<style>
     #constancias table th { 
         text-align: center; 
         vertical-align: middle; 
-        padding: 12px 8px !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        padding: 8px 4px !important;
     }
     #constancias table td:first-child,
     #constancias table th:first-child {
         text-align: left;
-        width: 25%;
+        width: 20%;
+        padding-left: 8px !important;
     }
     #constancias table td:nth-child(2),
     #constancias table th:nth-child(2) {
-        width: 15%;
+        width: 13%;
     }
     #constancias table td:nth-child(3),
     #constancias table th:nth-child(3),
     #constancias table td:nth-child(4),
     #constancias table th:nth-child(4) {
-        width: 13%;
+        width: 12%;
     }
     #constancias table td:nth-child(5),
     #constancias table th:nth-child(5) {
-        width: 12%;
+        width: 16%;  /* Aumentado para el badge */
     }
     #constancias table td:last-child,
     #constancias table th:last-child {
-        width: 15%;
+        width: 19%;
     }
     .badge {
-        padding: 6px 12px;
-        border-radius: 4px;
+        padding: 4px 8px;
+        border-radius: 3px;
         font-weight: 500;
+        font-size: 12px;
         display: inline-block;
-        white-space: nowrap;
     }
     .badge-warning {
         background-color: #f0ad4e;
@@ -203,9 +202,8 @@ echo '<style>
         color: white;
     }
     .button--primary {
-        padding: 8px 16px;
-        font-size: 14px;
-        white-space: nowrap;
+        padding: 6px 12px !important;
+        font-size: 13px !important;
     }
 </style>';
 if (empty($paginatedData)) {
