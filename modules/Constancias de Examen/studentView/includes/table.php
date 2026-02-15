@@ -95,44 +95,43 @@ $pageNumber = max(1, min($pageNumber, $totalPages));
 $offset = ($pageNumber - 1) * $rowsPerPage;
 $paginatedData = array_slice($tableData, $offset, $rowsPerPage);
 
-// Renderizar la tabla
-use Gibbon\Tables\DataTable;
-$table = DataTable::create('constancias');
-$table->setTitle(__('Mis Constancias'));
+// Renderizar tabla manualmente
+echo '<h2>Mis Constancias</h2>';
 
-$table->addColumn('materia', __('Materia'))
-    ->format(function ($row) { 
-        return htmlspecialchars($row['examen']['materia'] ?? ''); 
-    });
-
-$table->addColumn('presentarAnte', __('Presentar Ante'))
-    ->format(function ($row) { 
-        return htmlspecialchars($row['presentarAnte'] ?? ''); 
-    });
-
-$table->addColumn('fechaExamen', __('Fecha del Examen'))
-    ->format(function ($row) { 
-        return formatTimestamp($row['examen']['fechaExamen'] ?? ''); 
-    });
-
-$table->addColumn('fechaPedido', __('Fecha de Solicitud'))
-    ->format(function ($row) { 
-        return formatTimestamp($row['fechaPedido'] ?? ''); 
-    });
-
-$table->addColumn('estado', __('Estado'))
-    ->format(function ($row) {
+if (empty($paginatedData)) {
+    echo '<div class="alert alert-info">No tienes constancias registradas aún.</div>';
+} else {
+    echo '<table class="fullWidth colorOddEven" cellspacing="0" style="width: 100%;">';
+    echo '<thead>';
+    echo '<tr>';
+    echo '<th style="width: 25%; text-align: left;">Materia</th>';
+    echo '<th style="width: 15%; text-align: center;">Presentar Ante</th>';
+    echo '<th style="width: 13%; text-align: center;">Fecha del Examen</th>';
+    echo '<th style="width: 13%; text-align: center;">Fecha de Solicitud</th>';
+    echo '<th style="width: 12%; text-align: center;">Estado</th>';
+    echo '<th style="width: 15%; text-align: center;">Acciones</th>';
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+    
+    foreach ($paginatedData as $row) {
+        echo '<tr>';
+        
+        // Materia
+        echo '<td style="text-align: left;">' . htmlspecialchars($row['examen']['materia'] ?? '') . '</td>';
+        
+        // Presentar Ante
+        echo '<td style="text-align: center;">' . htmlspecialchars($row['presentarAnte'] ?? '') . '</td>';
+        
+        // Fecha Examen
+        echo '<td style="text-align: center;">' . formatTimestamp($row['examen']['fechaExamen'] ?? '') . '</td>';
+        
+        // Fecha Solicitud
+        echo '<td style="text-align: center;">' . formatTimestamp($row['fechaPedido'] ?? '') . '</td>';
+        
+        // Estado
         $estadoCompleto = $row['estado'] ?? 'pendiente';
-        
-        // Usar versión corta para el badge
-        $estadoTexto = [
-            'pendiente' => 'Pendiente',
-            'completado' => 'Completado',
-            'rechazado' => 'Rechazado'
-        ];
-        
-        $estado = $estadoTexto[$estadoCompleto] ?? ucfirst($estadoCompleto);
-        
+        $estado = ucfirst($estadoCompleto);
         $class = '';
         switch (strtolower($estadoCompleto)) {
             case 'pendiente':
@@ -145,94 +144,47 @@ $table->addColumn('estado', __('Estado'))
                 $class = 'badge-danger';
                 break;
         }
-        return '<span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span>';
-    });
-$table->addColumn('acciones', __('Acciones'))
-    ->notSortable()
-    ->format(function ($row) {
-        if (($row['estado'] ?? '') == 'completado' && !empty($row['pdfUrl'])) {
-            return '<a href="'.htmlspecialchars($row['pdfUrl']).'" target="_blank" class="button button--primary">Ver Constancia</a>';
+        echo '<td style="text-align: center;"><span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span></td>';
+        
+        // Acciones
+        echo '<td style="text-align: center;">';
+        if ($estadoCompleto == 'completado' && !empty($row['pdfUrl'])) {
+            echo '<a href="'.htmlspecialchars($row['pdfUrl']).'" target="_blank" class="button button--primary">Ver Constancia</a>';
+        } else {
+            echo '<span class="text-muted">-</span>';
         }
-        return '<span class="text-muted">-</span>';
-    });
+        echo '</td>';
+        
+        echo '</tr>';
+    }
+    
+    echo '</tbody>';
+    echo '</table>';
+}
 
+// CSS
 echo '<style>
-    .dataTable {
-        overflow-x: auto !important;
-    }
-    #constancias {
-        max-width: 100% !important;
-        overflow-x: auto !important;
-    }
-    #constancias table { 
-        width: 100% !important;
-        table-layout: fixed !important;
-        min-width: 900px;
-    }
-    #constancias table td, 
-    #constancias table th { 
-        text-align: center !important;
-        vertical-align: middle !important;
-        padding: 8px 4px !important;
-        box-sizing: border-box !important;
-    }
-    #constancias table td:first-child,
-    #constancias table th:first-child {
-        text-align: left !important;
-        width: 180px !important;
-        padding-left: 8px !important;
-    }
-    #constancias table td:nth-child(2),
-    #constancias table th:nth-child(2) {
-        width: 120px !important;
-    }
-    #constancias table td:nth-child(3),
-    #constancias table th:nth-child(3),
-    #constancias table td:nth-child(4),
-    #constancias table th:nth-child(4) {
-        width: 110px !important;
-    }
-    #constancias table td:nth-child(5),
-    #constancias table th:nth-child(5) {
-        width: 110px !important;
-        overflow: visible !important;
-    }
-    #constancias table td:last-child,
-    #constancias table th:last-child {
-        width: 120px !important;
-    }
     .badge {
-        padding: 3px 8px !important;
-        border-radius: 3px !important;
-        font-weight: 500 !important;
-        font-size: 11px !important;
-        display: inline-block !important;
-        white-space: nowrap !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-weight: 500;
+        font-size: 13px;
+        display: inline-block;
+        white-space: nowrap;
     }
     .badge-warning {
-        background-color: #f0ad4e !important;
-        color: white !important;
+        background-color: #f0ad4e;
+        color: white;
     }
     .badge-success {
-        background-color: #5cb85c !important;
-        color: white !important;
+        background-color: #5cb85c;
+        color: white;
     }
     .badge-danger {
-        background-color: #d9534f !important;
-        color: white !important;
-    }
-    .button--primary {
-        padding: 6px 12px !important;
-        font-size: 13px !important;
+        background-color: #d9534f;
+        color: white;
     }
 </style>';
-if (empty($paginatedData)) {
-    echo '<div class="alert alert-info">No tienes constancias registradas aún.</div>';
-} else {
-    echo $table->render($paginatedData);
-}
 
 // Pagination controls
 if ($totalPages > 1) {
