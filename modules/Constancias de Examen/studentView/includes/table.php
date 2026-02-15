@@ -150,28 +150,38 @@ $table->addColumn('acciones', __('Acciones'))
 echo '<style>
     #constancias table { 
         width: 100%;
-        table-layout: auto;
+        table-layout: fixed;
     }
     #constancias table td, 
     #constancias table th { 
         text-align: center; 
         vertical-align: middle; 
         padding: 12px 8px !important;
-        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     #constancias table td:first-child,
     #constancias table th:first-child {
         text-align: left;
-        max-width: 200px;
-        white-space: normal;
+        width: 25%;
+    }
+    #constancias table td:nth-child(2),
+    #constancias table th:nth-child(2) {
+        width: 15%;
+    }
+    #constancias table td:nth-child(3),
+    #constancias table th:nth-child(3),
+    #constancias table td:nth-child(4),
+    #constancias table th:nth-child(4) {
+        width: 13%;
     }
     #constancias table td:nth-child(5),
     #constancias table th:nth-child(5) {
-        min-width: 120px;
+        width: 12%;
     }
     #constancias table td:last-child,
     #constancias table th:last-child {
-        min-width: 150px;
+        width: 15%;
     }
     .badge {
         padding: 6px 12px;
