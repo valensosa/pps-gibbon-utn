@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once dirname(__DIR__, 4) . '/gibbon.php';
 require_once dirname(__DIR__, 2) . '/moduleFunctions.php';
 
@@ -41,13 +45,24 @@ if ($stmtDoc->rowCount() != 1) {
 $rowDoc = $stmtDoc->fetch();
 $dniAlumno = $rowDoc['documentNumber'];
 
+// DEBUG
+echo "<!-- DEBUG DNI Alumno: " . htmlspecialchars($dniAlumno) . " -->";
+
 // Obtener constancias
 $constancias = getStudentConstancias($dniAlumno);
+
+echo "<!-- DEBUG Total documentos de Firebase: " . count($constancias) . " -->";
+
 $tableData = [];
 foreach ($constancias as $doc) {
     $data = parseFirestoreDocument($doc);
     $data['constanciaId'] = getFirestoreDocumentId($doc);
     $tableData[] = $data;
+}
+
+echo "<!-- DEBUG Datos parseados: " . count($tableData) . " -->";
+if (!empty($tableData)) {
+    echo "<!-- DEBUG Primer registro: " . htmlspecialchars(json_encode($tableData[0])) . " -->";
 }
 
 // Custom sort
@@ -97,19 +112,19 @@ $table->addColumn('presentarAnte', __('Presentar Ante'))
 
 $table->addColumn('fechaExamen', __('Fecha del Examen'))
     ->format(function ($row) { 
-        return formatTimestamp($row['examen']['fechaExamen']); 
+        return formatTimestamp($row['examen']['fechaExamen'] ?? ''); 
     });
 
 $table->addColumn('fechaPedido', __('Fecha de Solicitud'))
     ->format(function ($row) { 
-        return formatTimestamp($row['fechaPedido']); 
+        return formatTimestamp($row['fechaPedido'] ?? ''); 
     });
 
 $table->addColumn('estado', __('Estado'))
     ->format(function ($row) {
-        $estado = ucfirst($row['estado']);
+        $estado = ucfirst($row['estado'] ?? 'pendiente');
         $class = '';
-        switch (strtolower($row['estado'])) {
+        switch (strtolower($row['estado'] ?? 'pendiente')) {
             case 'pendiente':
                 $class = 'badge-warning';
                 break;
@@ -123,17 +138,15 @@ $table->addColumn('estado', __('Estado'))
         return '<span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span>';
     });
 
-// Columna de acciones sin usar addActionColumn()
 $table->addColumn('acciones', __('Acciones'))
     ->notSortable()
     ->format(function ($row) {
-        if ($row['estado'] == 'completado' && !empty($row['pdfUrl'])) {
+        if (($row['estado'] ?? '') == 'completado' && !empty($row['pdfUrl'])) {
             return '<a href="'.htmlspecialchars($row['pdfUrl']).'" target="_blank" class="button button--primary">Ver Constancia</a>';
         }
         return '<span class="text-muted">-</span>';
     });
 
-// CSS para mejorar el espaciado
 echo '<style>
     #constancias table { 
         width: 100%;
@@ -185,3 +198,33 @@ echo '<style>
         white-space: nowrap;
     }
 </style>';
+
+if (empty($paginatedData)) {
+    echo '<div class="alert alert-info">No tienes constancias registradas aún.</div>';
+} else {
+    echo $table->render($paginatedData);
+}
+
+// Pagination controls
+if ($totalPages > 1) {
+    echo '<div class="pagination-controls" style="text-align: center; margin-top: 20px;">';
+    
+    if ($pageNumber > 1) {
+        echo '<a href="#" data-page="'.($pageNumber - 1).'" class="button button--primary page-link" style="margin-right: 10px;">&laquo; Anterior</a>';
+    }
+
+    for ($i = 1; $i <= $totalPages; $i++) {
+        $activeStyle = ($i == $pageNumber) ? 'background-color: #935EE1; color: white; border-color: #935EE1;' : '';
+        echo '<a href="#" data-page="'.$i.'" class="button page-link" style="margin: 0 5px; '.$activeStyle.'">'.$i.'</a>';
+    }
+
+    if ($pageNumber < $totalPages) {
+        echo '<a href="#" data-page="'.($pageNumber + 1).'" class="button button--primary page-link" style="margin-left: 10px;">Siguiente &raquo;</a>';
+    }
+    echo '</div>';
+}
+```
+
+Guarda, push/pull y accede a:
+```
+https://pps.nautica6.com.ar/modules/Constancias%20de%20Examen/studentView/includes/table.php?gibbonPersonID=0000002779&page=1
