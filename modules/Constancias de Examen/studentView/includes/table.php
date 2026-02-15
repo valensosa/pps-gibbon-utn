@@ -164,14 +164,14 @@ if (empty($paginatedData)) {
 
 // CSS
 echo '<style>
-   .badge {
-        padding: 5px 10px;
+    .badge {
+        padding: 4px 8px;
         border-radius: 3px;
         font-weight: 500;
-        font-size: 13px;
+        font-size: 12px;
         display: inline-block;
         white-space: nowrap;
-        vertical-align: middle;
+        line-height: 1.2;
     }
     .badge-warning {
         background-color: #f0ad4e;
@@ -187,6 +187,7 @@ echo '<style>
     }
     table.fullWidth td {
         vertical-align: middle !important;
+        padding: 10px 8px !important;
     }
 </style>';
 
