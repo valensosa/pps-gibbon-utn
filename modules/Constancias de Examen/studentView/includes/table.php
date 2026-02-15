@@ -107,16 +107,16 @@ if (empty($paginatedData)) {
         echo '<tr>';
         
         // Materia
-        echo '<td style="text-align: left; height: 45px;">' . htmlspecialchars($row['examen']['materia'] ?? '') . '</td>';
+        echo '<td style="text-align: left; height: 38px;">' . htmlspecialchars($row['examen']['materia'] ?? '') . '</td>';
         
         // Presentar Ante
-        echo '<td style="text-align: center; height: 45px;">' . htmlspecialchars($row['presentarAnte'] ?? '') . '</td>';
+        echo '<td style="text-align: center; height: 38px;">' . htmlspecialchars($row['presentarAnte'] ?? '') . '</td>';
         
         // Fecha Examen
-        echo '<td style="text-align: center; height: 45px;">' . formatTimestamp($row['examen']['fechaExamen'] ?? '') . '</td>';
+        echo '<td style="text-align: center; height: 38px;">' . formatTimestamp($row['examen']['fechaExamen'] ?? '') . '</td>';
         
         // Fecha Solicitud
-        echo '<td style="text-align: center; height: 45px;">' . formatTimestamp($row['fechaPedido'] ?? '') . '</td>';
+        echo '<td style="text-align: center; height: 38px;">' . formatTimestamp($row['fechaPedido'] ?? '') . '</td>';
         
         // Estado
         $estadoCompleto = $row['estado'] ?? 'pendiente';
@@ -133,10 +133,10 @@ if (empty($paginatedData)) {
                 $class = 'badge-danger';
                 break;
         }
-        echo '<td style="text-align: center; height: 45px;"><span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span></td>';
+        echo '<td style="text-align: center; height: 38px;"><span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span></td>';
         
         // Acciones
-        echo '<td style="text-align: center; height: 45px;">';
+        echo '<td style="text-align: center; height: 38px;">';
         if ($estadoCompleto == 'completado' && !empty($row['pdfUrl'])) {
             echo '<a href="'.htmlspecialchars($row['pdfUrl']).'" target="_blank" class="button button--primary">Ver Constancia</a>';
         } else {
@@ -154,18 +154,20 @@ if (empty($paginatedData)) {
 // CSS
 echo '<style>
     table.fullWidth tbody tr {
-        height: 45px;
+        height: 38px;
     }
     table.fullWidth tbody td {
         vertical-align: middle !important;
+        padding: 6px 4px !important;
     }
     .badge {
-        padding: 5px 10px;
+        padding: 3px 8px;
         border-radius: 3px;
         font-weight: 500;
-        font-size: 13px;
+        font-size: 12px;
         display: inline-block;
         white-space: nowrap;
+        line-height: 1.3;
     }
     .badge-warning {
         background-color: #f0ad4e;
