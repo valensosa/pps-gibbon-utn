@@ -122,21 +122,16 @@ $table->addColumn('fechaPedido', __('Fecha de Solicitud'))
 
 $table->addColumn('estado', __('Estado'))
     ->format(function ($row) {
-        $estado = ucfirst($row['estado'] ?? 'pendiente');
-        $class = '';
-        switch (strtolower($row['estado'] ?? 'pendiente')) {
-            case 'pendiente':
-                $class = 'badge-warning';
-                break;
-            case 'completado':
-                $class = 'badge-success';
-                break;
-            case 'rechazado':
-                $class = 'badge-danger';
-                break;
-        }
-        return '<span class="badge ' . $class . '">' . htmlspecialchars($estado) . '</span>';
-    });
+        $estadoCompleto = $row['estado'] ?? 'pendiente';
+        
+        // Usar versión corta para el badge
+        $estadoTexto = [
+            'pendiente' => 'Pendiente',
+            'completado' => 'Completado',
+            'rechazado' => 'Rechazado'
+        ];
+        
+        $estado = $estadoTexto[$estadoCompleto] ?? ucfirst($estadoCompleto);
 
 $table->addColumn('acciones', __('Acciones'))
     ->notSortable()
@@ -183,11 +178,12 @@ echo '<style>
         width: 19%;
     }
     .badge {
-        padding: 4px 8px;
+        padding: 3px 6px;
         border-radius: 3px;
         font-weight: 500;
-        font-size: 12px;
+        font-size: 11px;
         display: inline-block;
+        letter-spacing: -0.3px;
     }
     .badge-warning {
         background-color: #f0ad4e;
