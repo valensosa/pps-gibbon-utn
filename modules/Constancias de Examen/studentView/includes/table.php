@@ -208,7 +208,6 @@ echo '<style>
         white-space: nowrap;
     }
 </style>';
-
 if (empty($paginatedData)) {
     echo '<div class="alert alert-info">No tienes constancias registradas aún.</div>';
 } else {
