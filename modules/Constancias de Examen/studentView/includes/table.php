@@ -158,7 +158,10 @@ echo '<style>
     }
     table.fullWidth tbody td {
         vertical-align: middle !important;
-        padding: 6px 4px !important;
+        padding: 0 !important;
+    }
+    table.fullWidth tbody td > * {
+        vertical-align: middle;
     }
     .badge {
         padding: 3px 8px;
@@ -167,7 +170,8 @@ echo '<style>
         font-size: 12px;
         display: inline-block;
         white-space: nowrap;
-        line-height: 1.3;
+        margin: 0;
+        transform: translateY(0);
     }
     .badge-warning {
         background-color: #f0ad4e;
