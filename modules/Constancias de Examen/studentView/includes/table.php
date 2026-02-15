@@ -157,59 +157,71 @@ $table->addColumn('acciones', __('Acciones'))
     });
 
 echo '<style>
+    .dataTable {
+        overflow-x: auto !important;
+    }
+    #constancias {
+        max-width: 100% !important;
+        overflow-x: auto !important;
+    }
     #constancias table { 
-        width: 100%;
-        table-layout: fixed;
+        width: 100% !important;
+        table-layout: fixed !important;
+        min-width: 900px;
     }
     #constancias table td, 
     #constancias table th { 
-        text-align: center; 
-        vertical-align: middle; 
+        text-align: center !important;
+        vertical-align: middle !important;
         padding: 8px 4px !important;
+        box-sizing: border-box !important;
     }
     #constancias table td:first-child,
     #constancias table th:first-child {
-        text-align: left;
-        width: 20%;
+        text-align: left !important;
+        width: 180px !important;
         padding-left: 8px !important;
     }
     #constancias table td:nth-child(2),
     #constancias table th:nth-child(2) {
-        width: 13%;
+        width: 120px !important;
     }
     #constancias table td:nth-child(3),
     #constancias table th:nth-child(3),
     #constancias table td:nth-child(4),
     #constancias table th:nth-child(4) {
-        width: 12%;
+        width: 110px !important;
     }
     #constancias table td:nth-child(5),
     #constancias table th:nth-child(5) {
-        width: 16%;  /* Aumentado para el badge */
+        width: 110px !important;
+        overflow: visible !important;
     }
     #constancias table td:last-child,
     #constancias table th:last-child {
-        width: 19%;
+        width: 120px !important;
     }
     .badge {
-        padding: 3px 6px;
-        border-radius: 3px;
-        font-weight: 500;
-        font-size: 11px;
-        display: inline-block;
-        letter-spacing: -0.3px;
+        padding: 3px 8px !important;
+        border-radius: 3px !important;
+        font-weight: 500 !important;
+        font-size: 11px !important;
+        display: inline-block !important;
+        white-space: nowrap !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     .badge-warning {
-        background-color: #f0ad4e;
-        color: white;
+        background-color: #f0ad4e !important;
+        color: white !important;
     }
     .badge-success {
-        background-color: #5cb85c;
-        color: white;
+        background-color: #5cb85c !important;
+        color: white !important;
     }
     .badge-danger {
-        background-color: #d9534f;
-        color: white;
+        background-color: #d9534f !important;
+        color: white !important;
     }
     .button--primary {
         padding: 6px 12px !important;
