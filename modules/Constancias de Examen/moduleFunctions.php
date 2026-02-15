@@ -226,25 +226,36 @@ function uploadConstanciaPDF($constanciaId, $dniAlumno, $materia, $filePath) {
 
 // Helper para convertir documento Firestore REST a array plano
 function parseFirestoreDocument($doc) {
-    $fields = $doc['fields'] ?? [];
     $data = [];
-    foreach ($fields as $key => $value) {
-        // Detectar tipo de valor
+    
+    foreach ($doc['fields'] as $key => $value) {
+        // Detectar tipo de campo
         if (isset($value['stringValue'])) {
             $data[$key] = $value['stringValue'];
         } elseif (isset($value['timestampValue'])) {
             $data[$key] = $value['timestampValue'];
-        } elseif (isset($value['mapValue'])) {
-            $data[$key] = [];
-            foreach (($value['mapValue']['fields'] ?? []) as $subKey => $subValue) {
-                if (isset($subValue['stringValue'])) {
-                    $data[$key][$subKey] = $subValue['stringValue'];
-                } elseif (isset($subValue['timestampValue'])) {
-                    $data[$key][$subKey] = $subValue['timestampValue'];
+        } elseif (isset($value['mapValue']['fields'])) {
+            // Campos anidados (como 'examen' o 'alumno')
+            $nestedData = [];
+            foreach ($value['mapValue']['fields'] as $nestedKey => $nestedValue) {
+                if (isset($nestedValue['stringValue'])) {
+                    $nestedData[$nestedKey] = $nestedValue['stringValue'];
+                } elseif (isset($nestedValue['timestampValue'])) {
+                    $nestedData[$nestedKey] = $nestedValue['timestampValue'];
                 }
             }
+            $data[$key] = $nestedData;
         }
     }
+    
+    // Si no existe 'alumno' como objeto pero sí campos sueltos, crear el objeto
+    if (!isset($data['alumno']) && isset($data['dniAlumno'])) {
+        $data['alumno'] = [
+            'dni' => $data['dniAlumno'] ?? '',
+            'nombre' => $data['nombre'] ?? ''
+        ];
+    }
+    
     return $data;
 }
 
