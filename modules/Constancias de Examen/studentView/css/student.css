@@ -309,3 +309,6 @@
     color: #666;
     font-style: italic;
 } 
+.badge {
+    position: static !important;
+}
