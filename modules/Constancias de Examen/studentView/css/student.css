@@ -15,7 +15,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    height: 3.5rem !important;
+   /*height: 3.5rem !important;*/
     line-height: 1.5 !important;
 }
 
