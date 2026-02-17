@@ -41,18 +41,18 @@
 
 /* Status badges */
 .constancias-module .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4em 0.8em;
-    font-size: 0.85em;
-    font-weight: 500;
-    border-radius: 1rem;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    min-height: 1.5rem;
-    line-height: 1;
+    display: inline-block !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.85em !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    min-height: unset !important;
+    line-height: 1.4 !important;
+    padding: 3px 8px !important;
+    border-radius: 3px !important;
+    white-space: nowrap !important;
 }
 
 .constancias-module .badge-warning {
