@@ -34,7 +34,7 @@ try {
 
     $nombre = $studentData['nombre'];
     $apellido = $studentData['apellido'];
-    $materiasPaginadas = $pagination['data'] ?? [];
+    $materiasPaginadas = $result['materias'] ?? [];
     $totalMaterias = $pagination['totalItems'] ?? 0;
     $totalPaginas = $pagination['totalPages'] ?? 0;
     $paginaActual = $pagination['currentPage'] ?? 1;

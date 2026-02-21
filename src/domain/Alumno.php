@@ -2,26 +2,33 @@
 
 namespace App\domain;
 
-class Alumno
+use JsonSerializable;
+
+class Alumno implements JsonSerializable
 {
+    private int $id;
     private string $dni;
     private string $nombre;
     private string $apellido;
     private string $email;
-    private string $estado;
 
     public function __construct(
+        int $id,
         string $dni,
         string $nombre,
         string $apellido,
-        string $email,
-        string $estado
+        string $email
     ) {
+        $this->id = $id;
         $this->dni = $dni;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
-        $this->estado = $estado;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getDni(): string
@@ -44,9 +51,9 @@ class Alumno
         return $this->email;
     }
 
-    public function getEstado(): string
+    public function setId(int $id): void
     {
-        return $this->estado;
+        $this->id = $id;
     }
 
     public function setDni(string $dni): void
@@ -69,14 +76,23 @@ class Alumno
         $this->email = $email;
     }
 
-    public function setEstado(string $estado): void
-    {
-        $this->estado = $estado;
-    }
-
     public function validarDni(): bool
     {
         // Valida que el DNI contenga solo números y tenga al menos 6 dígitos
         return preg_match('/^\d{6,}$/', $this->dni) === 1;
+    }
+
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'dni' => $this->dni,
+            'nombre' => $this->nombre,
+            'apellido' => $this->apellido,
+            'email' => $this->email,
+            // Campo 'display' formateado para el autocompletado del frontend
+            'display' => $this->nombre . ' ' . $this->apellido . ' - ' . $this->dni
+        ];
     }
 }

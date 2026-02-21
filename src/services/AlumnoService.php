@@ -90,7 +90,7 @@ class AlumnoService implements IAlumnoService
         return $this->repositoryGibbon::getStudentNameByDNI($connection2, $studentDni);
     }
 
-    public function searchStudents($searchTerm)
+    public function searchStudents($searchTerm): array
     {
         global $connection2;
         return $this->repositoryGibbon::searchStudents($connection2, $searchTerm, 10);

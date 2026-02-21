@@ -63,6 +63,16 @@ class NotasService implements INotasService
         $totalPaginas = ceil($totalMaterias / $materiasPorPagina);
         $paginaActual = max(1, min($paginaActual, $totalPaginas));
         $offset = ($paginaActual - 1) * $materiasPorPagina;
-        return array_slice($materias, $offset, $materiasPorPagina);
+
+        return [
+            'materias' => array_slice($materias, $offset, $materiasPorPagina),
+            'pagination' => [
+                'totalItems' => $totalMaterias,
+                'totalPages' => $totalPaginas,
+                'currentPage' => $paginaActual,
+                'perPage' => $materiasPorPagina,
+                'offset' => $offset
+            ]
+        ];
     }
 }

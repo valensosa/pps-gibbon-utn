@@ -5,7 +5,7 @@
  * Espera las variables: $student, $pagination
  */
 
-$materias = $pagination['data'];
+$materias = $result['materias'] ?? [];
 $totalPaginas = $pagination['totalPages'];
 $paginaActual = $pagination['currentPage'];
 $offset = $pagination['offset'];
@@ -60,18 +60,18 @@ $materiasPorPagina = $pagination['perPage'];
                 $queryParams = $_GET;
 
                 if ($paginaActual > 1) {
-                    $queryParams['page_' . $student['dni']] = $paginaActual - 1;
+                    $queryParams['page'] = $paginaActual - 1;
                     echo '<a href="?' . http_build_query($queryParams) . '" class="button">&laquo; Anterior</a>';
                 }
 
                 for ($i = 1; $i <= $totalPaginas; $i++) {
-                    $queryParams['page_' . $student['dni']] = $i;
+                    $queryParams['page'] = $i;
                     $activeClass = ($i == $paginaActual) ? 'active' : '';
                     echo '<a href="?' . http_build_query($queryParams) . '" class="button ' . $activeClass . '">' . $i . '</a>';
                 }
 
                 if ($paginaActual < $totalPaginas) {
-                    $queryParams['page_' . $student['dni']] = $paginaActual + 1;
+                    $queryParams['page'] = $paginaActual + 1;
                     echo '<a href="?' . http_build_query($queryParams) . '" class="button">Siguiente &raquo;</a>';
                 }
                 ?>

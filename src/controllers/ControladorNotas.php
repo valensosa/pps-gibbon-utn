@@ -83,7 +83,7 @@ class ControladorNotas
         ];
     }
 
-    public function searchStudents($request)
+    public function searchStudents($request): array
     {
         $q = $request['q'] ?? '';
         if (strlen($q) < 2) {
