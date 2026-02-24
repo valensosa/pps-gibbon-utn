@@ -3,6 +3,7 @@
 namespace App\services;
 
 use App\services\IAlumnoService;
+use App\domain\Materia;
 
 class NotasService implements INotasService
 {
@@ -27,7 +28,28 @@ class NotasService implements INotasService
             return null;
         }
 
-        $materias = $studentData['materias'];
+        // Convertir arrays a objetos Materia
+        $materias = [];
+        foreach ($studentData['materias'] as $materiaData) {
+            // AlumnoService mezcla datos del alumno (strings) con materias (arrays), filtramos aquí
+            if (!is_array($materiaData)) {
+                continue;
+            }
+
+            $tituloAraucano = $materiaData['titulo_araucano'] ?? '';
+            $tituloNombre = $materiaData['titulo_nombre'] ?? '';
+            $planVigente = $materiaData['plan_vigente'] ?? '';
+            $actividadNombre = $materiaData['actividad_nombre'] ?? '';
+            $actividadCodigo = $materiaData['actividad_codigo'] ?? '';
+            $fecha = isset($materiaData['fecha']) ? $materiaData['fecha'] : '';
+            $nota = isset($materiaData['nota']) ? (string)$materiaData['nota'] : '';
+            $resultado = $materiaData['resultado'] ?? '';
+            $promedio = $materiaData['promedio'] ?? '';
+            $formaAprobacion = $materiaData['forma_aprobacion'] ?? '';
+            $esOptativa = $materiaData['es_optativa'] ?? '';
+
+            $materias[] = new Materia($tituloAraucano, $tituloNombre, $planVigente, $actividadNombre, $actividadCodigo, $fecha, $nota, $resultado, $promedio, $formaAprobacion, $esOptativa);
+        }
 
         $this->sortMateriasByDateDesc($materias);
 
@@ -40,9 +62,9 @@ class NotasService implements INotasService
     // Ordenar materias por fecha (descendente - más reciente primero)
     public function sortMateriasByDateDesc($materias)
     {
-        usort($materias, function ($a, $b) {
-            $fechaA = strtotime($a['fecha'] ?? '1970-01-01');
-            $fechaB = strtotime($b['fecha'] ?? '1970-01-01');
+        usort($materias, function (Materia $a, Materia $b) {
+            $fechaA = strtotime($a->getFecha() ?: '1970-01-01');
+            $fechaB = strtotime($b->getFecha() ?: '1970-01-01');
             return $fechaB <=> $fechaA; // Descendente
         });
         return $materias;
@@ -51,8 +73,8 @@ class NotasService implements INotasService
     // Filtrar solo materias con actividad_nombre
     public function filterMateriasWithActividad($materias)
     {
-        return array_filter($materias, function ($materia) {
-            return !empty($materia['actividad_nombre']);
+        return array_filter($materias, function (Materia $materia) {
+            return !empty($materia->getActividadNombre());
         });
     }
 

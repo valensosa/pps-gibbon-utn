@@ -2,42 +2,49 @@
 
 namespace App\domain;
 
-class Materia
+use JsonSerializable;
+
+class Materia implements JsonSerializable
 {
-    private int $id;
-    private string $nombre;
-    private int $tituloAraucano;
+    private string $tituloAraucano;
     private string $tituloNombre;
     private string $planVigente;
-    private bool $optativa;
+    private string $actividadNombre;
+    private string $actividadCodigo;
+    private string $fecha;
+    private string $nota;
+    private string $resultado;
+    private string $promedio;
+    private string $formaAprobacion;
+    private string $esOptativa;
 
     public function __construct(
-        int $id,
-        string $nombre,
-        int $tituloAraucano,
+        string $tituloAraucano,
         string $tituloNombre,
         string $planVigente,
-        bool $optativa
+        string $actividadNombre,
+        string $actividadCodigo,
+        string $fecha,
+        string $nota,
+        string $resultado,
+        string $promedio,
+        string $formaAprobacion,
+        string $esOptativa
     ) {
-        $this->id = $id;
-        $this->nombre = $nombre;
         $this->tituloAraucano = $tituloAraucano;
         $this->tituloNombre = $tituloNombre;
         $this->planVigente = $planVigente;
-        $this->optativa = $optativa;
+        $this->actividadNombre = $actividadNombre;
+        $this->actividadCodigo = $actividadCodigo;
+        $this->fecha = $fecha;
+        $this->nota = $nota;
+        $this->resultado = $resultado;
+        $this->promedio = $promedio;
+        $this->formaAprobacion = $formaAprobacion;
+        $this->esOptativa = $esOptativa;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getNombre(): string
-    {
-        return $this->nombre;
-    }
-
-    public function getTituloAraucano(): int
+    public function getTituloAraucano(): string
     {
         return $this->tituloAraucano;
     }
@@ -52,38 +59,61 @@ class Materia
         return $this->planVigente;
     }
 
-    public function isOptativa(): bool
+    public function getActividadNombre(): string
     {
-        return $this->optativa;
+        return $this->actividadNombre;
     }
 
-    public function setId(int $id): void
+    public function getActividadCodigo(): string
     {
-        $this->id = $id;
+        return $this->actividadCodigo;
     }
 
-    public function setNombre(string $nombre): void
+    public function getFecha(): string
     {
-        $this->nombre = $nombre;
+        return $this->fecha;
     }
 
-    public function setTituloAraucano(int $tituloAraucano): void
+    public function getNota(): string
     {
-        $this->tituloAraucano = $tituloAraucano;
+        return $this->nota;
     }
 
-    public function setTituloNombre(string $tituloNombre): void
+    public function getResultado(): string
     {
-        $this->tituloNombre = $tituloNombre;
+        return $this->resultado;
     }
 
-    public function setPlanVigente(string $planVigente): void
+    public function getPromedio(): string
     {
-        $this->planVigente = $planVigente;
+        return $this->promedio;
     }
 
-    public function setOptativa(bool $optativa): void
+    public function getFormaAprobacion(): string
     {
-        $this->optativa = $optativa;
+        return $this->formaAprobacion;
+    }
+
+    public function getEsOptativa(): string
+    {
+        return $this->esOptativa;
+    }
+
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
+    {
+        return [
+            'titulo_araucano' => $this->tituloAraucano,
+            'titulo_nombre' => $this->tituloNombre,
+            'plan_vigente' => $this->planVigente,
+            'actividad_nombre' => $this->actividadNombre,
+            'actividad_codigo' => $this->actividadCodigo,
+            'fecha' => $this->fecha,
+            'nota' => $this->nota,
+            'resultado' => $this->resultado,
+            'promedio' => $this->promedio,
+            'forma_aprobacion' => $this->formaAprobacion,
+            'es_optativa' => $this->esOptativa
+        ];
     }
 }
