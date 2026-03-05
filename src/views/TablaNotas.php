@@ -57,22 +57,17 @@ $materiasPorPagina = $pagination['perPage'];
         <?php if ($totalPaginas > 1): ?>
             <div class="pagination-controls">
                 <?php
-                $queryParams = $_GET;
-
                 if ($paginaActual > 1) {
-                    $queryParams['page'] = $paginaActual - 1;
-                    echo '<a href="?' . http_build_query($queryParams) . '" class="button">&laquo; Anterior</a>';
+                    echo '<a href="javascript:void(0)" onclick="loadPage(' . ($paginaActual - 1) . ')" class="button">&laquo; Anterior</a>';
                 }
 
                 for ($i = 1; $i <= $totalPaginas; $i++) {
-                    $queryParams['page'] = $i;
                     $activeClass = ($i == $paginaActual) ? 'active' : '';
-                    echo '<a href="?' . http_build_query($queryParams) . '" class="button ' . $activeClass . '">' . $i . '</a>';
+                    echo '<a href="javascript:void(0)" onclick="loadPage(' . $i . ')" class="button ' . $activeClass . '">' . $i . '</a>';
                 }
 
                 if ($paginaActual < $totalPaginas) {
-                    $queryParams['page'] = $paginaActual + 1;
-                    echo '<a href="?' . http_build_query($queryParams) . '" class="button">Siguiente &raquo;</a>';
+                    echo '<a href="javascript:void(0)" onclick="loadPage(' . ($paginaActual + 1) . ')" class="button">Siguiente &raquo;</a>';
                 }
                 ?>
             </div>
