@@ -1,0 +1,22 @@
+# Archivos de configuración con credenciales reales
+utn_api_config.php
+
+# Logs de la API
+logs/
+*.log
+
+# Caché
+cache/
+*.cache
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de configuración local
+config.local.php
+.env
+
+# Archivos de backup
+*.bak
+*.backup 

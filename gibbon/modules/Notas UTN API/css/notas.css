@@ -1,0 +1,389 @@
+/* Table styles */
+.notas-module .dataTable {
+    width: 100% !important;
+    margin: 0 auto !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+
+.notas-module .dataTable th,
+.notas-module .dataTable td {
+    padding: 0.75rem 0 !important;
+    font-size: 0.95rem;
+    vertical-align: middle !important;
+    text-align: center !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 3.5rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Asegurar que los encabezados tengan el mismo tratamiento que las celdas */
+.notas-module .dataTable th {
+    display: table-cell !important;
+    background-color: #935EE1 !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 0 !important;
+}
+
+/* Asegurar que el contenido dentro de las celdas esté centrado */
+.notas-module .dataTable td > *,
+.notas-module .dataTable th > * {
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: inherit;
+    width: 100%;
+    text-align: center !important;
+}
+
+/* Button styles */
+.notas-module .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    border: 1px solid transparent;
+    min-height: 2.5rem;
+    min-width: 80px;
+}
+
+.notas-module .button--primary {
+    background-color: #935EE1;
+    color: white;
+    border-color: #935EE1;
+}
+
+.notas-module .button--primary:hover {
+    background-color: #7a3fd1;
+    border-color: #7a3fd1;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.2);
+}
+
+/* Search form styles */
+.notas-module .search-form {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 1em;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.notas-module .search-box {
+    position: relative;
+    flex: 1;
+}
+
+.notas-module .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    z-index: 2;
+}
+
+.notas-module .search-input {
+    width: 100%;
+    padding: 8px 12px 8px 40px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.notas-module .search-input:focus {
+    outline: none;
+    border-color: #935EE1;
+    box-shadow: 0 0 0 2px rgba(147, 94, 225, 0.1);
+}
+
+/* Autocomplete styles */
+.autocomplete-container {
+    position: relative;
+    width: 100%;
+}
+
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.autocomplete-item:hover {
+    background-color: #f8f4fe;
+}
+
+.autocomplete-item.selected {
+    background-color: #935EE1;
+    color: white;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item .student-name {
+    font-weight: 500;
+}
+
+.autocomplete-item .student-dni {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.autocomplete-item.selected .student-dni {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Alert styles */
+.alert {
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Content block styles */
+.content-block {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.content-block h2 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.content-block h2 small {
+    color: #6c757d;
+    font-weight: 400;
+    font-size: 0.875rem;
+}
+
+/* Table responsive */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+.grades-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.grades-table thead tr,
+.grades-table thead th,
+.grades-table thead tr th {
+    background-color: #935EE1 !important;
+    color: #fff !important;
+    font-weight: 600;
+    padding: 12px 8px;
+    border: none;
+}
+
+.grades-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.grades-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.grades-table td {
+    padding: 12px 8px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+}
+
+/* Table styles - similar to Constancias de Examen */
+.notas-module .grades-table {
+    width: 100% !important;
+    margin: 0 auto !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+
+.notas-module .grades-table th,
+.notas-module .grades-table td {
+    padding: 0.75rem 0 !important;
+    font-size: 0.95rem;
+    vertical-align: middle !important;
+    text-align: center !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 3.5rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Permitir saltos de línea en columnas con texto largo */
+.notas-module .grades-table td:nth-child(1), /* Título Araucano */
+.notas-module .grades-table td:nth-child(2), /* Título Nombre */
+.notas-module .grades-table td:nth-child(4) { /* Actividad */
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    min-height: 3.5rem !important;
+    height: auto !important;
+    max-width: 0; /* Permite que la celda se expanda */
+}
+
+/* Asegurar que los encabezados tengan el mismo tratamiento que las celdas */
+.notas-module .grades-table th {
+    display: table-cell !important;
+    background-color: #935EE1 !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 0 !important;
+}
+
+/* Permitir saltos de línea en encabezados de columnas con texto largo */
+.notas-module .grades-table th:nth-child(1), /* Título Araucano */
+.notas-module .grades-table th:nth-child(2), /* Título Nombre */
+.notas-module .grades-table th:nth-child(4) { /* Actividad */
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    min-height: 3.5rem !important;
+    height: auto !important;
+}
+
+/* Asegurar que el contenido dentro de las celdas esté centrado */
+.notas-module .grades-table td > *,
+.notas-module .grades-table th > * {
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: inherit;
+    width: 100%;
+    text-align: center !important;
+}
+
+/* Pagination styles */
+.pagination-controls {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination-controls .button {
+    margin: 0 5px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #935EE1;
+    border: 1px solid #935EE1;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.pagination-controls .button:hover {
+    background-color: #935EE1;
+    color: white;
+}
+
+.pagination-controls .button.active {
+    background-color: #935EE1;
+    color: white;
+    border-color: #935EE1;
+}
+
+.pagination-controls .button:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .notas-module .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .notas-module .search-box {
+        margin-bottom: 0.5rem;
+    }
+    
+    .content-block {
+        padding: 1rem;
+    }
+    
+    .notas-module .grades-table {
+        font-size: 0.875rem;
+    }
+    
+    .notas-module .grades-table th,
+    .notas-module .grades-table td {
+        padding: 8px 4px;
+    }
+} 
