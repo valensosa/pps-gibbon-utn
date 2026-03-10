@@ -45,11 +45,8 @@
         <?php if ($totalPaginas > 1): ?>
             <div class="pagination-controls">
                 <?php
-                $queryParams = $_GET;
-
                 if ($paginaActual > 1) {
-                    $queryParams['page'] = $paginaActual - 1;
-                    echo '<a href="javascript:void(0)" onclick="loadPage(' . $queryParams['page'] . ')" class="button">&laquo; Anterior</a>';
+                    echo '<a href="javascript:void(0)" onclick="loadPage(' . ($paginaActual - 1) . ')" class="button">&laquo; Anterior</a>';
                 }
 
                 for ($i = 1; $i <= $totalPaginas; $i++) {
@@ -58,8 +55,7 @@
                 }
 
                 if ($paginaActual < $totalPaginas) {
-                    $queryParams['page'] = $paginaActual + 1;
-                    echo '<a href="javascript:void(0)" onclick="loadPage(' . $queryParams['page'] . ')" class="button">Siguiente &raquo;</a>';
+                    echo '<a href="javascript:void(0)" onclick="loadPage(' . ($paginaActual + 1) . ')" class="button">Siguiente &raquo;</a>';
                 }
                 ?>
             </div>

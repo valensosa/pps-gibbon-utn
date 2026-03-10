@@ -2,25 +2,25 @@
 
 namespace App;
 
-use App\services\AlumnoService;
-use App\services\NotasService;
+use App\services\IAlumnoService;
+use App\services\INotasService;
 use App\controllers\ControladorNotas;
-use App\infrastructure\repository\AlumnosRepository;
-use App\infrastructure\repository\GibbonAlumnoRepository;
+use App\infrastructure\repository\IAlumnosRepository;
+use App\infrastructure\repository\IGibbonAlumnoRepository;
 
 class DependencyFactory
 {
 
     /**
-     * Crea y configura una instancia de AlumnoService con todas sus dependencias.
+     * Crea y configura una instancia de IAlumnoService con todas sus dependencias.
      * 
-     * @return AlumnoService
+     * @return IAlumnoService
      */
-    public static function createAlumnoService(): AlumnoService
+    public static function createAlumnoService(): IAlumnoService
     {
-        $repositoryGib = new GibbonAlumnoRepository();
-        $repositoryUtn = new AlumnosRepository();
-        return new AlumnoService($repositoryGib, $repositoryUtn);
+        $repositoryGib = new IGibbonAlumnoRepository();
+        $repositoryUtn = new IAlumnosRepository();
+        return new IAlumnoService($repositoryGib, $repositoryUtn);
     }
 
     /**
@@ -31,7 +31,7 @@ class DependencyFactory
     public static function createControladorNotas(): ControladorNotas
     {
         $alumnoService = self::createAlumnoService();
-        $notasService = new NotasService($alumnoService);
+        $notasService = new INotasService($alumnoService);
 
         return new ControladorNotas($notasService, $alumnoService);
     }

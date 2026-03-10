@@ -9,7 +9,9 @@
 
 namespace App\infrastructure\repository;
 
-class GibbonAlumnoRepository
+use App\domain\Alumno;
+
+class GibbonAlumnoRepository implements IGibbonAlumnoRepository
 {
 
     /**
@@ -44,7 +46,7 @@ class GibbonAlumnoRepository
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 error_log("No se encontró el tipo de documento 'Documento'");
                 return null;
@@ -86,7 +88,7 @@ class GibbonAlumnoRepository
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 error_log("No se encontró el tipo de documento 'Documento'");
                 return null;
@@ -128,11 +130,11 @@ class GibbonAlumnoRepository
      * @param int $limit Límite de resultados (default: 10)
      * @return array Array de estudiantes encontrados
      */
-    public static function searchStudents($connection2, $searchTerm, $limit = 10)
+    public static function searchStudents($connection2, $searchTerm, $limit = 10): array
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 error_log("No se encontró el tipo de documento 'Documento'");
                 return [];
@@ -144,7 +146,7 @@ class GibbonAlumnoRepository
                 'tipoID' => $tipoID
             ];
 
-            $sql = "SELECT p.gibbonPersonID, p.firstName, p.surname, pd.documentNumber 
+            $sql = "SELECT p.gibbonPersonID, p.firstName, p.surname, p.email, pd.documentNumber
                     FROM gibbonPerson p
                     JOIN gibbonPersonalDocument pd ON (pd.foreignTable = 'gibbonPerson' AND pd.foreignTableID = p.gibbonPersonID)
                     WHERE pd.gibbonPersonalDocumentTypeID = :tipoID 
@@ -157,13 +159,13 @@ class GibbonAlumnoRepository
 
             $students = [];
             while ($row = $result->fetch()) {
-                $student = [
-                    'id' => $row['gibbonPersonID'],
-                    'firstName' => $row['firstName'],
-                    'surname' => $row['surname'],
-                    'dni' => $row['documentNumber'],
-                    'display' => $row['firstName'] . ' ' . $row['surname'] . ' - ' . $row['documentNumber']
-                ];
+                $student = new Alumno(
+                    (int)$row['gibbonPersonID'],
+                    $row['documentNumber'],
+                    $row['firstName'],
+                    $row['surname'],
+                    $row['email']
+                );
 
                 $students[] = $student;
             }
@@ -227,13 +229,13 @@ class GibbonAlumnoRepository
      * 
      * @param object $connection2 Conexión a la base de datos
      * @param string $dni DNI del estudiante
-     * @return array|null Array con información completa del estudiante
+     * @return Alumno|null Objeto Alumno o null
      */
-    public static function getStudentInfoByDNI($connection2, $dni)
+    public static function getStudentInfoByDNI($connection2, $dni): ?Alumno
     {
         try {
             // Obtener el ID del tipo de documento
-            $tipoID = self::getDocumentTypeID($connection2);
+            $tipoID = IGibbonAlumnoRepository::getDocumentTypeID($connection2);
             if (!$tipoID) {
                 return null;
             }
@@ -254,13 +256,13 @@ class GibbonAlumnoRepository
 
             $row = $result->fetch();
             if ($row) {
-                return [
-                    'gibbonPersonID' => $row['gibbonPersonID'],
-                    'firstName' => $row['firstName'],
-                    'surname' => $row['surname'],
-                    'email' => $row['email'],
-                    'dni' => $row['documentNumber']
-                ];
+                return new Alumno(
+                    (int)$row['gibbonPersonID'],
+                    $row['documentNumber'],
+                    $row['firstName'],
+                    $row['surname'],
+                    $row['email']
+                );
             }
 
             return null;

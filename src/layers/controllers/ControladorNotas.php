@@ -2,14 +2,15 @@
 
 namespace App\controllers;
 
-use App\services\NotasService;
-use App\services\AlumnoService;
+use App\services\INotasService;
+use App\services\IAlumnoService;
+use App\domain\Materia;
 
 class ControladorNotas
 {
     private $notasService;
     private $alumnoService;
-    public function __construct(NotasService $notasService, AlumnoService $alumnoService)
+    public function __construct(INotasService $notasService, IAlumnoService $alumnoService)
     {
         $this->notasService = $notasService;
         $this->alumnoService = $alumnoService;
@@ -71,6 +72,11 @@ class ControladorNotas
             return ['error' => 'No se encontraron notas para el DNI ingresado.'];
         }
 
+        // Convertir objetos Materia a arrays para mantener consistencia en la respuesta
+        $materiasArray = array_map(function ($materia) {
+            return $materia instanceof Materia ? $materia->jsonSerialize() : $materia;
+        }, $result['materias']);
+
         return [
             'success' => true,
             'student' => [
@@ -78,12 +84,12 @@ class ControladorNotas
                 'nombre' => $alumno['nombre'] ?? '',
                 'apellido' => $alumno['apellido'] ?? ''
             ],
-            'materias' => $result['materias'],
+            'materias' => $materiasArray,
             'pagination' => $result['pagination']
         ];
     }
 
-    public function searchStudents($request)
+    public function searchStudents($request): array
     {
         $q = $request['q'] ?? '';
         if (strlen($q) < 2) {
