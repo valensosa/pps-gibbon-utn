@@ -2,72 +2,59 @@
 
 namespace App\Controllers;
 
+use App\Infrastructure\Repository\StudentRepository;
+use App\Infrastructure\Repository\FirestoreRepository;
+
 class TableController
 {
+    private StudentRepository $studentRepo;
+    private FirestoreRepository $firestoreRepo;
+
+    public function __construct(StudentRepository $studentRepo, FirestoreRepository $firestoreRepo)
+    {
+        $this->studentRepo   = $studentRepo;
+        $this->firestoreRepo = $firestoreRepo;
+    }
+
     public function handle(): string
     {
-        global $connection2;
-
-        // 🔹 1. Obtener parámetros
-        $gibbonPersonID = $_GET['gibbonPersonID'] ?? null;
-        $pageNumber = $_GET['page'] ?? 1;
+        $gibbonPersonID = isset($_GET['gibbonPersonID']) ? (int) $_GET['gibbonPersonID'] : null;
+        $pageNumber     = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
         if (!$gibbonPersonID) {
             return '<div class="alert alert-danger">No se pudo identificar al estudiante.</div>';
         }
 
-        // 🔹 2. Obtener tipo de documento
-        $sqlTipo = "SELECT gibbonPersonalDocumentTypeID 
-                    FROM gibbonPersonalDocumentType 
-                    WHERE name = 'Documento'";
-        $stmtTipo = $connection2->prepare($sqlTipo);
-        $stmtTipo->execute();
-        $tipoRow = $stmtTipo->fetch();
+        $dni = $this->studentRepo->getDniByPersonId($gibbonPersonID);
 
-        if (!$tipoRow) {
-            return '<div class="alert alert-danger">No se encontró el tipo de documento.</div>';
+        if (!$dni) {
+            return '<div class="alert alert-danger">No se encontró el documento del estudiante.</div>';
         }
 
-        $tipoID = $tipoRow['gibbonPersonalDocumentTypeID'];
+        $docs = $this->firestoreRepo->getByDni($dni);
 
-        // 🔹 3. Obtener DNI
-        $sqlDoc = "SELECT documentNumber 
-                   FROM gibbonPersonalDocument 
-                   WHERE foreignTable = 'gibbonPerson' 
-                   AND foreignTableID = :gibbonPersonID 
-                   AND gibbonPersonalDocumentTypeID = :tipoID 
-                   LIMIT 1";
+        $tableData = array_map(function ($doc) {
+            $data = FirestoreRepository::parseDocument($doc);
+            $data['constanciaId'] = FirestoreRepository::getDocumentId($doc);
+            return $data;
+        }, $docs);
 
-        $stmtDoc = $connection2->prepare($sqlDoc);
-        $stmtDoc->execute([
-            'gibbonPersonID' => $gibbonPersonID,
-            'tipoID' => $tipoID
-        ]);
+        $tableData = $this->sort($tableData);
 
-        if ($stmtDoc->rowCount() != 1) {
-            return '<div class="alert alert-danger">No se encontró el documento.</div>';
-        }
+        [$paginatedData, $pageNumber, $totalPages] = $this->paginate($tableData, $pageNumber);
 
-        $dniAlumno = $stmtDoc->fetch()['documentNumber'];
+        return $this->render($paginatedData, $pageNumber, $totalPages);
+    }
 
-        // 🔹 4. Obtener constancias (Firestore)
-        $constancias = getStudentConstancias($dniAlumno);
+    // ─────────────────────────────────────────
+    // Privados
+    // ─────────────────────────────────────────
 
-        $tableData = [];
-        foreach ($constancias as $doc) {
-            $data = parseFirestoreDocument($doc);
-            $data['constanciaId'] = getFirestoreDocumentId($doc);
-            $tableData[] = $data;
-        }
+    private function sort(array $data): array
+    {
+        $statusOrder = ['pendiente' => 1, 'completado' => 2, 'rechazado' => 3];
 
-        // 🔹 5. Ordenar
-        usort($tableData, function ($a, $b) {
-            $statusOrder = [
-                'pendiente' => 1,
-                'completado' => 2,
-                'rechazado' => 3,
-            ];
-
+        usort($data, function ($a, $b) use ($statusOrder) {
             $aOrder = $statusOrder[$a['estado']] ?? 99;
             $bOrder = $statusOrder[$b['estado']] ?? 99;
 
@@ -75,32 +62,26 @@ class TableController
                 return $aOrder <=> $bOrder;
             }
 
-            $aDate = strtotime($a['fechaPedido'] ?? 0);
-            $bDate = strtotime($b['fechaPedido'] ?? 0);
-
-            return $bDate <=> $aDate;
+            return strtotime($b['fechaPedido'] ?? 0) <=> strtotime($a['fechaPedido'] ?? 0);
         });
 
-        // 🔹 6. Paginación
-        $rowsPerPage = 10;
-        $totalRows = count($tableData);
-        $totalPages = ceil($totalRows / $rowsPerPage);
+        return $data;
+    }
 
+    private function paginate(array $data, int $pageNumber, int $rowsPerPage = 10): array
+    {
+        $totalRows  = count($data);
+        $totalPages = max(1, (int) ceil($totalRows / $rowsPerPage));
         $pageNumber = max(1, min($pageNumber, $totalPages));
-        $offset = ($pageNumber - 1) * $rowsPerPage;
+        $offset     = ($pageNumber - 1) * $rowsPerPage;
 
-        $paginatedData = array_slice($tableData, $offset, $rowsPerPage);
-
-        // 🔹 7. Render
-        return $this->render($paginatedData, $pageNumber, $totalPages);
+        return [array_slice($data, $offset, $rowsPerPage), $pageNumber, $totalPages];
     }
 
     private function render(array $paginatedData, int $pageNumber, int $totalPages): string
     {
         ob_start();
-
-        include __DIR__ . '/../views/table.view.php';
-
+        include __DIR__ . '/../views/table_view.php';
         return ob_get_clean();
     }
 }

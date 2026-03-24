@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Infrastructure\Repository;
 class StudentRepository
 {
     private PDO $connection;
