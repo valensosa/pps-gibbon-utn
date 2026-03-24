@@ -1,20 +1,28 @@
 <?php
-namespace App\Services
+
+namespace App\Services;
+
+use App\Infrastructure\Repository\FirestoreRepository;
+
 class AdminConstanciasService
 {
-    private ConstanciasRepository $repo;
+    private FirestoreRepository $repo;
 
-    public function __construct(ConstanciasRepository $repo)
+    public function __construct(FirestoreRepository $repo)
     {
         $this->repo = $repo;
     }
 
     public function getViewData(): array
     {
-        $solicitudes = $this->repo->getAllPendingRequests();
+        $docs = $this->repo->getAll();
 
-        return [
-            'solicitudes' => $solicitudes
-        ];
+        $solicitudes = array_map(function ($doc) {
+            $data = FirestoreRepository::parseDocument($doc);
+            $data['constanciaId'] = FirestoreRepository::getDocumentId($doc);
+            return $data;
+        }, $docs);
+
+        return ['solicitudes' => $solicitudes];
     }
 }
