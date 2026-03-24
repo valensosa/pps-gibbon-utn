@@ -147,4 +147,41 @@ class StudentRepository
 
         return $row ?: null;
     }
+    /**
+ * Busca materias por nombre o código
+ */
+    public function searchCourses(string $searchTerm): array
+    {
+        $checkTable = "SHOW TABLES LIKE 'gibbonCourse'";
+        $stmt = $this->connection->prepare($checkTable);
+        $stmt->execute();
+
+        if ($stmt->rowCount() === 0) {
+            return [];
+        }
+
+        $sql = "
+            SELECT gibbonCourseID, name, nameShort
+            FROM gibbonCourse
+            WHERE (name LIKE :searchTerm OR nameShort LIKE :searchTerm)
+            ORDER BY name ASC
+            LIMIT 10
+        ";
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
+
+        $courses = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $courses[] = [
+                'id'          => $row['gibbonCourseID'],
+                'name'        => $row['name'],
+                'code'        => $row['nameShort'] ?? '',
+                'description' => '',
+                'display'     => $row['name'] . ($row['nameShort'] ? ' (' . $row['nameShort'] . ')' : '')
+            ];
+        }
+
+        return $courses;
+    }
 }
