@@ -1,5 +1,9 @@
 <?php
+
 namespace App\Controllers;
+
+use App\Services\AdminConstanciasService;
+use App\Infrastructure\Repository\FirestoreRepository;
 
 class AdminConstanciasController
 {
@@ -8,14 +12,12 @@ class AdminConstanciasController
     private $page;
     private $guid;
 
-    public function __construct(PDO $connection, $session, $page, $guid)
+    public function __construct($session, $page, $guid, FirestoreRepository $firestoreRepo)
     {
-        $repo = new ConstanciasRepository($connection);
-        $this->service = new AdminConstanciasService($repo);
-
+        $this->service = new AdminConstanciasService($firestoreRepo);
         $this->session = $session;
-        $this->page = $page;
-        $this->guid = $guid;
+        $this->page    = $page;
+        $this->guid    = $guid;
     }
 
     public function handle(): void
@@ -31,12 +33,11 @@ class AdminConstanciasController
 
         try {
             $data = $this->service->getViewData();
-
             $solicitudes = $data['solicitudes'];
 
             require __DIR__ . '/../views/admin_constancias_view.php';
 
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->page->addError(__($e->getMessage()));
         }
     }
