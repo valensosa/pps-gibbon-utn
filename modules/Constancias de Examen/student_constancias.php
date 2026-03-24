@@ -1,9 +1,20 @@
 <?php
-require_once __DIR__ . '/../../../gibbon.php';
-// Include the student view
-$studentViewFile = __DIR__ . '/studentView/student_constancias.php';
-if (file_exists($studentViewFile)) {
-    include $studentViewFile;
-} else {
-    echo "Error: No se pudo cargar la vista de estudiante.";
-} 
+
+require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
+
+use App\Controllers\StudentConstanciasController;
+use App\Infrastructure\Repository\FirestoreRepository;
+use App\Infrastructure\Repository\StudentRepository;
+
+$credentialsPath = __DIR__ . '/credentials/firebase-credentials.json';
+$firestoreRepo   = new FirestoreRepository($credentialsPath);
+$studentRepo     = new StudentRepository($connection2);
+
+$controller = new StudentConstanciasController(
+    $connection2,
+    $session,
+    $page,
+    $guid
+);
+
+$controller->handle();
