@@ -1,7 +1,5 @@
 <?php
-
-require_once __DIR__ . '/../services/admin_constancias_service.php';
-require_once __DIR__ . '/../infrastructure/repository/constancias_repository.php';
+namespace App\Controllers
 
 class AdminConstanciasController
 {
