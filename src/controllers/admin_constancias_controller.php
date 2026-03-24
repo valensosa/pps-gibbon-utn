@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\AdminConstanciasService;
 use App\Infrastructure\Repository\FirestoreRepository;
+use App\Infrastructure\Repository\StudentRepository;
 
 class AdminConstanciasController
 {
@@ -12,9 +13,9 @@ class AdminConstanciasController
     private $page;
     private $guid;
 
-    public function __construct($session, $page, $guid, FirestoreRepository $firestoreRepo)
+    public function __construct($session, $page, $guid, FirestoreRepository $firestoreRepo, StudentRepository $studentRepo)
     {
-        $this->service = new AdminConstanciasService($firestoreRepo);
+        $this->service = new AdminConstanciasService($firestoreRepo, $studentRepo);
         $this->session = $session;
         $this->page    = $page;
         $this->guid    = $guid;
@@ -32,7 +33,7 @@ class AdminConstanciasController
         }
 
         try {
-            $data = $this->service->getViewData();
+            $data        = $this->service->getViewData();
             $solicitudes = $data['solicitudes'];
 
             require __DIR__ . '/../views/admin_constancias_view.php';
