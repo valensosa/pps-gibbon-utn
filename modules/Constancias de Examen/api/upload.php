@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__DIR__, 4) . '/vendor/autoload.php';
-require_once dirname(__DIR__, 4) . '/gibbon.php';
+require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
+require_once dirname(__DIR__, 3) . '/gibbon.php';
 
 use App\Services\UploadService;
 use App\Services\AdminConstanciasService;
