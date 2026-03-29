@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\services;
 
-use App\Infrastructure\Repository\FirestoreRepository;
-use App\Infrastructure\Repository\StudentRepository;
+use App\infrastructure\repository\FirestoreRepository;
+use App\infrastructure\repository\StudentRepository;
 
 class AdminConstanciasService
 {

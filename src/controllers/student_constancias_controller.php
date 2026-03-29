@@ -1,8 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../services/student_constancias_service.php';
-require_once __DIR__ . '/../infraestructure/repositories/student_repository.php';
+namespace App\controllers;
 
+use App\services\StudentConstanciasService;
+use App\infrastructure\repository\StudentRepository;
 class StudentConstanciasController
 {
     private StudentConstanciasService $service;
@@ -22,7 +23,7 @@ class StudentConstanciasController
 
     public function handle(): void
     {
-        if (isActionAccessible($this->guid, $GLOBALS['connection2'], '/modules/Constancias de Examen/studentView/student_constancias.php') === false) {
+        if (isActionAccessible($this->guid, $GLOBALS['connection2'], '/modules/Constancias de Examen/student_constancias.php') === false) {
             $this->page->addError(__('No tiene acceso a esta acción.'));
             return;
         }

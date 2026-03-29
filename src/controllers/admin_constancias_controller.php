@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Services\AdminConstanciasService;
-use App\Infrastructure\Repository\FirestoreRepository;
-use App\Infrastructure\Repository\StudentRepository;
+use App\services\AdminConstanciasService;
+use App\infrastructure\repository\FirestoreRepository;
+use App\infrastructure\repository\StudentRepository;
 
 class AdminConstanciasController
 {

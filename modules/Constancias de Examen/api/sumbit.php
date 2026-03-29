@@ -3,8 +3,8 @@
 require_once dirname(__DIR__, 3) . '/gibbon.php';
 require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
 
-use App\Infrastructure\Repository\StudentRepository;
-use App\Infrastructure\Repository\FirestoreRepository;
+use App\infrastructure\repository\StudentRepository;
+use App\infrastructure\repository\FirestoreRepository;
 
 header('Content-Type: application/json');
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\Services
+namespace App\services
 class StudentConstanciasService
 {
     private StudentRepository $studentRepo;

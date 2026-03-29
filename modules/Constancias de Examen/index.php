@@ -3,10 +3,10 @@
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 require_once __DIR__ . '/moduleFunctions.php';
 
-use App\Infrastructure\Repository\StudentRepository;
-use App\Infrastructure\Repository\FirestoreRepository;
-use App\Controllers\AdminConstanciasController;
-use App\Controllers\StudentConstanciasController;
+use App\infrastructure\repository\StudentRepository;
+use App\infrastructure\repository\FirestoreRepository;
+use App\controllers\AdminConstanciasController;
+use App\controllers\StudentConstanciasController;
 
 $gibbonPersonID = (int) $session->get('gibbonPersonID');
 

@@ -2,9 +2,9 @@
 
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
-use App\Controllers\AdminConstanciasController;
-use App\Infrastructure\Repository\FirestoreRepository;
-use App\Infrastructure\Repository\StudentRepository;
+use App\controllers\AdminConstanciasController;
+use App\infrastructure\repository\FirestoreRepository;
+use App\infrastructure\repository\StudentRepository;
 
 $credentialsPath = __DIR__ . '/credentials/firebase-credentials.json';
 $firestoreRepo   = new FirestoreRepository($credentialsPath);

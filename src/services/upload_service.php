@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\services;
 
-use App\Infrastructure\Repository\FirestoreRepository;
+use App\infrastructure\repository\FirestoreRepository;
 
 class UploadService
 {

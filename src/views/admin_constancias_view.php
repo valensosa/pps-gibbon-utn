@@ -1,7 +1,7 @@
 <?php
 
 use Gibbon\Tables\DataTable;
-use App\Infrastructure\Repository\FirestoreRepository;
+use App\infrastructure\repository\FirestoreRepository;
 
 // CSS
 echo "<link rel='stylesheet' type='text/css' href='" . $session->get('absoluteURL') . "/modules/Constancias de Examen/css/admin.css' />";

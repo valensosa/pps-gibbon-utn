@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Infrastructure\Repository\StudentRepository;
-use App\Infrastructure\Repository\FirestoreRepository;
+use App\infrastructure\repository\StudentRepository;
+use App\infrastructure\repository\FirestoreRepository;
 
 class TableController
 {

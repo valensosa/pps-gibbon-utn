@@ -3,10 +3,10 @@
 require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
 require_once dirname(__DIR__, 3) . '/gibbon.php';
 
-use App\Services\UploadService;
-use App\Services\AdminConstanciasService;
-use App\Infrastructure\Repository\FirestoreRepository;
-use App\Infrastructure\Repository\StudentRepository;
+use App\services\UploadService;
+use App\services\AdminConstanciasService;
+use App\infrastructure\repository\FirestoreRepository;
+use App\infrastructure\repository\StudentRepository;
 use Gibbon\Tables\DataTable;
 
 header('Content-Type: application/json');
