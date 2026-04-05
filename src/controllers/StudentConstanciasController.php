@@ -34,7 +34,7 @@ class StudentConstanciasController
 
             $student = $data['student'];
             $dni = $data['dni'];
-
+            $session  = $this->session;
             require __DIR__ . '/../views/student_view.php';
 
         } catch (\RuntimeException $e) {
