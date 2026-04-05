@@ -2,9 +2,9 @@
 namespace App\infrastructure\repository;
 class StudentRepository
 {
-    private PDO $connection;
+    private \PDO $connection;
 
-    public function __construct(PDO $connection)
+    public function __construct(\PDO $connection)
     {
         $this->connection = $connection;
     }
@@ -31,7 +31,7 @@ class StudentRepository
         $stmt = $this->connection->prepare($sql);
         $stmt->execute(['id' => $gibbonPersonID]);
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $row ?: null;
     }
@@ -53,7 +53,7 @@ class StudentRepository
         $stmt = $this->connection->prepare($sql);
         $stmt->execute(['id' => $gibbonPersonID]);
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $row ? $row['name'] : null;
     }
@@ -73,7 +73,7 @@ class StudentRepository
 
         $stmtTipo = $this->connection->prepare($sqlTipo);
         $stmtTipo->execute();
-        $tipo = $stmtTipo->fetch(PDO::FETCH_ASSOC);
+        $tipo = $stmtTipo->fetch(\PDO::FETCH_ASSOC);
 
         if (!$tipo) {
             return null;
@@ -95,7 +95,7 @@ class StudentRepository
             'typeId'   => $tipo['gibbonPersonalDocumentTypeID']
         ]);
 
-        $row = $stmtDoc->fetch(PDO::FETCH_ASSOC);
+        $row = $stmtDoc->fetch(\PDO::FETCH_ASSOC);
 
         return $row ? $row['documentNumber'] : null;
     }
@@ -114,7 +114,7 @@ class StudentRepository
 
         $stmtTipo = $this->connection->prepare($sqlTipo);
         $stmtTipo->execute();
-        $tipo = $stmtTipo->fetch(PDO::FETCH_ASSOC);
+        $tipo = $stmtTipo->fetch(\PDO::FETCH_ASSOC);
 
         if (!$tipo) {
             return null;
@@ -143,7 +143,7 @@ class StudentRepository
             'tipoID'    => $tipo['gibbonPersonalDocumentTypeID']
         ]);
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $row ?: null;
     }
@@ -172,7 +172,7 @@ class StudentRepository
         $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
 
         $courses = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $courses[] = [
                 'id'          => $row['gibbonCourseID'],
                 'name'        => $row['name'],

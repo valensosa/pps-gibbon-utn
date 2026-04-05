@@ -11,7 +11,7 @@ class StudentConstanciasController
     private $page;
     private $guid;
 
-    public function __construct(PDO $connection, $session, $page, $guid)
+    public function __construct(\PDO $connection, $session, $page, $guid)
     {
         $studentRepo = new StudentRepository($connection);
         $this->service = new StudentConstanciasService($studentRepo);
@@ -37,7 +37,7 @@ class StudentConstanciasController
 
             require __DIR__ . '/../views/student_view.php';
 
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->page->addError(__($e->getMessage()));
         }
     }
