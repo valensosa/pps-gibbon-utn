@@ -1,7 +1,5 @@
 <?php
-
 require_once dirname(__DIR__, 3) . '/gibbon.php';
-require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
 
 use App\infrastructure\repository\StudentRepository;
 use App\infrastructure\repository\FirestoreRepository;
