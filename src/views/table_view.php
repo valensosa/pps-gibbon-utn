@@ -13,10 +13,10 @@ $table->addColumn('presentarAnte', __('Presentar Ante'))
     ->format(fn($row) => $row['presentarAnte'] ?? '');
 
 $table->addColumn('fechaExamen', __('Fecha del Examen'))
-    ->format(fn($row) => formatTimestamp($row['examen']['fechaExamen']));
+    ->format(fn($row) => \App\infrastructure\repository\FirestoreRepository::formatTimestamp($row['examen']['fechaExamen']));
 
 $table->addColumn('fechaPedido', __('Fecha de Solicitud'))
-    ->format(fn($row) => formatTimestamp($row['fechaPedido']));
+    ->format(fn($row) => \App\infrastructure\repository\FirestoreRepository::formatTimestamp($row['fechaPedido']));
 
 $table->addColumn('estado', __('Estado'))
     ->format(function ($row) {
