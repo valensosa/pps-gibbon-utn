@@ -35,7 +35,7 @@ class AdminConstanciasController
         try {
             $data        = $this->service->getViewData();
             $solicitudes = $data['solicitudes'];
-
+            $session     = $this->session;
             require __DIR__ . '/../views/admin_constancias_view.php';
 
         } catch (\RuntimeException $e) {
