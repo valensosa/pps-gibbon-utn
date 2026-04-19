@@ -91,11 +91,11 @@ echo "<link rel='stylesheet' type='text/css' href='" . $session->get('absoluteUR
 
         $table->addColumn('fechaExamen', __('Fecha del Examen'))
             ->setClass('text-center col-fecha-examen')
-            ->format(fn($row) => FirestoreRepository::formatTimestamp($row['examen']['fechaExamen']));
+            ->format(fn($row) => \App\infrastructure\repository\FirestoreRepository::formatTimestamp($row['examen']['fechaExamen']));
 
         $table->addColumn('fechaPedido', __('Fecha de Solicitud'))
             ->setClass('text-center col-fecha-solicitud')
-            ->format(fn($row) => FirestoreRepository::formatTimestamp($row['fechaPedido']));
+            ->format(fn($row) => \App\infrastructure\repository\FirestoreRepository::formatTimestamp($row['fechaPedido']));
 
         $table->addColumn('estado', __('Estado'))
             ->setClass('text-center col-estado')
