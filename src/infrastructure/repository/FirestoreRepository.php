@@ -98,7 +98,7 @@ class FirestoreRepository
     public function uploadPdf(string $constanciaId, string $dniAlumno, string $materia, string $filePath): string
     {
         $filename = $this->generatePdfFilename($dniAlumno, $materia);
-        $bucket   = 'constancias-examen-aac92.appspot.com';
+        $bucket   = 'constancias-examen-aac92.firebasestorage.app';
         $token    = $this->getAccessToken();
 
         $url = "https://storage.googleapis.com/upload/storage/v1/b/{$bucket}/o"
