@@ -59,7 +59,7 @@ foreach ($solicitudes as &$row) {
 unset($row);
 
 ob_start();
-include dirname(__DIR__, 3) . '/src/views/admin_constancias_view.php';
+include dirname(__DIR__, 3) . '/src/layers/views/admin_constancias_view.php';
 $response['tableHtml'] = ob_get_clean();
 
 echo json_encode($response);
