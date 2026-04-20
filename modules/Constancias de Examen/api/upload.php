@@ -13,7 +13,7 @@ $credentialsPath = dirname(__DIR__, 1) . '/credentials/firebase-credentials.json
 $firestoreRepo   = new FirestoreRepository($credentialsPath);
 $studentRepo     = new StudentRepository($connection2);
 $uploadService   = new UploadService($firestoreRepo);
-$adminService    = new AdminConstanciasService($firestoreRepo);
+$adminService = new AdminConstanciasService($firestoreRepo, $studentRepo);
 
 $response = ['success' => false, 'message' => '', 'tableHtml' => ''];
 
