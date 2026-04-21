@@ -1,6 +1,12 @@
 /* Table styles */
+.constancias-module #constanciasTableContainer {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .constancias-module .dataTable {
     width: 100% !important;
+    min-width: 1100px !important;
     margin: 0 auto !important;
     table-layout: fixed !important;
     border-collapse: collapse !important;
@@ -8,8 +14,8 @@
 
 .constancias-module .dataTable th,
 .constancias-module .dataTable td {
-    padding: 0.75rem 0 !important;
-    font-size: 0.95rem;
+    padding: 0.75rem 0.5rem !important;
+    font-size: 0.85rem;
     vertical-align: middle !important;
     text-align: center !important;
     overflow: hidden;
@@ -20,23 +26,23 @@
 }
 
 /* Definir anchos específicos para cada columna */
-.constancias-module .dataTable .col-estudiante { width: 15%; }
-.constancias-module .dataTable .col-dni { width: 10%; }
-.constancias-module .dataTable .col-email { width: 15%; }
-.constancias-module .dataTable .col-materia { width: 12%; }
-.constancias-module .dataTable .col-presentar-ante { width: 12%; }
-.constancias-module .dataTable .col-fecha-examen { width: 12%; }
-.constancias-module .dataTable .col-fecha-solicitud { width: 12%; }
-.constancias-module .dataTable .col-estado { width: 8%; }
-.constancias-module .dataTable .col-constancia { width: 8%; }
-.constancias-module .dataTable .col-acciones { width: 8%; }
+.constancias-module .dataTable .col-estudiante { width: 130px; }
+.constancias-module .dataTable .col-dni { width: 90px; }
+.constancias-module .dataTable .col-email { width: 150px; }
+.constancias-module .dataTable .col-materia { width: 150px; }
+.constancias-module .dataTable .col-presentar-ante { width: 110px; }
+.constancias-module .dataTable .col-fecha-examen { width: 100px; }
+.constancias-module .dataTable .col-fecha-solicitud { width: 100px; }
+.constancias-module .dataTable .col-estado { width: 80px; }
+.constancias-module .dataTable .col-constancia { width: 110px; }
+.constancias-module .dataTable .col-acciones { width: 80px; }
 
 /* Asegurar que los encabezados tengan el mismo tratamiento que las celdas */
 .constancias-module .dataTable th {
     display: table-cell !important;
     background-color: #f8f9fa !important;
     font-weight: 600 !important;
-    padding: 0.75rem 0 !important;
+    padding: 0.75rem 0.5rem !important;
 }
 
 /* Asegurar que el contenido dentro de las celdas esté centrado */
@@ -51,7 +57,6 @@
     width: 100%;
     text-align: center !important;
 }
-
 /* Status badges */
 .constancias-module .badge {
     display: inline-flex;
