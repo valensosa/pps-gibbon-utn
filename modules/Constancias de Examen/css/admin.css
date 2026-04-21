@@ -373,3 +373,27 @@
         display: none;
     }
 }
+@media (max-width: 1400px) {
+    .constancias-module .dataTable {
+        font-size: 0.78rem;
+    }
+
+    .constancias-module .dataTable th,
+    .constancias-module .dataTable td {
+        padding: 0.5rem 0.25rem !important;
+        font-size: 0.78rem;
+        height: 3rem !important;
+        line-height: 1.3 !important;
+    }
+
+    .constancias-module .dataTable .col-estudiante { width: 13%; }
+    .constancias-module .dataTable .col-dni { width: 9%; }
+    .constancias-module .dataTable .col-email { width: 13%; }
+    .constancias-module .dataTable .col-materia { width: 14%; }
+    .constancias-module .dataTable .col-presentar-ante { width: 10%; }
+    .constancias-module .dataTable .col-fecha-examen { width: 9%; }
+    .constancias-module .dataTable .col-fecha-solicitud { width: 9%; }
+    .constancias-module .dataTable .col-estado { width: 8%; }
+    .constancias-module .dataTable .col-constancia { width: 8%; }
+    .constancias-module .dataTable .col-acciones { width: 7%; }
+}
