@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(r => r.json())
         .then(data => {
             if (data.success) {
-                tableContainer.innerHTML = data.tableHtml;
+                window.location.reload();
             } else {
                 alert('Error: ' + data.message);
                 btn.disabled = false;
