@@ -312,3 +312,38 @@
 .badge {
     position: static !important;
 }
+/* Responsive */
+@media (max-width: 1024px) {
+    .constancias-module .dataTable .col-fecha-examen,
+    .constancias-module .dataTable .col-fecha-solicitud {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .constancias-module .dataTable {
+        font-size: 0.8rem;
+    }
+
+    .constancias-module .dataTable .col-presentar-ante {
+        display: none;
+    }
+
+    .constancias-module .dataTable th,
+    .constancias-module .dataTable td {
+        padding: 0.5rem 0 !important;
+        white-space: normal !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .constancias-module .dataTable .col-estado {
+        display: none;
+    }
+
+    .modal-constancia-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 15px;
+    }
+}

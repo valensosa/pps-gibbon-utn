@@ -347,3 +347,29 @@
     background-size: 16px 12px;
     min-width: 200px;
 } 
+@media (max-width: 768px) {
+    .constancias-module .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .constancias-module .search-form {
+        flex-direction: column;
+    }
+
+    .constancias-module .dataTable .col-email,
+    .constancias-module .dataTable .col-fecha-examen,
+    .constancias-module .dataTable .col-fecha-solicitud {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .constancias-module .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .constancias-module .dataTable .col-presentar-ante,
+    .constancias-module .dataTable .col-dni {
+        display: none;
+    }
+}
