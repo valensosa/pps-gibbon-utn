@@ -2,42 +2,41 @@
 .constancias-module #constanciasTableContainer {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 .constancias-module .dataTable {
     width: 100% !important;
-    min-width: 1100px !important;
     margin: 0 auto !important;
-    table-layout: fixed !important;
+    table-layout: auto !important;
     border-collapse: collapse !important;
 }
 
 .constancias-module .dataTable th,
 .constancias-module .dataTable td {
-    padding: 0.75rem 0.5rem !important;
-    font-size: 0.85rem;
+    padding: 0.5rem 0.4rem !important;
+    font-size: 0.82rem;
     vertical-align: middle !important;
     text-align: center !important;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    height: 3.5rem !important;
-    line-height: 1.5 !important;
+    height: 3rem !important;
+    line-height: 1.4 !important;
 }
 
-/* Definir anchos específicos para cada columna */
-.constancias-module .dataTable .col-estudiante { width: 130px; }
-.constancias-module .dataTable .col-dni { width: 90px; }
-.constancias-module .dataTable .col-email { width: 150px; }
-.constancias-module .dataTable .col-materia { width: 150px; }
-.constancias-module .dataTable .col-presentar-ante { width: 110px; }
-.constancias-module .dataTable .col-fecha-examen { width: 100px; }
-.constancias-module .dataTable .col-fecha-solicitud { width: 100px; }
-.constancias-module .dataTable .col-estado { width: 80px; }
-.constancias-module .dataTable .col-constancia { width: 110px; }
-.constancias-module .dataTable .col-acciones { width: 80px; }
+/* Anchos relativos para cada columna */
+.constancias-module .dataTable .col-estudiante      { width: 12%; }
+.constancias-module .dataTable .col-dni             { width: 8%; }
+.constancias-module .dataTable .col-email           { width: 14%; }
+.constancias-module .dataTable .col-materia         { width: 14%; }
+.constancias-module .dataTable .col-presentar-ante  { width: 10%; }
+.constancias-module .dataTable .col-fecha-examen    { width: 9%; }
+.constancias-module .dataTable .col-fecha-solicitud { width: 9%; }
+.constancias-module .dataTable .col-estado          { width: 8%; }
+.constancias-module .dataTable .col-constancia      { width: 10%; }
+.constancias-module .dataTable .col-acciones        { width: 8%; }
 
-/* Asegurar que los encabezados tengan el mismo tratamiento que las celdas */
 .constancias-module .dataTable th {
     display: table-cell !important;
     background-color: #f8f9fa !important;
@@ -45,7 +44,6 @@
     padding: 0.75rem 0.5rem !important;
 }
 
-/* Asegurar que el contenido dentro de las celdas esté centrado */
 .constancias-module .dataTable td > *,
 .constancias-module .dataTable th > * {
     margin: 0 auto;
@@ -57,6 +55,7 @@
     width: 100%;
     text-align: center !important;
 }
+
 /* Status badges */
 .constancias-module .badge {
     display: inline-flex;
@@ -90,23 +89,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 4px;
     font-weight: 500;
-    padding: 8px 16px;
+    padding: 6px 10px;
     border-radius: 6px;
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 0.82rem;
+    line-height: 1.4;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
     border: 1px solid transparent;
-    min-height: 2.5rem;
-    min-width: 80px;
+    min-height: 2rem;
+    min-width: 70px;
+    white-space: nowrap;
 }
 
 .button svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
 }
 
 /* Botón primario (Enviar) */
@@ -155,15 +155,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 8px 16px;
+    gap: 4px;
+    padding: 6px 10px;
     color: #935EE1;
     background-color: white;
     border: 1px solid #935EE1;
     border-radius: 6px;
-    font-size: 0.95rem;
+    font-size: 0.82rem;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    white-space: nowrap;
 }
 
 .button--upload:hover {
@@ -280,9 +281,9 @@
     color: #fff;
 }
 
-.constancias-module .stat-icon-wrapper.total { background-color: #a476e8; }
-.constancias-module .stat-icon-wrapper.pending { background-color: #f7b731; }
-.constancias-module .stat-icon-wrapper.sent { background-color: #26de81; }
+.constancias-module .stat-icon-wrapper.total    { background-color: #a476e8; }
+.constancias-module .stat-icon-wrapper.pending  { background-color: #f7b731; }
+.constancias-module .stat-icon-wrapper.sent     { background-color: #26de81; }
 .constancias-module .stat-icon-wrapper.rejected { background-color: #ff4757; }
 
 .constancias-module .stat-content .stat-title {
@@ -310,7 +311,8 @@
     gap: 15px;
 }
 
-.constancias-module .search-box, .constancias-module .filter-box {
+.constancias-module .search-box,
+.constancias-module .filter-box {
     position: relative;
     display: flex;
     align-items: center;
@@ -320,22 +322,25 @@
     flex-grow: 1;
 }
 
-.constancias-module .search-icon, .constancias-module .filter-icon {
+.constancias-module .search-icon,
+.constancias-module .filter-icon {
     position: absolute;
     left: 12px;
     color: #adb5bd;
 }
 
-.constancias-module .search-input, .constancias-module .filter-select {
+.constancias-module .search-input,
+.constancias-module .filter-select {
     width: 100%;
-    padding: 10px 10px 10px 35px; /* Padding for icon */
+    padding: 10px 10px 10px 35px;
     border: 1px solid #dee2e6;
     border-radius: 6px;
     background-color: #f8f9fa;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.constancias-module .search-input:focus, .constancias-module .filter-select:focus {
+.constancias-module .search-input:focus,
+.constancias-module .filter-select:focus {
     border-color: #a476e8;
     background-color: #fff;
     outline: 0;
@@ -351,8 +356,41 @@
     background-position: right 0.75rem center;
     background-size: 16px 12px;
     min-width: 200px;
-} 
+}
+
 .constancias-module .dataTable th.column,
 .constancias-module .dataTable td.column {
     padding: 0.75rem 0.5rem !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .constancias-module #constanciasTableContainer {
+        overflow-x: scroll;
+    }
+
+    .constancias-module .dataTable {
+        min-width: 700px !important;
+    }
+
+    .constancias-module .dataTable th,
+    .constancias-module .dataTable td {
+        font-size: 0.75rem !important;
+        padding: 0.4rem 0.3rem !important;
+    }
+
+    .button {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        min-width: 60px;
+    }
+
+    .constancias-module .search-form {
+        flex-direction: column;
+    }
+
+    .constancias-module .filter-select {
+        min-width: unset;
+        width: 100%;
+    }
 }
