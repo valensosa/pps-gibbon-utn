@@ -352,3 +352,7 @@
     background-size: 16px 12px;
     min-width: 200px;
 } 
+.constancias-module .dataTable th.column,
+.constancias-module .dataTable td.column {
+    padding: 0.75rem 0.5rem !important;
+}
