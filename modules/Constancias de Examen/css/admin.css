@@ -463,7 +463,7 @@
 
 .constancias-table {
     width: 100%;
-    min-width: 700px;
+    min-width: 600px;
     border-collapse: collapse;
     table-layout: auto;
 }
@@ -555,4 +555,27 @@ div[id="constancias"] {
 .lg\:flex-1 {
     flex: 1 1 0% !important;
     min-width: 0 !important;
+}
+.constancias-table .col-estudiante { width: 12%; }
+.constancias-table .col-dni        { width: 9%; }
+.constancias-table .col-email      { width: 13%; }
+.constancias-table .col-materia    { width: 14%; }
+.constancias-table .col-presentar-ante  { width: 9%; }
+.constancias-table .col-fecha-examen    { width: 9%; }
+.constancias-table .col-fecha-solicitud { width: 9%; }
+.constancias-table .col-estado     { width: 8%; }
+.constancias-table .col-constancia { width: 10%; }
+.constancias-table .col-acciones   { width: 7%; }
+
+.constancias-table th,
+.constancias-table td {
+    font-size: 0.8rem !important;
+    padding: 0.5rem 0.25rem !important;
+}
+
+.button {
+    padding: 5px 8px !important;
+    font-size: 0.78rem !important;
+    min-width: 50px !important;
+    min-height: 2rem !important;
 }
