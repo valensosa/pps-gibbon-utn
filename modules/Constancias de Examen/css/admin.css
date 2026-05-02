@@ -357,12 +357,21 @@
 /* ===== RESPONSIVE FIXES ===== */
 
 /* Contenedor con scroll horizontal para la tabla */
-.constancias-module .table-wrapper {
+/* .constancias-module .table-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     width: 100%;
+} */
+.table-wrapper {
+    overflow-x: scroll !important;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    display: block;
 }
-
+#content-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+}
 /* Pantallas medianas: tabla con scroll y botones más compactos */
 @media (max-width: 1400px) {
     .constancias-module .dataTable {
@@ -546,11 +555,7 @@ div[id="constancias"] {
     padding: 2rem;
     color: #6c757d;
 }
-/* Forzar ancho completo en los contenedores de Gibbon */
-#content-inner {
-    width: 100% !important;
-    max-width: 100% !important;
-}
+
 
 .lg\:flex-1 {
     flex: 1 1 0% !important;
