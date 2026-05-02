@@ -1,252 +1,8 @@
-/* Table styles */
-.constancias-module .dataTable {
-    width: 100% !important;
-    margin: 0 auto !important;
-    table-layout: fixed !important;
-    border-collapse: collapse !important;
-}
+/* ============================================
+   CONSTANCIAS DE EXAMEN - Admin CSS
+   ============================================ */
 
-.constancias-module .dataTable th,
-.constancias-module .dataTable td {
-    padding: 0.75rem 0 !important;
-    font-size: 0.95rem;
-    vertical-align: middle !important;
-    text-align: center !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    height: 3.5rem !important;
-    line-height: 1.5 !important;
-}
-
-/* Definir anchos específicos para cada columna */
-.constancias-module .dataTable .col-estudiante { width: 15%; }
-.constancias-module .dataTable .col-dni { width: 10%; }
-.constancias-module .dataTable .col-email { width: 15%; }
-.constancias-module .dataTable .col-materia { width: 12%; }
-.constancias-module .dataTable .col-presentar-ante { width: 12%; }
-.constancias-module .dataTable .col-fecha-examen { width: 12%; }
-.constancias-module .dataTable .col-fecha-solicitud { width: 12%; }
-.constancias-module .dataTable .col-estado { width: 8%; }
-.constancias-module .dataTable .col-constancia { width: 8%; }
-.constancias-module .dataTable .col-acciones { width: 8%; }
-
-/* Asegurar que los encabezados tengan el mismo tratamiento que las celdas */
-.constancias-module .dataTable th {
-    display: table-cell !important;
-    background-color: #f8f9fa !important;
-    font-weight: 600 !important;
-    padding: 0.75rem 0 !important;
-}
-
-/* Asegurar que el contenido dentro de las celdas esté centrado */
-.constancias-module .dataTable td > *,
-.constancias-module .dataTable th > * {
-    margin: 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-    line-height: inherit;
-    width: 100%;
-    text-align: center !important;
-}
-
-/* Status badges */
-.constancias-module .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4em 0.8em;
-    font-size: 0.85em;
-    font-weight: 500;
-    border-radius: 1rem;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    min-height: 1.5rem;
-    line-height: 1;
-}
-
-.constancias-module .badge-warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-}
-
-.constancias-module .badge-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-/* Action buttons */
-.button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
-    border: 1px solid transparent;
-    min-height: 2.5rem;
-    min-width: 80px;
-}
-
-.button svg {
-    width: 16px;
-    height: 16px;
-}
-
-/* Botón primario (Enviar) */
-.button--primary {
-    background-color: #935EE1;
-    color: white;
-    border-color: #935EE1;
-}
-
-.button--primary:hover {
-    background-color: #7a3fd1;
-    border-color: #7a3fd1;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.2);
-}
-
-/* Botón primario deshabilitado */
-.button--primary:disabled {
-    background-color: #e9ecef;
-    color: #6c757d;
-    border-color: #dee2e6;
-    cursor: not-allowed;
-    opacity: 0.65;
-    transform: none;
-    box-shadow: none;
-}
-
-.button--primary:disabled:hover {
-    background-color: #e9ecef;
-    color: #6c757d;
-    border-color: #dee2e6;
-    transform: none;
-    box-shadow: none;
-}
-
-/* Botón secundario (Enviada) */
-.button--secondary {
-    background-color: #e9ecef;
-    color: #6c757d;
-    border-color: #dee2e6;
-    cursor: default;
-}
-
-/* Botón de subida */
-.button--upload {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 16px;
-    color: #935EE1;
-    background-color: white;
-    border: 1px solid #935EE1;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.button--upload:hover {
-    background-color: #f8f4fe;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.1);
-}
-
-/* Botón PDF */
-.button--pdf {
-    color: #935EE1;
-    background-color: white;
-    border: 1px solid #935EE1;
-}
-
-.button--pdf:hover {
-    background-color: #f8f4fe;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.1);
-}
-
-/* Upload button styles */
-.upload-button {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.upload-button input[type="file"] {
-    position: absolute;
-    left: -9999px;
-}
-
-/* Checkmark animation */
-@keyframes checkmark {
-    0% {
-        opacity: 0;
-        transform: scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.check-icon {
-    animation: checkmark 0.3s ease-in-out;
-}
-
-/* Loading spinner */
-.loading-spinner {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* File selected state */
-.file-selected .button--upload {
-    background-color: #d4edda !important;
-    color: #155724 !important;
-    border-color: #c3e6cb !important;
-}
-
-/* Success state for upload button */
-.button--upload.success {
-    background-color: #d4edda !important;
-    color: #155724 !important;
-    border-color: #c3e6cb !important;
-}
-
-/* Error state for upload button */
-.button--upload.error {
-    background-color: #f8d7da !important;
-    color: #721c24 !important;
-    border-color: #f5c6cb !important;
-}
-
-/* Stats Container */
+/* ---- Stats ---- */
 .constancias-module .stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -276,9 +32,9 @@
     flex-shrink: 0;
 }
 
-.constancias-module .stat-icon-wrapper.total { background-color: #a476e8; }
-.constancias-module .stat-icon-wrapper.pending { background-color: #f7b731; }
-.constancias-module .stat-icon-wrapper.sent { background-color: #26de81; }
+.constancias-module .stat-icon-wrapper.total    { background-color: #a476e8; }
+.constancias-module .stat-icon-wrapper.pending  { background-color: #f7b731; }
+.constancias-module .stat-icon-wrapper.sent     { background-color: #26de81; }
 .constancias-module .stat-icon-wrapper.rejected { background-color: #ff4757; }
 
 .constancias-module .stat-content .stat-title {
@@ -292,7 +48,7 @@
     color: #343a40;
 }
 
-/* Filter Container */
+/* ---- Filtros ---- */
 .constancias-module .filter-container {
     padding: 15px;
     background-color: #fff;
@@ -354,53 +110,238 @@
     min-width: 180px;
 }
 
-/* ===== RESPONSIVE FIXES ===== */
+/* ---- Tabla ---- */
+.constancias-table-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
 
-/* Contenedor con scroll horizontal para la tabla */
-/* .constancias-module .table-wrapper {
+.table-wrapper {
+    display: block;
+    width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+}
+
+.constancias-table {
     width: 100%;
-} */
-.table-wrapper {
-    overflow-x: scroll !important;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    display: block;
-}
-#content-inner {
-    width: 100% !important;
-    max-width: 100% !important;
-}
-/* Pantallas medianas: tabla con scroll y botones más compactos */
-@media (max-width: 1400px) {
-    .constancias-module .dataTable {
-        table-layout: auto !important;
-        min-width: 900px;
-    }
-
-    .constancias-module .dataTable th,
-    .constancias-module .dataTable td {
-        white-space: normal !important;
-        font-size: 0.85rem !important;
-        padding: 0.5rem 0.25rem !important;
-        height: auto !important;
-    }
-
-    .button {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-        min-width: 60px;
-        gap: 4px;
-    }
-
-    .button svg {
-        width: 13px;
-        height: 13px;
-    }
+    min-width: 850px;
+    border-collapse: collapse;
+    table-layout: auto;
 }
 
-/* Pantallas chicas: filtros en columna */
+.constancias-table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #343a40;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.constancias-table tbody td {
+    padding: 0.65rem 0.5rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #e9ecef;
+    word-break: break-word;
+}
+
+.constancias-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.constancias-table tbody tr:hover {
+    background-color: #f8f4fe;
+}
+
+.empty-row {
+    text-align: center !important;
+    padding: 2rem !important;
+    color: #6c757d;
+}
+
+/* ---- Badges ---- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35em 0.75em;
+    font-size: 0.82em;
+    font-weight: 500;
+    border-radius: 1rem;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.badge-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.badge-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.badge-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ---- Botones ---- */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    border: 1px solid transparent;
+    min-height: 2rem;
+    min-width: 60px;
+    white-space: nowrap;
+}
+
+.button svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.button--primary {
+    background-color: #935EE1;
+    color: white;
+    border-color: #935EE1;
+}
+
+.button--primary:hover {
+    background-color: #7a3fd1;
+    border-color: #7a3fd1;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.2);
+}
+
+.button--primary:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+    box-shadow: none;
+}
+
+.button--secondary {
+    background-color: #e9ecef;
+    color: #6c757d;
+    border-color: #dee2e6;
+    cursor: default;
+}
+
+.button--upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    color: #935EE1;
+    background-color: white;
+    border: 1px solid #935EE1;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+}
+
+.button--upload:hover {
+    background-color: #f8f4fe;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.1);
+}
+
+.button--upload.success {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border-color: #c3e6cb !important;
+}
+
+.button--upload.error {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border-color: #f5c6cb !important;
+}
+
+.button--pdf {
+    color: #935EE1;
+    background-color: white;
+    border: 1px solid #935EE1;
+}
+
+.button--pdf:hover {
+    background-color: #f8f4fe;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(147, 94, 225, 0.1);
+}
+
+/* ---- Upload ---- */
+.upload-button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.upload-button input[type="file"] {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-selected .button--upload {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border-color: #c3e6cb !important;
+}
+
+/* ---- Animaciones ---- */
+@keyframes checkmark {
+    0%   { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.check-icon { animation: checkmark 0.3s ease-in-out; }
+
+.loading-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---- Responsive ---- */
 @media (max-width: 768px) {
     .constancias-module .search-form {
         flex-direction: column;
@@ -411,12 +352,12 @@
     }
 
     .constancias-module .filter-select {
-        min-width: unset !important;
+        min-width: unset;
         width: 100%;
     }
 
     .constancias-module .stats-container {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         gap: 12px;
     }
 
@@ -427,160 +368,4 @@
     .constancias-module .stat-content .stat-number {
         font-size: 1.4rem;
     }
-}
-/* Override del wrapper que genera Gibbon */
-#constanciasTableContainer > div {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-#constanciasTableContainer table {
-    width: 100% !important;
-    table-layout: auto !important;
-    min-width: 800px;
-    font-size: 0.85rem;
-}
-
-#constanciasTableContainer th,
-#constanciasTableContainer td {
-    white-space: normal !important;
-    padding: 0.5rem 0.4rem !important;
-    height: auto !important;
-    font-size: 0.85rem !important;
-    vertical-align: middle !important;
-}
-
-@media (max-width: 1400px) {
-    #constanciasTableContainer th,
-    #constanciasTableContainer td {
-        font-size: 0.8rem !important;
-        padding: 0.4rem 0.25rem !important;
-    }
-    .button {
-        padding: 5px 8px !important;
-        font-size: 0.78rem !important;
-        min-width: 55px !important;
-    }
-}
-.table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-}
-
-.constancias-table {
-    width: 100%;
-    min-width: 600px;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-.constancias-table th,
-.constancias-table td {
-    padding: 0.65rem 0.5rem;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 0.875rem;
-    white-space: normal;
-    word-break: break-word;
-}
-
-.constancias-table thead tr {
-    background-color: #f8f9fa;
-    font-weight: 600;
-}
-
-.constancias-table tbody tr {
-    border-bottom: 1px solid #e9ecef;
-}
-
-.constancias-table tbody tr:last-child {
-    border-bottom: none;
-}
-/* Forzar que el contenedor de Gibbon no limite el ancho */
-#constancias,
-div[id="constancias"] {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: visible !important;
-}
-
-.table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-}
-
-.constancias-table {
-    width: 100%;
-    min-width: 850px;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-.constancias-table th,
-.constancias-table td {
-    padding: 0.6rem 0.5rem;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 0.85rem;
-    white-space: normal;
-    word-break: break-word;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.constancias-table thead th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-    color: #343a40;
-}
-
-.constancias-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.constancias-table-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #343a40;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.empty-row {
-    text-align: center;
-    padding: 2rem;
-    color: #6c757d;
-}
-
-
-.lg\:flex-1 {
-    flex: 1 1 0% !important;
-    min-width: 0 !important;
-}
-.constancias-table .col-estudiante { width: 12%; }
-.constancias-table .col-dni        { width: 9%; }
-.constancias-table .col-email      { width: 13%; }
-.constancias-table .col-materia    { width: 14%; }
-.constancias-table .col-presentar-ante  { width: 9%; }
-.constancias-table .col-fecha-examen    { width: 9%; }
-.constancias-table .col-fecha-solicitud { width: 9%; }
-.constancias-table .col-estado     { width: 8%; }
-.constancias-table .col-constancia { width: 10%; }
-.constancias-table .col-acciones   { width: 7%; }
-
-.constancias-table th,
-.constancias-table td {
-    font-size: 0.8rem !important;
-    padding: 0.5rem 0.25rem !important;
-}
-
-.button {
-    padding: 5px 8px !important;
-    font-size: 0.78rem !important;
-    min-width: 50px !important;
-    min-height: 2rem !important;
 }
