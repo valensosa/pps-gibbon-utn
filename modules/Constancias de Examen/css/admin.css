@@ -455,3 +455,38 @@
         min-width: 55px !important;
     }
 }
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
+.constancias-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.constancias-table th,
+.constancias-table td {
+    padding: 0.65rem 0.5rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.875rem;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.constancias-table thead tr {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.constancias-table tbody tr {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.constancias-table tbody tr:last-child {
+    border-bottom: none;
+}
