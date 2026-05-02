@@ -463,7 +463,7 @@
 
 .constancias-table {
     width: 100%;
-    min-width: 900px;
+    min-width: 700px;
     border-collapse: collapse;
     table-layout: auto;
 }
@@ -545,4 +545,14 @@ div[id="constancias"] {
     text-align: center;
     padding: 2rem;
     color: #6c757d;
+}
+/* Forzar ancho completo en los contenedores de Gibbon */
+#content-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.lg\:flex-1 {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
 }
