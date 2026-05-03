@@ -158,7 +158,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput    = document.getElementById('searchInput');
     const statusFilter   = document.getElementById('statusFilter');
     const tableContainer = document.getElementById('constanciasTableContainer');
-
+    const wrapper = document.querySelector('.table-wrapper');
+    if (wrapper) {
+        wrapper.style.overflowX = 'auto';
+        wrapper.style.display = 'block';
+        const available = wrapper.parentElement.getBoundingClientRect().width;
+        wrapper.style.width = available + 'px';
+    }
     function filterTable() {
         const search = searchInput.value.toLowerCase();
         const status = statusFilter.value.toLowerCase();
