@@ -251,11 +251,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     // Expandir área de contenido ocultando sidebar
-    const sidebar = document.querySelector('aside') || 
-                    document.querySelector('[class*="sidebar"]') ||
-                    document.querySelector('[class*="col-span-1"]');
-    if (sidebar) sidebar.style.display = 'none';
-
+    // Mover sidebar arriba del contenido
+    const sidebar = document.querySelector('aside') ||
+                    document.querySelector('[class*="sidebar"]');
+    const mainContent = document.querySelector('#content-inner');
+    if (sidebar && mainContent) {
+        mainContent.insertBefore(sidebar, mainContent.firstChild);
+        sidebar.style.display = 'block';
+        sidebar.style.width = '100%';
+        sidebar.style.marginBottom = '16px';
+}
     const mainContent = document.querySelector('[class*="flex-1"]') ||
                         document.querySelector('#content-inner');
     if (mainContent) mainContent.style.flex = '1 1 100%';

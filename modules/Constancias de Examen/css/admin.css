@@ -347,3 +347,8 @@
     background-size: 16px 12px;
     min-width: 200px;
 } 
+/* Mover sidebar arriba */
+.constancias-module {
+    display: flex;
+    flex-direction: column;
+}
