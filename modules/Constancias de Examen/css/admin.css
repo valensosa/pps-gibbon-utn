@@ -369,3 +369,8 @@
         font-size: 1.4rem;
     }
 }
+#constanciasTableContainer {
+    overflow-x: auto !important;
+    display: block !important;
+    width: 100% !important;
+}
