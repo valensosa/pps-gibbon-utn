@@ -3,8 +3,7 @@
 use App\infrastructure\repository\FirestoreRepository;
 
 // CSS
-echo "<link rel='stylesheet' type='text/css' href='" . $session->get('absoluteURL') . "/modules/Constancias de Examen/css/admin.css' />";
-
+echo "<link rel='stylesheet' type='text/css' href='" . $session->get('absoluteURL') . "/modules/Constancias de Examen/css/admin.css?v=" . time() . "' />";
 $total      = count($solicitudes);
 $pendiente  = count(array_filter($solicitudes, fn($r) => $r['estado'] === 'pendiente'));
 $completado = count(array_filter($solicitudes, fn($r) => $r['estado'] === 'completado'));
