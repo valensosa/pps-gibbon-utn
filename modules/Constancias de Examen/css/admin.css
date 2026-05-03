@@ -374,3 +374,12 @@
     display: block !important;
     width: 100% !important;
 }
+.constancias-table .col-estado {
+    min-width: 90px;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.constancias-table .col-constancia {
+    min-width: 110px;
+}
