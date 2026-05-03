@@ -251,5 +251,14 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.textContent = 'Enviar';
         });
     });
+    // Expandir área de contenido ocultando sidebar
+    const sidebar = document.querySelector('aside') || 
+                    document.querySelector('[class*="sidebar"]') ||
+                    document.querySelector('[class*="col-span-1"]');
+    if (sidebar) sidebar.style.display = 'none';
+
+    const mainContent = document.querySelector('[class*="flex-1"]') ||
+                        document.querySelector('#content-inner');
+    if (mainContent) mainContent.style.flex = '1 1 100%';
 });
 </script>
