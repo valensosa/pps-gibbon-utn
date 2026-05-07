@@ -4,6 +4,7 @@ use App\infrastructure\repository\FirestoreRepository;
 
 // CSS
 echo "<link rel='stylesheet' type='text/css' href='" . $session->get('absoluteURL') . "/modules/Constancias de Examen/css/admin.css?v=" . time() . "' />";
+
 $total      = count($solicitudes);
 $pendiente  = count(array_filter($solicitudes, fn($r) => $r['estado'] === 'pendiente'));
 $completado = count(array_filter($solicitudes, fn($r) => $r['estado'] === 'completado'));
@@ -11,21 +12,7 @@ $rechazado  = count(array_filter($solicitudes, fn($r) => $r['estado'] === 'recha
 ?>
 
 <div class="constancias-module">
-    <!-- Toggle sidebar -->
-    <button id="sidebarToggle" onclick="toggleSidebar()" style="
-        position: fixed;
-        top: 80px;
-        left: 10px;
-        z-index: 9999;
-        background: #935EE1;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 8px 10px;
-        cursor: pointer;
-        font-size: 18px;
-        line-height: 1;
-    ">☰</button>
+
     <!-- Stats -->
     <div class="stats-container">
         <div class="stat-box">
@@ -113,8 +100,8 @@ $rechazado  = count(array_filter($solicitudes, fn($r) => $r['estado'] === 'recha
                             'rechazado'  => 'badge-danger',
                             default      => ''
                         };
-                        $fechaExamen   = FirestoreRepository::formatTimestamp($row['examen']['fechaExamen'] ?? null);
-                        $fechaPedido   = FirestoreRepository::formatTimestamp($row['fechaPedido'] ?? null);
+                        $fechaExamen = FirestoreRepository::formatTimestamp($row['examen']['fechaExamen'] ?? null);
+                        $fechaPedido = FirestoreRepository::formatTimestamp($row['fechaPedido'] ?? null);
                     ?>
                     <tr>
                         <td class="col-estudiante"><?= htmlspecialchars($row['nombre'] ?? '') ?></td>
@@ -171,13 +158,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput    = document.getElementById('searchInput');
     const statusFilter   = document.getElementById('statusFilter');
     const tableContainer = document.getElementById('constanciasTableContainer');
-    const wrapper = document.querySelector('.table-wrapper');
-    if (wrapper) {
-        wrapper.style.overflowX = 'auto';
-        wrapper.style.display = 'block';
-        const available = wrapper.parentElement.getBoundingClientRect().width;
-        wrapper.style.width = available + 'px';
+
+    // ---- Sidebar toggle ----
+    // Buscar el sidebar de Gibbon (el nav que contiene el menú del módulo)
+    const gibbon_sidebar = document.querySelector('nav.shadow') ||
+                           document.querySelector('[class*="col-span-1"]');
+    const gibbon_content = document.querySelector('#content-inner') ||
+                           document.querySelector('[class*="flex-1"]');
+
+    // Botón MODULE MENU de Gibbon — interceptar su click
+    const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
+    if (moduleMenuBtn && gibbon_sidebar) {
+        moduleMenuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isHidden = gibbon_sidebar.style.display === 'none';
+            gibbon_sidebar.style.display = isHidden ? '' : 'none';
+            if (gibbon_content) {
+                gibbon_content.style.maxWidth = isHidden ? '' : '100%';
+                gibbon_content.style.flex     = isHidden ? '' : '1 1 100%';
+            }
+        });
     }
+
+    // ---- Filtros ----
     function filterTable() {
         const search = searchInput.value.toLowerCase();
         const status = statusFilter.value.toLowerCase();
@@ -198,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
     searchInput.addEventListener('input', filterTable);
     statusFilter.addEventListener('change', filterTable);
 
-    // Selección de archivo
+    // ---- Selección de archivo ----
     tableContainer.addEventListener('change', function (e) {
         if (e.target.matches('input[type="file"]')) {
             const form         = e.target.closest('form');
@@ -230,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Envío via AJAX
+    // ---- Envío via AJAX ----
     tableContainer.addEventListener('click', function (e) {
         const btn = e.target.closest('.upload-submit-btn');
         if (!btn) return;
@@ -264,31 +267,5 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.textContent = 'Enviar';
         });
     });
-    // Expandir área de contenido ocultando sidebar
-    // Mover sidebar arriba del contenido
-    const sidebar = document.querySelector('aside') ||
-                    document.querySelector('[class*="sidebar"]');
-    const mainContent = document.querySelector('#content-inner');
-    if (sidebar && mainContent) {
-        mainContent.insertBefore(sidebar, mainContent.firstChild);
-        sidebar.style.display = 'block';
-        sidebar.style.width = '100%';
-        sidebar.style.marginBottom = '16px';
-}
-    const mainContent = document.querySelector('[class*="flex-1"]') ||
-                        document.querySelector('#content-inner');
-    if (mainContent) mainContent.style.flex = '1 1 100%';
 });
-function toggleSidebar() {
-    const sidebar = document.querySelector('nav.shadow');
-    if (sidebar) {
-        const isHidden = sidebar.style.display === 'none';
-        sidebar.style.display = isHidden ? '' : 'none';
-        
-        const contentArea = document.querySelector('[class*="flex-1"]');
-        if (contentArea) {
-            contentArea.style.flex = isHidden ? '' : '1 1 100%';
-        }
-    }
-}
 </script>
