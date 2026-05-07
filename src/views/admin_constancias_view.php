@@ -11,7 +11,21 @@ $rechazado  = count(array_filter($solicitudes, fn($r) => $r['estado'] === 'recha
 ?>
 
 <div class="constancias-module">
-
+    <!-- Toggle sidebar -->
+    <button id="sidebarToggle" onclick="toggleSidebar()" style="
+        position: fixed;
+        top: 80px;
+        left: 10px;
+        z-index: 9999;
+        background: #935EE1;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 10px;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+    ">☰</button>
     <!-- Stats -->
     <div class="stats-container">
         <div class="stat-box">
