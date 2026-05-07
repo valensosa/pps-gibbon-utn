@@ -158,33 +158,30 @@ document.addEventListener('DOMContentLoaded', function () {
     const statusFilter   = document.getElementById('statusFilter');
     const tableContainer = document.getElementById('constanciasTableContainer');
 
-    // ---- Sidebar toggle via Alpine.js ----
-    // Esperar a que Alpine inicialice (usa un timeout generoso)
     setTimeout(function () {
-        // El sidebar de Gibbon es el nav con x-show que contiene el menú del módulo
-        // Lo encontramos buscando el elemento con x-data que contiene el botón MODULE MENU
-        const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
-        if (!moduleMenuBtn) return;
-
-        // Obtener el componente Alpine más cercano
-        const alpineRoot = moduleMenuBtn.closest('[x-data]');
-        if (!alpineRoot) return;
-
-        // Acceder al estado de Alpine y cerrar el sidebar
-        if (typeof Alpine !== 'undefined') {
-            const alpineData = Alpine.$data(alpineRoot);
-            if (alpineData && 'sidebarOpen' in alpineData) {
-                alpineData.sidebarOpen = false;
-            } else {
-                // Fallback: click directo
-                moduleMenuBtn.click();
-            }
-        } else {
-            // Alpine no está disponible globalmente, usar click
-            moduleMenuBtn.click();
+    const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
+    if (!moduleMenuBtn) return;
+    const alpineRoot = moduleMenuBtn.closest('[x-data]');
+    if (!alpineRoot) return;
+    if (typeof Alpine !== 'undefined') {
+        const data = Alpine.$data(alpineRoot);
+        if ('moduleMenu' in data) {
+            // Alternar el sidebar con Alpine
+            moduleMenuBtn.addEventListener('click', function() {
+                // Alpine lo maneja solo, solo expandimos el contenido
+                setTimeout(function() {
+                    const isOpen = Alpine.$data(alpineRoot).moduleMenu;
+                    const contentArea = document.querySelector('#content-inner');
+                    if (contentArea) {
+                        contentArea.style.flex = isOpen ? '' : '1 1 100%';
+                    }
+                }, 50);
+            });
+            // Cerrar al cargar
+            data.moduleMenu = false;
         }
-    }, 500);
-
+    }
+}, 500);
     // ---- Filtros ----
     function filterTable() {
         const search = searchInput.value.toLowerCase();
