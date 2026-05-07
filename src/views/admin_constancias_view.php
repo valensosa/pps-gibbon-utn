@@ -279,4 +279,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelector('#content-inner');
     if (mainContent) mainContent.style.flex = '1 1 100%';
 });
+function toggleSidebar() {
+    const sidebar = document.querySelector('nav.shadow');
+    if (sidebar) {
+        const isHidden = sidebar.style.display === 'none';
+        sidebar.style.display = isHidden ? '' : 'none';
+        
+        const contentArea = document.querySelector('[class*="flex-1"]');
+        if (contentArea) {
+            contentArea.style.flex = isHidden ? '' : '1 1 100%';
+        }
+    }
+}
 </script>
