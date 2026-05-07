@@ -382,9 +382,6 @@
         font-size: 1.4rem;
     }
 }
-/* Mostrar siempre el botón MODULE MENU de Gibbon */
-[class*="moduleMenu"],
-button[class*="module-menu"],
-.module-menu-button {
+button.relative.w-full.flex.rounded.justify-center.items-center {
     display: flex !important;
 }
