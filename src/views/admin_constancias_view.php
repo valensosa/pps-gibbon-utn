@@ -159,12 +159,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const statusFilter   = document.getElementById('statusFilter');
     const tableContainer = document.getElementById('constanciasTableContainer');
 
-    // ---- Sidebar toggle ----
-    // Buscar el sidebar de Gibbon (el nav que contiene el menú del módulo)
-    const gibbon_sidebar = document.querySelector('nav.shadow') ||
-                           document.querySelector('[class*="col-span-1"]');
-    const gibbon_content = document.querySelector('#content-inner') ||
-                           document.querySelector('[class*="flex-1"]');
+    // Sidebar toggle — usar el botón nativo de Gibbon
+    const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
+    if (moduleMenuBtn) {
+        // Ocultar sidebar al cargar para ganar espacio
+        moduleMenuBtn.click();
+    }
 
     // Botón MODULE MENU de Gibbon — interceptar su click
     const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
