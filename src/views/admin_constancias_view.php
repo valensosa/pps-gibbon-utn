@@ -2,7 +2,6 @@
 
 use App\infrastructure\repository\FirestoreRepository;
 
-// CSS
 echo "<link rel='stylesheet' type='text/css' href='" . $session->get('absoluteURL') . "/modules/Constancias de Examen/css/admin.css?v=" . time() . "' />";
 
 $total      = count($solicitudes);
@@ -159,26 +158,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const statusFilter   = document.getElementById('statusFilter');
     const tableContainer = document.getElementById('constanciasTableContainer');
 
-    // Sidebar toggle — usar el botón nativo de Gibbon
-    const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
-    if (moduleMenuBtn) {
-        // Ocultar sidebar al cargar para ganar espacio
-        moduleMenuBtn.click();
-    }
+    // ---- Sidebar toggle via Alpine.js ----
+    // Esperar a que Alpine inicialice (usa un timeout generoso)
+    setTimeout(function () {
+        // El sidebar de Gibbon es el nav con x-show que contiene el menú del módulo
+        // Lo encontramos buscando el elemento con x-data que contiene el botón MODULE MENU
+        const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
+        if (!moduleMenuBtn) return;
 
-    // Botón MODULE MENU de Gibbon — interceptar su click
-    const moduleMenuBtn = document.querySelector('button.relative.w-full.flex.rounded');
-    if (moduleMenuBtn && gibbon_sidebar) {
-        moduleMenuBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            const isHidden = gibbon_sidebar.style.display === 'none';
-            gibbon_sidebar.style.display = isHidden ? '' : 'none';
-            if (gibbon_content) {
-                gibbon_content.style.maxWidth = isHidden ? '' : '100%';
-                gibbon_content.style.flex     = isHidden ? '' : '1 1 100%';
+        // Obtener el componente Alpine más cercano
+        const alpineRoot = moduleMenuBtn.closest('[x-data]');
+        if (!alpineRoot) return;
+
+        // Acceder al estado de Alpine y cerrar el sidebar
+        if (typeof Alpine !== 'undefined') {
+            const alpineData = Alpine.$data(alpineRoot);
+            if (alpineData && 'sidebarOpen' in alpineData) {
+                alpineData.sidebarOpen = false;
+            } else {
+                // Fallback: click directo
+                moduleMenuBtn.click();
             }
-        });
-    }
+        } else {
+            // Alpine no está disponible globalmente, usar click
+            moduleMenuBtn.click();
+        }
+    }, 500);
 
     // ---- Filtros ----
     function filterTable() {
