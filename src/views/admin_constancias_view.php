@@ -182,11 +182,7 @@ if (sidebarEl && content) {
         justify-content: center;
         letter-spacing: 0.05em;
     `;
-    // Insertar el botón antes de las stats
-    const statsContainer = document.querySelector('.stats-container');
-    if (statsContainer) {
-        statsContainer.parentElement.insertBefore(toggleBtn, statsContainer);
-    }
+    sidebarEl.parentElement.insertBefore(toggleBtn, sidebarEl);
 
     let sidebarVisible = true;
 
