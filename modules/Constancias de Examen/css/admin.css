@@ -395,3 +395,26 @@ button.relative.w-full.flex.rounded.justify-center.items-center {
 .relative.w-full.min-h-1\/2.flex.content-start {
     flex-wrap: wrap !important;
 }
+.constancias-table .col-dni {
+    white-space: nowrap;
+    min-width: 90px;
+}
+/* Estado centrado y sin superposición */
+.constancias-table .col-estado {
+    min-width: 110px;
+    width: 110px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 8px !important;
+}
+
+.constancias-table .col-estado .badge {
+    display: inline-flex;
+    width: auto;
+    margin: 0 auto;
+}
+
+/* Constancia con espacio suficiente */
+.constancias-table .col-constancia {
+    min-width: 130px;
+}
