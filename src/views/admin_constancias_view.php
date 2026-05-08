@@ -164,22 +164,24 @@ const sidebarEl = content ? content.previousElementSibling : null;
 
 if (sidebarEl && content) {
     const toggleBtn = document.createElement('button');
-    toggleBtn.innerHTML = '&#9776; Menú';
+    toggleBtn.innerHTML = 'MODULE MENU &#9776;';
     toggleBtn.style.cssText = `
-        background: #935EE1;
-        color: white;
-        border: none;
+        background: white;
+        color: #374151;
+        border: 1px solid #d1d5db;
         border-radius: 6px;
         padding: 6px 14px;
         cursor: pointer;
         font-size: 0.85rem;
-        font-weight: 500;
-        margin-bottom: 12px;
-        display: inline-flex;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
         align-items: center;
         gap: 6px;
+        width: 100%;
+        justify-content: center;
+        letter-spacing: 0.05em;
     `;
-
     // Insertar el botón antes de las stats
     const statsContainer = document.querySelector('.stats-container');
     if (statsContainer) {
