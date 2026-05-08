@@ -182,7 +182,11 @@ if (sidebarEl && content) {
         justify-content: center;
         letter-spacing: 0.05em;
     `;
-    sidebarEl.parentElement.insertBefore(toggleBtn, sidebarEl);
+   // Crear wrapper para el botón que ocupe fila completa
+    const btnWrapper = document.createElement('div');
+    btnWrapper.style.cssText = 'width: 100%; order: -1;';
+    btnWrapper.appendChild(toggleBtn);
+    sidebarEl.parentElement.insertBefore(btnWrapper, sidebarEl);
 
     let sidebarVisible = true;
 

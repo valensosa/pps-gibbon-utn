@@ -386,3 +386,8 @@
 button.relative.w-full.flex.rounded.justify-center.items-center {
     display: none !important;
 }
+/* Botón MODULE MENU custom — fila completa arriba */
+.constancias-sidebar-toggle-wrapper {
+    width: 100%;
+    order: -1;
+}
