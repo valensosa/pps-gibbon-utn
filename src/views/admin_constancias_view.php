@@ -158,75 +158,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const statusFilter   = document.getElementById('statusFilter');
     const tableContainer = document.getElementById('constanciasTableContainer');
 
-    // ---- Sidebar toggle ----
-    // Encontrar el sidebar: es el div hermano anterior al content-inner
-    // El layout de Gibbon es: flex container > [sidebar] + [content-inner]
-    const contentInner = document.getElementById('content-inner');
-    let sidebarEl = null;
+   // ---- Sidebar toggle ----
+const content = document.getElementById('content');
+const sidebarEl = content ? content.previousElementSibling : null;
 
-    if (contentInner) {
-        // El sidebar es el elemento anterior al content-inner en el DOM
-        let prev = contentInner.previousElementSibling;
-        while (prev) {
-            // Buscar el que tiene el menú del módulo
-            if (prev.querySelector('[class*="NOTAS"], a[href*="constancias"], nav') || 
-                prev.textContent.includes('Gestionar')) {
-                sidebarEl = prev;
-                break;
-            }
-            prev = prev.previousElementSibling;
-        }
+if (sidebarEl && content) {
+    const toggleBtn = document.createElement('button');
+    toggleBtn.innerHTML = '&#9776; Menú';
+    toggleBtn.style.cssText = `
+        background: #935EE1;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 14px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    `;
+
+    // Insertar el botón antes de las stats
+    const statsContainer = document.querySelector('.stats-container');
+    if (statsContainer) {
+        statsContainer.parentElement.insertBefore(toggleBtn, statsContainer);
     }
 
-    // Si no lo encontramos así, buscar por contenido
-    if (!sidebarEl) {
-        document.querySelectorAll('nav, [class*="sidebar"], [class*="col-span"]').forEach(function(el) {
-            if (el.textContent.includes('Gestionar Constancias')) {
-                sidebarEl = el;
-            }
-        });
-    }
+    let sidebarVisible = true;
 
-    if (sidebarEl && contentInner) {
-        // Crear botón toggle
-        const toggleBtn = document.createElement('button');
-        toggleBtn.id = 'constancias-sidebar-toggle';
-        toggleBtn.innerHTML = '&#9776; Menú';
-        toggleBtn.style.cssText = `
-            position: absolute;
-            top: -48px;
-            right: 0;
-            background: #935EE1;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 6px 14px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 100;
-        `;
-
-        // Insertar el botón relativo al content-inner
-        contentInner.style.position = 'relative';
-        contentInner.appendChild(toggleBtn);
-
-        let sidebarVisible = true;
-
-        toggleBtn.addEventListener('click', function () {
-            sidebarVisible = !sidebarVisible;
-            sidebarEl.style.display = sidebarVisible ? '' : 'none';
-            contentInner.style.maxWidth = sidebarVisible ? '' : '100%';
-            // Forzar reflow para que la tabla se recalcule
-            const wrapper = document.querySelector('.table-wrapper');
-            if (wrapper) {
-                wrapper.style.width = sidebarVisible ? '' : '100%';
-            }
-        });
-    }
+    toggleBtn.addEventListener('click', function () {
+        sidebarVisible = !sidebarVisible;
+        sidebarEl.style.display = sidebarVisible ? '' : 'none';
+        content.style.flex = sidebarVisible ? '' : '1 1 100%';
+        content.style.maxWidth = sidebarVisible ? '' : '100%';
+    });
+}
 
     // ---- Filtros ----
     function filterTable() {
