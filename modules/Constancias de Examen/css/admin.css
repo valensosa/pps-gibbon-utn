@@ -391,3 +391,7 @@ button.relative.w-full.flex.rounded.justify-center.items-center {
     width: 100%;
     order: -1;
 }
+/* Forzar que el layout sea columna para que el botón quede arriba */
+.relative.w-full.min-h-1\/2.flex.content-start {
+    flex-wrap: wrap !important;
+}

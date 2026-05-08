@@ -182,11 +182,12 @@ if (sidebarEl && content) {
         justify-content: center;
         letter-spacing: 0.05em;
     `;
-   // Crear wrapper para el botón que ocupe fila completa
+    const parentContainer = sidebarEl.parentElement;
+    parentContainer.style.flexWrap = 'wrap';
     const btnWrapper = document.createElement('div');
-    btnWrapper.style.cssText = 'width: 100%; order: -1;';
+    btnWrapper.style.cssText = 'width: 100%; flex: 0 0 100%; margin-bottom: 8px;';
     btnWrapper.appendChild(toggleBtn);
-    sidebarEl.parentElement.insertBefore(btnWrapper, sidebarEl);
+    parentContainer.insertBefore(btnWrapper, parentContainer.firstChild);
 
     let sidebarVisible = true;
 
