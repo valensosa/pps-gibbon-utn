@@ -418,3 +418,50 @@ button.relative.w-full.flex.rounded.justify-center.items-center {
 .constancias-table .col-constancia {
     min-width: 130px;
 }
+/* Email con más espacio */
+.constancias-table .col-email {
+    min-width: 160px;
+}
+
+/* Estado — centrado y separado de Constancia */
+.constancias-table .col-estado {
+    min-width: 120px;
+    width: 120px;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+.constancias-table .col-estado .badge {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    width: auto;
+}
+
+/* Acciones más compactas */
+.constancias-table .col-acciones {
+    min-width: 75px;
+    width: 75px;
+}
+
+.constancias-table .col-acciones .button {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+    min-width: 55px !important;
+}
+
+/* Constancia más compacta */
+.constancias-table .col-constancia {
+    min-width: 110px;
+    width: 110px;
+}
+
+.constancias-table .col-constancia .button {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+}
+
+.constancias-table .col-constancia .button--upload {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+}
